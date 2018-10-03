@@ -11,7 +11,7 @@ namespace MusicStore.DataAccess.Realization
 
         public UserAccountRepository(MusicStoreContext dataBase)
         {
-            _dataBase = dataBase as MusicStoreContext;
+            _dataBase = dataBase;
         }
         public int Create(User item)
         {
@@ -36,7 +36,6 @@ namespace MusicStore.DataAccess.Realization
             _dataBase.Users.Remove(user);
             _dataBase.SaveChanges();
             return id;
-
         }
 
         public User GetItem(int id)

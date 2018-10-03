@@ -12,13 +12,11 @@ namespace MusicStore.Web
             var builder = new ContainerBuilder();
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().SingleInstance();
-
             builder.RegisterType<UserAccountRepository>().As<IRepository<User>>();
 
             var container = builder.Build();
 
             IUnitOfWork unitOfWork = container.Resolve<IUnitOfWork>();
-
         }
     }
 }
