@@ -11,7 +11,7 @@ namespace MusicStore.DataAccess.Realization
 
         public UserAccountRepository(MusicStoreContext dataBase)
         {
-            _dataBase = dataBase;
+            _dataBase = dataBase as MusicStoreContext;
         }
         public int Create(User item)
         {
