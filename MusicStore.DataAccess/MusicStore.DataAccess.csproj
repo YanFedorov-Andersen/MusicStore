@@ -47,12 +47,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Address.cs" />
-    <Compile Include="Album.cs" />
-    <Compile Include="Artist.cs" />
-    <Compile Include="BoughtSong.cs" />
+    <Compile Include="Core\Address.cs" />
+    <Compile Include="Core\Album.cs" />
+    <Compile Include="Core\Artist.cs" />
+    <Compile Include="Core\BoughtSong.cs" />
     <Compile Include="FluentApiConfig\ConfigFluentApi.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Migrations\201810021538521_Init.cs" />
     <Compile Include="Migrations\201810021538521_Init.Designer.cs">
       <DependentUpon>201810021538521_Init.cs</DependentUpon>
@@ -65,13 +66,19 @@
     <Compile Include="Migrations\201810030737072_refactor code.Designer.cs">
       <DependentUpon>201810030737072_refactor code.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810031228542_resize decimals.cs" />
+    <Compile Include="Migrations\201810031228542_resize decimals.Designer.cs">
+      <DependentUpon>201810031228542_resize decimals.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MusicStoreContext.cs" />
-    <Compile Include="Genre.cs" />
+    <Compile Include="Core\Genre.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Realization\UnitOfWork.cs" />
     <Compile Include="Realization\UserAccountRepository.cs" />
-    <Compile Include="Song.cs" />
-    <Compile Include="User.cs" />
+    <Compile Include="SeedData.cs" />
+    <Compile Include="Core\Song.cs" />
+    <Compile Include="Core\User.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -86,6 +93,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810030737072_refactor code.resx">
       <DependentUpon>201810030737072_refactor code.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810031228542_resize decimals.resx">
+      <DependentUpon>201810031228542_resize decimals.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

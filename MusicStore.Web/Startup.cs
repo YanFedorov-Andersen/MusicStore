@@ -9,6 +9,7 @@ namespace MusicStore.Web
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+            Builder.ConfigureContainer();
         }
     }
 }

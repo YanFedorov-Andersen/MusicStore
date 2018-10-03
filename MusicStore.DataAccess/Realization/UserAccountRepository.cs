@@ -36,7 +36,6 @@ namespace MusicStore.DataAccess.Realization
             _dataBase.Users.Remove(user);
             _dataBase.SaveChanges();
             return id;
-
         }
 
         public User GetItem(int id)

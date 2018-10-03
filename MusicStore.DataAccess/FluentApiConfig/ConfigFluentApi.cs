@@ -8,7 +8,7 @@ namespace MusicStore.DataAccess.FluentApiConfig
         {
             modelBuilder.Entity<User>().Property(p => p.FirstName).HasMaxLength(20);
             modelBuilder.Entity<User>().Property(p => p.LastName).HasMaxLength(20);
-            modelBuilder.Entity<User>().Property(p => p.Money).HasPrecision(6, 2);
+            modelBuilder.Entity<User>().Property(p => p.Money).HasPrecision(8, 2);
             modelBuilder.Entity<User>().ToTable("UserAccount");
         }
 
@@ -21,14 +21,14 @@ namespace MusicStore.DataAccess.FluentApiConfig
         public static void ConfigSong(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Song>().Property(p => p.Name).HasMaxLength(50);
-            modelBuilder.Entity<Song>().Property(p => p.Price).HasPrecision(3, 2);
+            modelBuilder.Entity<Song>().Property(p => p.Price).HasPrecision(5, 2);
             modelBuilder.Entity<Song>().ToTable("Song");
         }
 
         public static void ConfigAlbum(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Album>().Property(p => p.Name).HasMaxLength(50);
-            modelBuilder.Entity<Album>().Property(p => p.DiscountIfBuyAllSongs).HasPrecision(2, 1);
+            modelBuilder.Entity<Album>().Property(p => p.DiscountIfBuyAllSongs).HasPrecision(3, 1);
             modelBuilder.Entity<Album>().ToTable("Album");
         }
 
@@ -44,7 +44,7 @@ namespace MusicStore.DataAccess.FluentApiConfig
 
         public static void ConfigBoughtSong(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<BoughtSong>().Property(p => p.BoughtPrice).HasPrecision(3, 2);
+            modelBuilder.Entity<BoughtSong>().Property(p => p.BoughtPrice).HasPrecision(5, 2);
             modelBuilder.Entity<BoughtSong>().ToTable("BoughtSong");
         }
 
