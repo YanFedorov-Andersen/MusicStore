@@ -15,9 +15,9 @@ namespace MusicStore.DataAccess
         public int Id { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
-        public Album Album { get; set; }
-        public Genre Genre { get; set; }
-        public Artist Artist { get; set; }
+        public virtual Album Album { get; set; }
+        public virtual Genre Genre { get; set; }
+        public virtual Artist Artist { get; set; }
         public virtual ICollection<BoughtSong> BoughtSongs { get; set; }
     }
 }

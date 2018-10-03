@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace MusicStore.DataAccess
 {
@@ -20,7 +16,6 @@ namespace MusicStore.DataAccess
         public string House { get; set; }
         public int Flat { get; set; }
         public virtual ICollection<User> User { get; set; }
-
     }
 }
 

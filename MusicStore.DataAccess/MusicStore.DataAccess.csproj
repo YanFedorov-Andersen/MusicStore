@@ -51,6 +51,7 @@
     <Compile Include="Album.cs" />
     <Compile Include="Artist.cs" />
     <Compile Include="BoughtSong.cs" />
+    <Compile Include="FluentApiConfig\ConfigFluentApi.cs" />
     <Compile Include="Migrations\201810021538521_Init.cs" />
     <Compile Include="Migrations\201810021538521_Init.Designer.cs">
       <DependentUpon>201810021538521_Init.cs</DependentUpon>
@@ -58,6 +59,10 @@
     <Compile Include="Migrations\201810030654202_rename tables.cs" />
     <Compile Include="Migrations\201810030654202_rename tables.Designer.cs">
       <DependentUpon>201810030654202_rename tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810030737072_refactor code.cs" />
+    <Compile Include="Migrations\201810030737072_refactor code.Designer.cs">
+      <DependentUpon>201810030737072_refactor code.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MusicStoreContext.cs" />
@@ -76,6 +81,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810030654202_rename tables.resx">
       <DependentUpon>201810030654202_rename tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810030737072_refactor code.resx">
+      <DependentUpon>201810030737072_refactor code.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
