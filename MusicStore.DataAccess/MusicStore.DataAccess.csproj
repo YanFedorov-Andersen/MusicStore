@@ -74,6 +74,8 @@
     <Compile Include="MusicStoreContext.cs" />
     <Compile Include="Core\Genre.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Realization\BoughtSongRepository.cs" />
+    <Compile Include="Realization\SongRepository.cs" />
     <Compile Include="Realization\UnitOfWork.cs" />
     <Compile Include="Realization\UserAccountRepository.cs" />
     <Compile Include="SeedData.cs" />

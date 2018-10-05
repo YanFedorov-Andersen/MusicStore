@@ -199,6 +199,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MusicStoreController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -265,9 +266,12 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\MusicStore\DisplayAvailableMusicForLoggedUser.cshtml" />
+    <Content Include="Views\MusicStore\BuyMusic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -283,9 +287,17 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MusicStore.Business\MusicStore.Business.csproj">
+      <Project>{270F2C32-FCFF-4C8D-86CA-1D0733B8EFA3}</Project>
+      <Name>MusicStore.Business</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MusicStore.DataAccess\MusicStore.DataAccess.csproj">
       <Project>{99299349-006E-4EA6-96CB-88FA58ECE64D}</Project>
       <Name>MusicStore.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TheWitcher.Domain\TheWitcher.Domain.csproj">
+      <Project>{FBB0D4FD-C7EF-4D16-9352-AB58DA0BFD24}</Project>
+      <Name>TheWitcher.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
