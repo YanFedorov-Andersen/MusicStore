@@ -1,7 +1,7 @@
 ﻿using MusicStore.DataAccess;
 using System.Collections.Generic;
 
-namespace TheWitcher.Domain
+namespace MusicStore.Domain
 {
     public class UserAccountDTO
     {

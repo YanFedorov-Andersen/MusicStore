@@ -49,9 +49,9 @@
       <Project>{99299349-006E-4EA6-96CB-88FA58ECE64D}</Project>
       <Name>MusicStore.DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TheWitcher.Domain\TheWitcher.Domain.csproj">
+    <ProjectReference Include="..\TheWitcher.Domain\MusicStore.Domain.csproj">
       <Project>{FBB0D4FD-C7EF-4D16-9352-AB58DA0BFD24}</Project>
-      <Name>TheWitcher.Domain</Name>
+      <Name>MusicStore.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

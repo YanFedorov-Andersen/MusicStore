@@ -1,6 +1,6 @@
 ﻿using MusicStore.DataAccess;
 
-namespace TheWitcher.Domain.Models
+namespace MusicStore.Domain.Models
 {
     public class SongDTO
     {

@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicStoreTests", "MusicSto
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicStore.Business", "MusicStore.Business\MusicStore.Business.csproj", "{270F2C32-FCFF-4C8D-86CA-1D0733B8EFA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheWitcher.Domain", "TheWitcher.Domain\TheWitcher.Domain.csproj", "{FBB0D4FD-C7EF-4D16-9352-AB58DA0BFD24}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicStore.Domain", "TheWitcher.Domain\MusicStore.Domain.csproj", "{FBB0D4FD-C7EF-4D16-9352-AB58DA0BFD24}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

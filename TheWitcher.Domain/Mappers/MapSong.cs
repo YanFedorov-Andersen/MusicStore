@@ -1,7 +1,7 @@
 ﻿using MusicStore.DataAccess;
-using TheWitcher.Domain.Models;
+using MusicStore.Domain.Models;
 
-namespace TheWitcher.Domain.Mappers
+namespace MusicStore.Domain.Mappers
 {
     public class MapSong : IMapper<Song, SongDTO>
     {

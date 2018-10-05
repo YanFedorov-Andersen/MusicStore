@@ -1,5 +1,5 @@
 ﻿using MusicStore.DataAccess;
-namespace TheWitcher.Domain.Mappers
+namespace MusicStore.Domain.Mappers
 {
     public class MapUserAccount : IMapper<User, UserAccountDTO>
     {

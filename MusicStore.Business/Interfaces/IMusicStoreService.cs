@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using TheWitcher.Domain.Models;
+using MusicStore.Domain.Models;
 
 namespace MusicStore.Business.Interfaces
 {

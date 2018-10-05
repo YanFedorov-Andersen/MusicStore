@@ -1,4 +1,4 @@
-﻿namespace TheWitcher.Domain
+﻿namespace MusicStore.Domain
 {
     public interface IMapper<T, DTO>
     {

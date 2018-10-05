@@ -1,7 +1,7 @@
 ﻿using MusicStore.DataAccess;
 using System;
 
-namespace TheWitcher.Domain.Models
+namespace MusicStore.Domain.Models
 {
     public class BoughtSongDTO
     {

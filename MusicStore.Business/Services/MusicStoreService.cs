@@ -5,8 +5,8 @@ using MusicStore.DataAccess.Realization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using TheWitcher.Domain;
-using TheWitcher.Domain.Models;
+using MusicStore.Domain;
+using MusicStore.Domain.Models;
 
 namespace MusicStore.Business.Services
 {

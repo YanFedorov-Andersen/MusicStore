@@ -7,8 +7,8 @@
     <ProjectGuid>{FBB0D4FD-C7EF-4D16-9352-AB58DA0BFD24}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TheWitcher.Domain</RootNamespace>
-    <AssemblyName>TheWitcher.Domain</AssemblyName>
+    <RootNamespace>MusicStore.Domain</RootNamespace>
+    <AssemblyName>MusicStore.Domain</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

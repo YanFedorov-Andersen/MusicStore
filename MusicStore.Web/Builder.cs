@@ -6,9 +6,9 @@ using MusicStore.DataAccess;
 using MusicStore.DataAccess.Interfaces;
 using MusicStore.DataAccess.Realization;
 using System.Web.Mvc;
-using TheWitcher.Domain;
-using TheWitcher.Domain.Mappers;
-using TheWitcher.Domain.Models;
+using MusicStore.Domain;
+using MusicStore.Domain.Mappers;
+using MusicStore.Domain.Models;
 
 namespace MusicStore.Web
 {

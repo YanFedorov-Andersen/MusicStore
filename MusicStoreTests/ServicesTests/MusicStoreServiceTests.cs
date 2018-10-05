@@ -2,8 +2,8 @@
 using MusicStore.Business.Services;
 using MusicStore.DataAccess;
 using MusicStore.DataAccess.Interfaces;
-using TheWitcher.Domain;
-using TheWitcher.Domain.Models;
+using MusicStore.Domain;
+using MusicStore.Domain.Models;
 using Xunit;
 
 namespace MusicStoreTests.ServicesTests
