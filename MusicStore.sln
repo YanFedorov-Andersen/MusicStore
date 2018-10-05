@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicStore.DataAccess", "Mu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicStoreTests", "MusicStoreTests\MusicStoreTests.csproj", "{8C49FF01-12DE-4791-937F-3FB4C2134198}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicStore.Business", "MusicStore.Business\MusicStore.Business.csproj", "{270F2C32-FCFF-4C8D-86CA-1D0733B8EFA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheWitcher.Domain", "TheWitcher.Domain\TheWitcher.Domain.csproj", "{FBB0D4FD-C7EF-4D16-9352-AB58DA0BFD24}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{8C49FF01-12DE-4791-937F-3FB4C2134198}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C49FF01-12DE-4791-937F-3FB4C2134198}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C49FF01-12DE-4791-937F-3FB4C2134198}.Release|Any CPU.Build.0 = Release|Any CPU
+		{270F2C32-FCFF-4C8D-86CA-1D0733B8EFA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{270F2C32-FCFF-4C8D-86CA-1D0733B8EFA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{270F2C32-FCFF-4C8D-86CA-1D0733B8EFA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{270F2C32-FCFF-4C8D-86CA-1D0733B8EFA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBB0D4FD-C7EF-4D16-9352-AB58DA0BFD24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBB0D4FD-C7EF-4D16-9352-AB58DA0BFD24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBB0D4FD-C7EF-4D16-9352-AB58DA0BFD24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBB0D4FD-C7EF-4D16-9352-AB58DA0BFD24}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

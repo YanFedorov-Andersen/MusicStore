@@ -98,7 +98,7 @@ namespace MusicStore.DataAccess
             {
                 Id = 0,
                 Name = "All world for you",
-                Price = 3.99m,
+                Price = 1.99m,
                 Album = album1,
                 Artist = artist1,
                 Genre = genre1
@@ -107,16 +107,36 @@ namespace MusicStore.DataAccess
             {
                 Id = 1,
                 Name = "All world again you",
-                Price = 1.99m,
+                Price = 2.99m,
                 Album = album2,
                 Artist = artist2,
                 Genre = genre2
             };
-
+            var song3 = new Song()
+            {
+                Id = 2,
+                Name = "All world do not see you",
+                Price = 3.99m,
+                Album = album2,
+                Artist = artist2,
+                Genre = genre2
+            };
+            var song4 = new Song()
+            {
+                Id = 3,
+                Name = "All world do not see itself",
+                Price = 4.99m,
+                Album = album2,
+                Artist = artist2,
+                Genre = genre2
+            };
             if (!_modelContext.Songs.Any())
             {
                 _modelContext.Songs.Add(song1);
                 _modelContext.Songs.Add(song2);
+                _modelContext.Songs.Add(song3);
+                _modelContext.Songs.Add(song4);
+
             }
 
 
