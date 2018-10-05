@@ -37,7 +37,6 @@ namespace MusicStore.Web
             IMapper<User, UserAccountDTO> userAccountMapper = container.Resolve<IMapper<User, UserAccountDTO>>();
 
             IMusicStoreService musicStoreService = container.Resolve<IMusicStoreService>();
-
         }
     }
 }
