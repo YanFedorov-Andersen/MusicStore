@@ -1,8 +1,8 @@
 ﻿using MusicStore.DataAccess;
 
-namespace MusicStore.Domain.Models
+namespace MusicStore.Domain.DataTransfer
 {
-    public class SongDTO
+    public class Song
     {
         public int Id { get; set; }
         public string Name { get; set; }

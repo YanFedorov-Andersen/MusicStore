@@ -1,4 +1,5 @@
 ﻿using MusicStore.DataAccess.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace MusicStore.DataAccess.Realization
                 _dataBase.SaveChanges();
                 return item.Id;
             }
-            return -1;
+            throw new ArgumentException("item is null in BoughtSongRepository");
         }
 
         public int Delete(int id)
@@ -30,7 +31,7 @@ namespace MusicStore.DataAccess.Realization
 
             if (boughtSong == null)
             {
-                return -1;
+                throw new ArgumentException("id is null in BoughtSongRepository");
             }
 
             _dataBase.BoughtSongs.Remove(boughtSong);
@@ -56,7 +57,7 @@ namespace MusicStore.DataAccess.Realization
                 _dataBase.SaveChanges();
                 return item.Id;
             }
-            return -1;
+            throw new ArgumentException("item is null in BoughtSongRepository");
         }
     }
 }

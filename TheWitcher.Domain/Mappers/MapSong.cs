@@ -1,13 +1,10 @@
-﻿using MusicStore.DataAccess;
-using MusicStore.Domain.Models;
-
-namespace MusicStore.Domain.Mappers
+﻿namespace MusicStore.Domain.Mappers
 {
-    public class MapSong : IMapper<Song, SongDTO>
+    public class MapSong : IMapper<DataAccess.Song, DataTransfer.Song>
     {
-        public SongDTO AutoMap(Song item)
+        public DataTransfer.Song AutoMap(DataAccess.Song item)
         {
-                SongDTO song = new SongDTO()
+            DataTransfer.Song song = new DataTransfer.Song()
                 {
                     Id = item.Id,
                     Name = item.Name,

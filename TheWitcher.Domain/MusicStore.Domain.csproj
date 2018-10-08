@@ -41,11 +41,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IMapper.cs" />
+    <Compile Include="Mappers\MapBoughtSong.cs" />
     <Compile Include="Mappers\MapSong.cs" />
     <Compile Include="Mappers\MapUserAccount.cs" />
-    <Compile Include="Models\BoughtSongDTO.cs" />
-    <Compile Include="Models\SongDTO.cs" />
-    <Compile Include="Models\UserAccountDTO.cs" />
+    <Compile Include="DataTransfer\BoughtSongDTO.cs" />
+    <Compile Include="DataTransfer\SongDTO.cs" />
+    <Compile Include="DataTransfer\UserAccountDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

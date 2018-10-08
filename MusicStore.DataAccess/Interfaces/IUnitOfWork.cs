@@ -14,5 +14,9 @@
         {
             get;
         }
+        ISongStoreRepository SongStore
+        {
+            get;
+        }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MusicStore.Domain
 {
-    public class UserAccountDTO
+    public class UserAccount
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

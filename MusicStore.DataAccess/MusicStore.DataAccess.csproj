@@ -53,6 +53,7 @@
     <Compile Include="Core\BoughtSong.cs" />
     <Compile Include="FluentApiConfig\ConfigFluentApi.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\ISongStoreRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Migrations\201810021538521_Init.cs" />
     <Compile Include="Migrations\201810021538521_Init.Designer.cs">

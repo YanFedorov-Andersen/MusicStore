@@ -1,4 +1,5 @@
 ﻿using MusicStore.DataAccess.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
@@ -6,7 +7,7 @@ using System.Linq;
 
 namespace MusicStore.DataAccess.Realization
 {
-    public class SongRepository: IRepository<Song>
+    public class SongRepository: IRepository<Song>, ISongStoreRepository
     {
         private readonly MusicStoreContext _dataBase;
 
@@ -22,16 +23,21 @@ namespace MusicStore.DataAccess.Realization
                 _dataBase.SaveChanges();
                 return item.Id;
             }
-            return -1;
+            throw new ArgumentException("item is null in SongRepository");
         }
 
         public int Delete(int id)
         {
+            if(id < 0)
+            {
+                throw new ArgumentException("id < 0 in SongRepository");
+            }
+
             Song song = _dataBase.Songs.Find(id);
 
             if (song == null)
             {
-                return -1;
+                throw new ArgumentException("item is null in SongRepository");
             }
 
             _dataBase.Songs.Remove(song);
@@ -57,7 +63,7 @@ namespace MusicStore.DataAccess.Realization
                 _dataBase.SaveChanges();
                 return item.Id;
             }
-            return -1;
+            throw new ArgumentException("item is null in SongRepository");
         }
 
         public List<Song> GetAvailableSongsForBuyByUser(int userId)
@@ -68,7 +74,7 @@ namespace MusicStore.DataAccess.Realization
                 var songsList = result.ToListAsync().Result;
                 return songsList;
             }
-            return null;
+            throw new ArgumentException("id is null in SongRepository");
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MusicStore.Domain.Models.SongDTO>
+﻿@model IEnumerable<MusicStore.Domain.DataTransfer.Song>
 
 @{
     ViewBag.Title = "Buy songs";
@@ -19,10 +19,10 @@
         }
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @*@Html.DisplayNameFor(model => model.Name)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                @*@Html.DisplayNameFor(model => model.Price)*@
             </th>
             <th></th>
         </tr>

@@ -5,10 +5,9 @@ using MusicStore.Business.Services;
 using MusicStore.DataAccess;
 using MusicStore.DataAccess.Interfaces;
 using MusicStore.DataAccess.Realization;
-using System.Web.Mvc;
 using MusicStore.Domain;
 using MusicStore.Domain.Mappers;
-using MusicStore.Domain.Models;
+using System.Web.Mvc;
 
 namespace MusicStore.Web
 {
@@ -22,8 +21,9 @@ namespace MusicStore.Web
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().SingleInstance();
 
-            builder.RegisterType<MapSong>().As<IMapper<Song, SongDTO>>();
-            builder.RegisterType<MapUserAccount>().As<IMapper<User, UserAccountDTO>>();
+            builder.RegisterType<MapSong>().As<IMapper<DataAccess.Song, Domain.DataTransfer.Song>>();
+            builder.RegisterType<MapBoughtSong>().As<IMapper<DataAccess.BoughtSong, Domain.DataTransfer.BoughtSong>>();
+            builder.RegisterType<MapUserAccount>().As<IMapper<User, UserAccount>>();
 
             builder.RegisterType<MusicStoreService>().As<IMusicStoreService>();
 
@@ -33,8 +33,9 @@ namespace MusicStore.Web
 
             IUnitOfWork unitOfWork = container.Resolve<IUnitOfWork>();
 
-            IMapper<Song, SongDTO> songMapper = container.Resolve<IMapper<Song, SongDTO>>();
-            IMapper<User, UserAccountDTO> userAccountMapper = container.Resolve<IMapper<User, UserAccountDTO>>();
+            var songMapper = container.Resolve<IMapper<DataAccess.Song, Domain.DataTransfer.Song>>();
+            var boughtSongMapper = container.Resolve<IMapper<DataAccess.BoughtSong, Domain.DataTransfer.BoughtSong>>();
+            IMapper<User, UserAccount> userAccountMapper = container.Resolve<IMapper<User, UserAccount>>();
 
             IMusicStoreService musicStoreService = container.Resolve<IMusicStoreService>();
         }

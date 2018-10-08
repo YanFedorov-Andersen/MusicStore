@@ -1,11 +1,11 @@
 ﻿using MusicStore.DataAccess;
 namespace MusicStore.Domain.Mappers
 {
-    public class MapUserAccount : IMapper<User, UserAccountDTO>
+    public class MapUserAccount : IMapper<User, UserAccount>
     {
-        public UserAccountDTO AutoMap(User item)
+        public UserAccount AutoMap(User item)
         {
-            UserAccountDTO userAccountDTO = new UserAccountDTO()
+            UserAccount userAccountDTO = new UserAccount()
             {
                 Id = item.Id,
                 BoughtSongs = item.BoughtSongs,
