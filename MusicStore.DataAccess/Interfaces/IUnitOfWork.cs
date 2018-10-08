@@ -6,5 +6,17 @@
         {
             get;
         }
+        IRepository<BoughtSong> BoughtSong
+        {
+            get;
+        }
+        IRepository<Song> Song
+        {
+            get;
+        }
+        ISongStoreRepository SongStore
+        {
+            get;
+        }
     }
 }

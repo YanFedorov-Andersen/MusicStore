@@ -6,6 +6,8 @@ namespace MusicStore.DataAccess.Realization
     {
         private MusicStoreContext _musicStoreContext = new MusicStoreContext();
         private IRepository<User> _userRepository;
+        private IRepository<BoughtSong> _boughtSongRepository;
+        private IRepository<Song> _songRepository;
         public IRepository<User> UserAccount
         {
             get
@@ -15,6 +17,39 @@ namespace MusicStore.DataAccess.Realization
                     _userRepository = new UserAccountRepository(_musicStoreContext);
                 }
                 return _userRepository;
+            }
+        }
+        public IRepository<BoughtSong> BoughtSong
+        {
+            get
+            {
+                if (_boughtSongRepository == null)
+                {
+                    _boughtSongRepository = new BoughtSongRepository(_musicStoreContext);
+                }
+                return _boughtSongRepository;
+            }
+        }
+        public IRepository<Song> Song
+        {
+            get
+            {
+                if (_songRepository == null)
+                {
+                    _songRepository = new SongRepository(_musicStoreContext);
+                }
+                return _songRepository;
+            }
+        }
+        public ISongStoreRepository SongStore
+        {
+            get
+            {
+                if (_songRepository == null)
+                {
+                    _songRepository = new SongRepository(_musicStoreContext);
+                }
+                return _songRepository as ISongStoreRepository;
             }
         }
     }
