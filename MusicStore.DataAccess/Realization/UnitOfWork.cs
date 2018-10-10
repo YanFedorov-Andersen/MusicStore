@@ -52,5 +52,16 @@ namespace MusicStore.DataAccess.Realization
                 return _songRepository as ISongStoreRepository;
             }
         }
+        public IUserAccountRepository UserAccountRepository
+        {
+            get
+            {
+                if (_userRepository == null)
+                {
+                    _userRepository = new UserAccountRepository(_musicStoreContext);
+                }
+                return _userRepository as IUserAccountRepository;
+            }
+        }
     }
 }

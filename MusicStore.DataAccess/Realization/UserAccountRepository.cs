@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace MusicStore.DataAccess.Realization
 {
-    public class UserAccountRepository : IRepository<User>
+    public class UserAccountRepository : IRepository<User>, IUserAccountRepository
     {
         private readonly MusicStoreContext _dataBase;
 
@@ -57,6 +57,17 @@ namespace MusicStore.DataAccess.Realization
                 return item.Id;
             }
             return -1;
+        }
+
+        public bool CreateWithGuidId(string Id)
+        {
+            User user = new User()
+            {
+                IdentityKey = Id
+            };
+            _dataBase.Users.Add(user);
+            _dataBase.SaveChanges();
+            return true;
         }
     }
 }

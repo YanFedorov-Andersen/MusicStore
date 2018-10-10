@@ -1,5 +1,4 @@
 ﻿using MusicStore.Business.Interfaces;
-using MusicStore.Domain.DataTransfer;
 using System;
 using System.Net;
 using System.Web.Mvc;
@@ -16,6 +15,7 @@ namespace MusicStore.Web.Controllers
             _musicStoreService = musicStoreService;
         }
 
+        [Authorize(Roles = "Admin, Registered user")]
         public ActionResult DisplayAvailableMusicForLoggedUser()
         {
             ViewBag.AvailableMusicList = _musicStoreService.DisplayAllAvailableSongs(DEFAULT_USER_ID);
@@ -23,6 +23,7 @@ namespace MusicStore.Web.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin, Registered user")]
         [HttpPost]
         public ActionResult BuyMusic(int userId, int songId)
         {

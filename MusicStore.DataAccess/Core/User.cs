@@ -14,5 +14,6 @@ namespace MusicStore.DataAccess
         public decimal Money { get; set; }
         public virtual ICollection<BoughtSong> BoughtSongs { get; set; }
         public virtual Address Address { get; set; }
+        public string IdentityKey { get; set; }
     }
 }

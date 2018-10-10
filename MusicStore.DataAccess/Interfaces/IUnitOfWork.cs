@@ -18,5 +18,7 @@
         {
             get;
         }
+
+        IUserAccountRepository UserAccountRepository { get; }
     }
 }

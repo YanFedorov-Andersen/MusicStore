@@ -203,10 +203,20 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810090802113_InitialCreate.cs" />
+    <Compile Include="Migrations\201810090802113_InitialCreate.Designer.cs">
+      <DependentUpon>201810090802113_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810091450015_add user Roles.cs" />
+    <Compile Include="Migrations\201810091450015_add user Roles.Designer.cs">
+      <DependentUpon>201810091450015_add user Roles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SeedData.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -299,6 +309,14 @@
       <Project>{FBB0D4FD-C7EF-4D16-9352-AB58DA0BFD24}</Project>
       <Name>MusicStore.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201810090802113_InitialCreate.resx">
+      <DependentUpon>201810090802113_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810091450015_add user Roles.resx">
+      <DependentUpon>201810091450015_add user Roles.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

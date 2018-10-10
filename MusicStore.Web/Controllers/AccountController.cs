@@ -1,11 +1,12 @@
-﻿using System.Linq;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using MusicStore.Business.Interfaces;
+using MusicStore.Web.Models;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using MusicStore.Web.Models;
 
 namespace MusicStore.Web.Controllers
 {
@@ -14,15 +15,19 @@ namespace MusicStore.Web.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private readonly IUserAccountService _userAccountService;
 
-        public AccountController()
+
+        public AccountController(IUserAccountService userAccountService)
         {
+            _userAccountService = userAccountService;
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IUserAccountService userAccountService)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            _userAccountService = userAccountService;
         }
 
         public ApplicationSignInManager SignInManager
@@ -87,6 +92,63 @@ namespace MusicStore.Web.Controllers
                     return View(model);
             }
         }
+        [HttpGet]
+        public ActionResult Delete()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        public async Task<ActionResult> DeleteConfirmed()
+        {
+            ApplicationUser user = await UserManager.FindByEmailAsync(User.Identity.Name);
+            if (user != null)
+            {
+                IdentityResult result = await UserManager.DeleteAsync(user);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("LogOff", "Account");
+                }
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        //public async Task<ActionResult> Edit()
+        //{
+        //    ApplicationUser user = await UserManager.FindByEmailAsync(User.Identity.Name);
+        //    if (user != null)
+        //    {
+        //        EditModel model = new EditModel { Year = user.Year };
+        //        return View(model);
+        //    }
+        //    return RedirectToAction("Login", "Account");
+        //}
+
+        //[HttpPost]
+        //public async Task<ActionResult> Edit(EditModel model)
+        //{
+        //    ApplicationUser user = await UserManager.FindByEmailAsync(User.Identity.Name);
+        //    if (user != null)
+        //    {
+        //        user.Year = model.Year;
+        //        IdentityResult result = await UserManager.UpdateAsync(user);
+        //        if (result.Succeeded)
+        //        {
+        //            return RedirectToAction("Index", "Home");
+        //        }
+        //        else
+        //        {
+        //            ModelState.AddModelError("", "Что-то пошло не так");
+        //        }
+        //    }
+        //    else
+        //    {
+        //        ModelState.AddModelError("", "Пользователь не найден");
+        //    }
+
+        //    return View(model);
+        //}
 
         //
         // GET: /Account/VerifyCode
@@ -148,20 +210,17 @@ namespace MusicStore.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser {UserName = model.Email, Email = model.Email};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // Дополнительные сведения о включении подтверждения учетной записи и сброса пароля см. на странице https://go.microsoft.com/fwlink/?LinkID=320771.
-                    // Отправка сообщения электронной почты с этой ссылкой
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Подтверждение учетной записи", "Подтвердите вашу учетную запись, щелкнув <a href=\"" + callbackUrl + "\">здесь</a>");
-
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        
+                    _userAccountService.RegisterUserAccount(user.Id);
+                    await UserManager.AddToRoleAsync(user.Id, "Registered user");
                     return RedirectToAction("Index", "Home");
                 }
+
                 AddErrors(result);
             }
 

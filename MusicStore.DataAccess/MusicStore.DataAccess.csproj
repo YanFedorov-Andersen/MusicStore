@@ -55,6 +55,7 @@
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\ISongStoreRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Interfaces\IUserAccountRepository.cs" />
     <Compile Include="Migrations\201810021538521_Init.cs" />
     <Compile Include="Migrations\201810021538521_Init.Designer.cs">
       <DependentUpon>201810021538521_Init.cs</DependentUpon>
@@ -70,6 +71,14 @@
     <Compile Include="Migrations\201810031228542_resize decimals.cs" />
     <Compile Include="Migrations\201810031228542_resize decimals.Designer.cs">
       <DependentUpon>201810031228542_resize decimals.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810090746050_adding identity.cs" />
+    <Compile Include="Migrations\201810090746050_adding identity.Designer.cs">
+      <DependentUpon>201810090746050_adding identity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810091341512_changing user.cs" />
+    <Compile Include="Migrations\201810091341512_changing user.Designer.cs">
+      <DependentUpon>201810091341512_changing user.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MusicStoreContext.cs" />
@@ -99,6 +108,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810031228542_resize decimals.resx">
       <DependentUpon>201810031228542_resize decimals.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810090746050_adding identity.resx">
+      <DependentUpon>201810090746050_adding identity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810091341512_changing user.resx">
+      <DependentUpon>201810091341512_changing user.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
