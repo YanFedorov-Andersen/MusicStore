@@ -24,6 +24,7 @@ namespace MusicStore.Web.Models
         public ApplicationDbContext()
             : base("MusicIdentityDb", throwIfV1Schema: false)
         {
+            //SeedData.Initialize(this);
         }
 
         public static ApplicationDbContext Create()
