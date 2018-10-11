@@ -23,19 +23,6 @@ namespace MusicStore.Business.Services
             _mapUser = mapUser;
         }
 
-        //public int ManageUserAccount(UserAccount domainUser)
-        //{
-        //    if (domainUser == null)
-        //    {
-        //        throw new ArgumentException("domainUser has null value in AdminService ManageUserAccount");
-        //    }
-
-        //    User user = _userRepository.GetItem(domainUser.Id);
-        //    _mapUser.ReAutoMap(domainUser, user);
-        //    var result = _userRepository.Update(user);
-        //    return result;
-        //}
-
         public List<UserAccount> GetListOfUsers(bool isActive)
         {
             List<UserAccount> usersAccountList = new List<UserAccount>();
