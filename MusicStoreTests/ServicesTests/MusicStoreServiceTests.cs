@@ -4,6 +4,7 @@ using MusicStore.DataAccess;
 using MusicStore.DataAccess.Interfaces;
 using MusicStore.Domain;
 using System;
+using MusicStore.Domain.DataTransfer;
 using Xunit;
 
 namespace MusicStoreTests.ServicesTests

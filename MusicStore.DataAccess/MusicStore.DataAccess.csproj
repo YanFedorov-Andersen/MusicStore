@@ -52,6 +52,7 @@
     <Compile Include="Core\Artist.cs" />
     <Compile Include="Core\BoughtSong.cs" />
     <Compile Include="FluentApiConfig\ConfigFluentApi.cs" />
+    <Compile Include="Interfaces\IAdminRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\ISongStoreRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
@@ -80,10 +81,15 @@
     <Compile Include="Migrations\201810091341512_changing user.Designer.cs">
       <DependentUpon>201810091341512_changing user.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810110859152_add isActive property to user.cs" />
+    <Compile Include="Migrations\201810110859152_add isActive property to user.Designer.cs">
+      <DependentUpon>201810110859152_add isActive property to user.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MusicStoreContext.cs" />
     <Compile Include="Core\Genre.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Realization\AdminRepository.cs" />
     <Compile Include="Realization\BoughtSongRepository.cs" />
     <Compile Include="Realization\SongRepository.cs" />
     <Compile Include="Realization\UnitOfWork.cs" />
@@ -114,6 +120,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810091341512_changing user.resx">
       <DependentUpon>201810091341512_changing user.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810110859152_add isActive property to user.resx">
+      <DependentUpon>201810110859152_add isActive property to user.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

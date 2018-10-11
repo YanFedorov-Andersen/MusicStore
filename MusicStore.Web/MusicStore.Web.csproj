@@ -197,9 +197,11 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Builder.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MusicStoreController.cs" />
+    <Compile Include="Controllers\UserAccountController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -278,6 +280,13 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\MusicStore\DisplayAvailableMusicForLoggedUser.cshtml" />
     <Content Include="Views\MusicStore\BuyMusic.cshtml" />
+    <Content Include="Views\UserAccount\GetUserData.cshtml" />
+    <Content Include="Views\UserAccount\EditUserData.cshtml" />
+    <Content Include="Views\Admin\DisplayAllUsers.cshtml" />
+    <Content Include="Views\Admin\AdminOptionsMenu.cshtml" />
+    <Content Include="Views\Admin\DisplayNotActiveUsers.cshtml" />
+    <Content Include="Views\Admin\DisplayActiveUsers.cshtml" />
+    <Content Include="Views\Admin\EditUserAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

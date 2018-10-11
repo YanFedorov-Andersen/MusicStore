@@ -80,7 +80,7 @@ namespace MusicStore.Web.Controllers
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
-                case SignInStatus.Success:
+                case SignInStatus.Success:                 
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -92,65 +92,7 @@ namespace MusicStore.Web.Controllers
                     return View(model);
             }
         }
-        [HttpGet]
-        public ActionResult Delete()
-        {
-            return View();
-        }
 
-        [HttpPost]
-        [ActionName("Delete")]
-        public async Task<ActionResult> DeleteConfirmed()
-        {
-            ApplicationUser user = await UserManager.FindByEmailAsync(User.Identity.Name);
-            if (user != null)
-            {
-                IdentityResult result = await UserManager.DeleteAsync(user);
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("LogOff", "Account");
-                }
-            }
-            return RedirectToAction("Index", "Home");
-        }
-
-        //public async Task<ActionResult> Edit()
-        //{
-        //    ApplicationUser user = await UserManager.FindByEmailAsync(User.Identity.Name);
-        //    if (user != null)
-        //    {
-        //        EditModel model = new EditModel { Year = user.Year };
-        //        return View(model);
-        //    }
-        //    return RedirectToAction("Login", "Account");
-        //}
-
-        //[HttpPost]
-        //public async Task<ActionResult> Edit(EditModel model)
-        //{
-        //    ApplicationUser user = await UserManager.FindByEmailAsync(User.Identity.Name);
-        //    if (user != null)
-        //    {
-        //        user.Year = model.Year;
-        //        IdentityResult result = await UserManager.UpdateAsync(user);
-        //        if (result.Succeeded)
-        //        {
-        //            return RedirectToAction("Index", "Home");
-        //        }
-        //        else
-        //        {
-        //            ModelState.AddModelError("", "Что-то пошло не так");
-        //        }
-        //    }
-        //    else
-        //    {
-        //        ModelState.AddModelError("", "Пользователь не найден");
-        //    }
-
-        //    return View(model);
-        //}
-
-        //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)

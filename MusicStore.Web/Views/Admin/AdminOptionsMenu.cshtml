@@ -1,0 +1,10 @@
+﻿
+@{
+    ViewBag.Title = "AdminOptionsMenu";
+}
+
+<h2>AdminOptionsMenu</h2>
+
+<li>@Html.ActionLink("Отобразить всех пользователей", "DisplayAllUsers", "Admin")</li>
+<li>@Html.ActionLink("Отобразить отображаемых пользователей", "DisplayActiveUsers", "Admin")</li>
+<li>@Html.ActionLink("Отобразить неотображаемых пользователей", "DisplayNotActiveUsers", "Admin")</li>

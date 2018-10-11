@@ -7,5 +7,6 @@ namespace MusicStore.Business.Interfaces
     {
         List<Song> DisplayAllAvailableSongs(int userId);
         BoughtSong BuySong(int songId, int userId);
+        List<Domain.DataTransfer.Song> DisplayAllSongs();
     }
 }

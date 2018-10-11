@@ -15,5 +15,6 @@ namespace MusicStore.DataAccess
         public virtual ICollection<BoughtSong> BoughtSongs { get; set; }
         public virtual Address Address { get; set; }
         public string IdentityKey { get; set; }
+        public bool IsActive { get; set; }
     }
 }

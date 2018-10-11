@@ -2,28 +2,36 @@
 using System;
 using System.Net;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace MusicStore.Web.Controllers
 {
     public class MusicStoreController: Controller
     {
         private readonly IMusicStoreService _musicStoreService;
-
-        private const int DEFAULT_USER_ID = 1;
-        public MusicStoreController(IMusicStoreService musicStoreService)
+        private readonly IUserAccountService _userAccountService;
+        public MusicStoreController(IMusicStoreService musicStoreService, IUserAccountService userAccountService)
         {
             _musicStoreService = musicStoreService;
+            _userAccountService = userAccountService;
         }
 
-        [Authorize(Roles = "Admin, Registered user")]
+        [Authorize(Roles = "Registered user")]
         public ActionResult DisplayAvailableMusicForLoggedUser()
         {
-            ViewBag.AvailableMusicList = _musicStoreService.DisplayAllAvailableSongs(DEFAULT_USER_ID);
-            ViewBag.userId = DEFAULT_USER_ID;
+            var identityKey = User.Identity.GetUserId();
+            int userId = _userAccountService.ConvertGuidInStringIdToIntId(identityKey);
+            ViewBag.AvailableMusicList = _musicStoreService.DisplayAllAvailableSongs(userId);
+            ViewBag.userId = userId;
+            return View();
+        }
+        public ActionResult DisplayMusic()
+        {
+            ViewBag.MusicList = _musicStoreService.DisplayAllSongs();
             return View();
         }
 
-        [Authorize(Roles = "Admin, Registered user")]
+        [Authorize(Roles = "Registered user")]
         [HttpPost]
         public ActionResult BuyMusic(int userId, int songId)
         {
