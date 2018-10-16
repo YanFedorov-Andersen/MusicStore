@@ -22,10 +22,10 @@ namespace MusicStore.Business.Services
             _mapUser = mapUser;
         }
 
-        public IList<UserAccount> GetListOfUsers(bool isActive)
+        public IList<UserAccount> GetActiveOrNotActiveUsers(bool isActive)
         {
             var usersAccountList = new List<UserAccount>();
-            var usersAccounts = _adminRepository.ActiveOrNotActiveUsers(isActive);
+            var usersAccounts = _adminRepository.GetActiveOrNotActiveUsers(isActive);
             if (usersAccounts == null)
             {
                 throw new Exception("Such users not exists");
@@ -43,7 +43,6 @@ namespace MusicStore.Business.Services
                 return null;
             }
 
-            var x = usersAccounts.FirstOrDefault();
             return usersAccounts.Select(_mapUser.AutoMap).ToList();
         }
     }

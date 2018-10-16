@@ -84,7 +84,7 @@ namespace MusicStoreTests.ServicesTests
             };
 
             mockMapSong.Setup(x => x.AutoMap(It.IsAny<Song>())).Returns(songDomain);
-            mockSongStoreRepository.Setup(x => x.GetAvailableSongsForBuyByUser(DEFAULT_ENTITIES_ID)).Returns(songs);
+            mockSongStoreRepository.Setup(x => x.GetSongsAvailableToBuyByUser(DEFAULT_ENTITIES_ID)).Returns(songs);
 
             var musicStoreService = new MusicStoreService(mockUnitOfWork.Object, mockMapSong.Object, mockMapBoughtSong.Object);
             
@@ -126,7 +126,7 @@ namespace MusicStoreTests.ServicesTests
             };
 
             mockMapSong.Setup(x => x.AutoMap(It.IsAny<Song>())).Returns(songDomain);
-            mockSongStoreRepository.Setup(x => x.GetAvailableSongsForBuyByUser(DEFAULT_ENTITIES_ID));
+            mockSongStoreRepository.Setup(x => x.GetSongsAvailableToBuyByUser(DEFAULT_ENTITIES_ID));
 
             var musicStoreService = new MusicStoreService(mockUnitOfWork.Object, mockMapSong.Object, mockMapBoughtSong.Object);
 

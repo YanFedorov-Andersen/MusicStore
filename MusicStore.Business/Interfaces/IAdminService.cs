@@ -5,7 +5,7 @@ namespace MusicStore.Business.Interfaces
 {
     public interface IAdminService
     {
-        IList<UserAccount> GetListOfUsers(bool isActive);
+        IList<UserAccount> GetActiveOrNotActiveUsers(bool isActive);
         IList<UserAccount> GetFullListOfUsers();
     }
 }

@@ -1,6 +1,8 @@
 ﻿using MusicStore.Business.Interfaces;
 using System.Web.Mvc;
 using MusicStore.Domain.DataTransfer;
+using System;
+using System.Net;
 
 namespace MusicStore.Web.Controllers
 {
@@ -27,18 +29,25 @@ namespace MusicStore.Web.Controllers
         }
         public ActionResult DisplayNotActiveUsers()
         {
-            return View(_adminService.GetListOfUsers(false));
+            return View(_adminService.GetActiveOrNotActiveUsers(false));
         }
         public ActionResult DisplayActiveUsers()
         {
-            return View(_adminService.GetListOfUsers(true));
+            return View(_adminService.GetActiveOrNotActiveUsers(true));
         }
 
         [HttpPost]
         public ActionResult EditUserAccount(UserAccount userAccount)
         {
-            var result = _userAccountService.EditUserAccount(userAccount);
-            ViewBag.ResultOfEditingUser = result;
+            try
+            {
+                var result = _userAccountService.EditUserAccount(userAccount);
+                ViewBag.ResultOfEditingUser = result;
+            }
+            catch(ArgumentNullException exception)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, $"userId or songId is null, exception message: {exception.Message}");
+            }            
             return View();
         }
 

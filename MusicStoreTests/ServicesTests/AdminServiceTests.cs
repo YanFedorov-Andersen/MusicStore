@@ -42,7 +42,7 @@ namespace MusicStoreTests.ServicesTests
             userList.Add(user1);
             _mockUnitOfWork.Setup(x => x.UserAccount).Returns(_mockUserRepository.Object);
             _mockUnitOfWork.Setup(x => x.AdminRepository).Returns(_mockAdminRepository.Object);
-            _mockAdminRepository.Setup(x => x.ActiveOrNotActiveUsers(isActive)).Returns(userList);
+            _mockAdminRepository.Setup(x => x.GetActiveOrNotActiveUsers(isActive)).Returns(userList);
 
             var domainUser = new UserAccount()
             {
@@ -57,7 +57,7 @@ namespace MusicStoreTests.ServicesTests
             userAccountList.Add(domainUser);
 
             //Act
-            var result = adminService.GetListOfUsers(isActive);
+            var result = adminService.GetActiveOrNotActiveUsers(isActive);
 
             //Assert
             Assert.Equal(userAccountList, result);
@@ -79,7 +79,7 @@ namespace MusicStoreTests.ServicesTests
             userList.Add(user1);
             _mockUnitOfWork.Setup(x => x.UserAccount).Returns(_mockUserRepository.Object);
             _mockUnitOfWork.Setup(x => x.AdminRepository).Returns(_mockAdminRepository.Object);
-            _mockAdminRepository.Setup(x => x.ActiveOrNotActiveUsers(isActive));
+            _mockAdminRepository.Setup(x => x.GetActiveOrNotActiveUsers(isActive));
 
             var domainUser = new UserAccount()
             {
@@ -94,7 +94,7 @@ namespace MusicStoreTests.ServicesTests
             userAccountList.Add(domainUser);
 
             //Act
-            var result = Assert.Throws<Exception>(() => adminService.GetListOfUsers(isActive));
+            var result = Assert.Throws<Exception>(() => adminService.GetActiveOrNotActiveUsers(isActive));
 
             //Assert
             Assert.Equal("Such users not exists", result.Message);

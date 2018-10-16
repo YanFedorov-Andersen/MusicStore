@@ -4,6 +4,6 @@ namespace MusicStore.DataAccess.Interfaces
 {
     public interface IAdminRepository
     {
-        IList<User> ActiveOrNotActiveUsers(bool isActive);
+        IList<User> GetActiveOrNotActiveUsers(bool isActive);
     }
 }

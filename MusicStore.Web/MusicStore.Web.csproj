@@ -287,6 +287,7 @@
     <Content Include="Views\Admin\DisplayNotActiveUsers.cshtml" />
     <Content Include="Views\Admin\DisplayActiveUsers.cshtml" />
     <Content Include="Views\Admin\EditUserAccount.cshtml" />
+    <Content Include="Views\MusicStore\BuyMusicNotEnoughMoney.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

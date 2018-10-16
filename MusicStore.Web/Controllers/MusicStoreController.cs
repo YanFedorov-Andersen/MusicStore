@@ -48,6 +48,10 @@ namespace MusicStore.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, exception.Message);
             }
+            catch (Exception exception) when (exception.Message.Contains("User has not enough money for buy"))
+            {
+                return View("~/Views/MusicStore/BuyMusicNotEnoughMoney.cshtml");
+            }
             return View();
         }
     }

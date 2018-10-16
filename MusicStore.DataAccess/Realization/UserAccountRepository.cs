@@ -41,7 +41,14 @@ namespace MusicStore.DataAccess.Realization
 
         public User GetItem(int id)
         {
-            return _dataBase.Users.FirstOrDefault(x => x.Id == id);
+            try
+            {
+                return _dataBase.Users.SingleOrDefault(x => x.Id == id);
+            }
+            catch(ArgumentNullException exception)
+            {
+                throw new ArgumentNullException("users in DataBase", exception.Message);
+            }
         }
        
 

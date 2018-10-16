@@ -39,7 +39,7 @@ namespace MusicStore.Business.Services
                 throw new ArgumentException("userId < 0 in musicStoreService DisplayAllAvailableSongs");
             }
 
-            var availableForUserBuySongs = _songStoreRepository.GetAvailableSongsForBuyByUser(userId);
+            var availableForUserBuySongs = _songStoreRepository.GetSongsAvailableToBuyByUser(userId);
 
             if (availableForUserBuySongs == null)
             {
@@ -54,15 +54,19 @@ namespace MusicStore.Business.Services
         {
             if (songId < 0 || userId < 0)
             {
-                throw new ArgumentException("userId < 0 or songId < 0 in musicStoreService in BuySong");
+                throw new ArgumentException("userId < 0 or songId < 0 in musicStoreService in BuySong", "userId or songId");
             }
 
             User user = _userRepository.GetItem(userId);
             Song song = _songRepository.GetItem(songId);
 
-            if (user == null || song == null || user.Money < song.Price)
+            if (user == null || song == null)
             {
                 return null;
+            }
+            if (user.Money < song.Price)
+            {
+                throw new Exception($"User has not enough money for buy {song.Name} song");
             }
 
             BoughtSong boughtSong = new BoughtSong()

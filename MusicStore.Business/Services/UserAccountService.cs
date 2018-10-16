@@ -23,14 +23,14 @@ namespace MusicStore.Business.Services
         {
             if (string.IsNullOrEmpty(identityId))
             {
-                throw new ArgumentException("User id is not valid");
+                throw new ArgumentException("User id is not valid", "userId");
             }
 
             var resultOfParse = Guid.TryParse(identityId, out var guidIdentityId);
 
             if (resultOfParse == false)
             {
-                throw new ArgumentException("Can not parse string to guid");
+                throw new ArgumentException("Can not parse string to guid", "identityId");
             }
 
             var result = CreateWithGuidId(guidIdentityId);
@@ -45,7 +45,7 @@ namespace MusicStore.Business.Services
         {
             if (userDomain == null)
             {
-                throw new ArgumentException("Can not update user, because it is null");
+                throw new ArgumentNullException("userDomain", "Can not update user, because it is null");
             }
 
             var userDataAccess = _userRepository.GetItem(userDomain.Id);
@@ -66,14 +66,14 @@ namespace MusicStore.Business.Services
         {
             if (string.IsNullOrEmpty(identityId))
             {
-                throw new ArgumentException("User id is not valid");
+                throw new ArgumentException("User id is not valid", "userId");
             }
 
             var resultOfParse = Guid.TryParse(identityId, out var guidIdentityId);
 
             if (resultOfParse == false)
             {
-                throw new ArgumentException("Can not parse string to guid");
+                throw new ArgumentException("Can not parse string to guid", "identityId");
             }
 
             var result = GetItemWithGuidId(guidIdentityId);
@@ -90,14 +90,14 @@ namespace MusicStore.Business.Services
         {
             if (string.IsNullOrEmpty(identityId))
             {
-                throw new ArgumentException("User id is not valid");
+                throw new ArgumentException("User id is not valid", "userId");
             }
 
             var resultOfParse = Guid.TryParse(identityId, out var guidIdentityId);
 
             if (resultOfParse == false)
             {
-                throw new ArgumentException("Can not parse string to guid");
+                throw new ArgumentException("Can not parse string to guid", "identityId");
             }
 
             return GetUserId(guidIdentityId);
@@ -106,13 +106,13 @@ namespace MusicStore.Business.Services
         {
             if (identityId == null)
             {
-                throw new ArgumentException("Invalid user identity id");
+                throw new ArgumentNullException("identityId", "Invalid user identity id");
             }
 
-            User user = new User(identityId);
-            var result = _userRepository.Create(user);
+            var user = new User(identityId);
+            var resultOfUserCreation = _userRepository.Create(user);
 
-            if(result < 0)
+            if(resultOfUserCreation < 0)
             {
                 return false;
             }
@@ -124,14 +124,20 @@ namespace MusicStore.Business.Services
         {
             if (identityId == null)
             {
-                throw new ArgumentException("Invalid user identity id");
+                throw new ArgumentNullException("identityId", "Invalid user identity id");
             }
-
-            var user = _userRepository.GetItemList().FirstOrDefault(x => x.IdentityKey == identityId);
-
-            if (user != null)
+            try
             {
-                return user.Id;
+                var user = _userRepository.GetItemList().SingleOrDefault(x => x.IdentityKey == identityId);
+
+                if (user != null)
+                {
+                    return user.Id;
+                }
+            }
+            catch (ArgumentNullException exception)
+            {
+                throw new ArgumentNullException("user", $"There are no users in db, exception message: {exception.Message}");
             }
 
             throw new Exception("User can not found or found more then one");
@@ -139,7 +145,14 @@ namespace MusicStore.Business.Services
         private User GetItemWithGuidId(Guid id)
         {
             var usersList = _userRepository.GetItemList();
-            return usersList.FirstOrDefault(x => x.IdentityKey == id);
+            try
+            {
+                return usersList.SingleOrDefault(x => x.IdentityKey == id);
+            }
+            catch(ArgumentNullException exception)
+            {
+                throw new ArgumentNullException("userList", $"More then one element, exception message: {exception.Message}");                   
+            }
         }
     }
 }
