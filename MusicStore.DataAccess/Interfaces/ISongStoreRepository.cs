@@ -4,6 +4,6 @@ namespace MusicStore.DataAccess.Interfaces
 {
     public interface ISongStoreRepository
     {
-        List<Song> GetAvailableSongsForBuyByUser(int userId);
+        IList<Song> GetAvailableSongsForBuyByUser(int userId);
     }
 }

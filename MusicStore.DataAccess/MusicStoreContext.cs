@@ -7,7 +7,7 @@ namespace MusicStore.DataAccess
     {
         public MusicStoreContext(): base("DefaultConnection")
         {
-            SeedData.Initialize(this);
+            //SeedData.Initialize(this);
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Album> Albums { get; set; }

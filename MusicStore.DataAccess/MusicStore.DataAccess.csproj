@@ -56,7 +56,6 @@
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\ISongStoreRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
-    <Compile Include="Interfaces\IUserAccountRepository.cs" />
     <Compile Include="Migrations\201810021538521_Init.cs" />
     <Compile Include="Migrations\201810021538521_Init.Designer.cs">
       <DependentUpon>201810021538521_Init.cs</DependentUpon>
@@ -84,6 +83,10 @@
     <Compile Include="Migrations\201810110859152_add isActive property to user.cs" />
     <Compile Include="Migrations\201810110859152_add isActive property to user.Designer.cs">
       <DependentUpon>201810110859152_add isActive property to user.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810121128442_change user identityKey to guid.cs" />
+    <Compile Include="Migrations\201810121128442_change user identityKey to guid.Designer.cs">
+      <DependentUpon>201810121128442_change user identityKey to guid.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MusicStoreContext.cs" />
@@ -123,6 +126,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810110859152_add isActive property to user.resx">
       <DependentUpon>201810110859152_add isActive property to user.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810121128442_change user identityKey to guid.resx">
+      <DependentUpon>201810121128442_change user identityKey to guid.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

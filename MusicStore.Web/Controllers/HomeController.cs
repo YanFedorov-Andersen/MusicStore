@@ -1,6 +1,8 @@
 ﻿using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Web.Mvc;
+
 namespace MusicStore.Web.Controllers
 {
     public class HomeController : Controller
@@ -10,11 +12,13 @@ namespace MusicStore.Web.Controllers
             var userIdentity = (ClaimsIdentity)User.Identity;
             var claims = userIdentity.Claims;
             var roleClaimType = userIdentity.RoleClaimType;
-            var roles = claims.Where(c => c.Type == roleClaimType).ToList();
-            if (roles.Count == 1)
+            var role = claims.FirstOrDefault(c => c.Type == roleClaimType);
+
+            if (role != null)
             {
-                ViewBag.Role = roles.First().Value;
+                ViewBag.Role = role.Value;
             }
+
             return View();
         }
 

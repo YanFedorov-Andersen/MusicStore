@@ -44,19 +44,10 @@ namespace MusicStore.Web.Controllers
                 var resultOfBuy = _musicStoreService.BuySong(songId, userId);
                 ViewBag.OperationResult = (resultOfBuy != null) ? "Покупка совершена успешно" : "Покупка не совершена успешно";
             }
-            catch (NullReferenceException exception)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, exception.Message);
-            }
             catch (ArgumentException exception)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, exception.Message);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, exception.Message);
             }
-            catch (Exception exception)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, exception.Message);
-            }
-
             return View();
         }
     }

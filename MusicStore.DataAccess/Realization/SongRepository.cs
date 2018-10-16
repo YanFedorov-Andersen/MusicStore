@@ -66,7 +66,7 @@ namespace MusicStore.DataAccess.Realization
             throw new ArgumentException("item is null in SongRepository");
         }
 
-        public List<Song> GetAvailableSongsForBuyByUser(int userId)
+        public IList<Song> GetAvailableSongsForBuyByUser(int userId)
         {
             if (userId >= 0)
             {

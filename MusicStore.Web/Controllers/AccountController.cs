@@ -16,7 +16,7 @@ namespace MusicStore.Web.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private readonly IUserAccountService _userAccountService;
-
+        private const string DEFAULT_ROLE_AFTER_REGISTRATION = "Registered user";
 
         public AccountController(IUserAccountService userAccountService)
         {
@@ -159,7 +159,7 @@ namespace MusicStore.Web.Controllers
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                         
                     _userAccountService.RegisterUserAccount(user.Id);
-                    await UserManager.AddToRoleAsync(user.Id, "Registered user");
+                    await UserManager.AddToRoleAsync(user.Id, DEFAULT_ROLE_AFTER_REGISTRATION);
                     return RedirectToAction("Index", "Home");
                 }
 

@@ -19,7 +19,6 @@
             get;
         }
 
-        IUserAccountRepository UserAccountRepository { get; }
         IAdminRepository AdminRepository { get; }
     }
 }

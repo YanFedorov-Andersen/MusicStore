@@ -13,13 +13,9 @@ namespace MusicStore.DataAccess.Realization
             _dataBase = dataBase;
         }
 
-        public List<User> NotActiveUsers()
+        public IList<User> ActiveOrNotActiveUsers(bool isActive)
         {
-            return _dataBase.Users.Where(x => x.IsActive == false).ToList();
-        }
-        public List<User> ActiveUsers()
-        {
-            return _dataBase.Users.Where(x => x.IsActive == true).ToList();
+            return _dataBase.Users.Where(x => x.IsActive == isActive).ToList();
         }
     }
 }

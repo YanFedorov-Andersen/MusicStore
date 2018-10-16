@@ -27,7 +27,7 @@ namespace MusicStore.Web.Controllers
         
         [Authorize(Roles = "Admin, Registered user")]
         [HttpPost]
-        public ActionResult EditUserData(UserAccount userData/* string FirstName, string LastName, decimal Money*/)
+        public ActionResult EditUserData(UserAccount userData)
         {
             _userAccountService.EditUserAccount(userData);
             return View();

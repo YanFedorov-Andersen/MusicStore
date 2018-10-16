@@ -18,15 +18,12 @@ namespace MusicStore.Web
 
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(modelContext));
 
-            // создаем пользователей
             var admin = new ApplicationUser {Email = "admin@come.ua", UserName = "admin@come.ua"};
             string password = "admin@come.ua";
             var result = userManager.Create(admin, password);
 
-            // если создание пользователя прошло успешно
             if (result.Succeeded)
             {
-                // добавляем для пользователя роль
                 userManager.AddToRole(admin.Id, "Admin");
             }
             modelContext.SaveChanges();
