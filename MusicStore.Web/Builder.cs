@@ -8,6 +8,7 @@ using MusicStore.DataAccess.Realization;
 using MusicStore.Domain;
 using MusicStore.Domain.Mappers;
 using System.Web.Mvc;
+using MusicStore.Domain.DataTransfer;
 
 namespace MusicStore.Web
 {
@@ -26,6 +27,8 @@ namespace MusicStore.Web
             builder.RegisterType<MapUserAccount>().As<IMapper<User, UserAccount>>();
 
             builder.RegisterType<MusicStoreService>().As<IMusicStoreService>();
+            builder.RegisterType<UserAccountService>().As<IUserAccountService>();
+            builder.RegisterType<AdminService>().As<IAdminService>();
 
             var container = builder.Build();
 
@@ -38,6 +41,8 @@ namespace MusicStore.Web
             IMapper<User, UserAccount> userAccountMapper = container.Resolve<IMapper<User, UserAccount>>();
 
             IMusicStoreService musicStoreService = container.Resolve<IMusicStoreService>();
+            IUserAccountService userAccountService = container.Resolve<IUserAccountService>();
+            IAdminService adminService = container.Resolve<IAdminService>();
         }
     }
 }

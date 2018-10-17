@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title – Music Store</title>
@@ -22,10 +22,19 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Домашняя страница", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Магазин музыки", "DisplayAvailableMusicForLoggedUser", "MusicStore")</li>
-                    <li>@Html.ActionLink("О программе", "About", "Home")</li>
-                    <li>@Html.ActionLink("Контакт", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Home page", "Index", "Home")</li>
+                    @if (User.Identity.IsAuthenticated && ViewBag.Role == "Registered user")
+                    {
+                        <li>@Html.ActionLink("Music store", "DisplayAvailableMusicForLoggedUser", "MusicStore")</li>
+                        <li>@Html.ActionLink("Personal account", "GetUserData", "UserAccount")</li>
+                    }
+                    @if (User.Identity.IsAuthenticated && ViewBag.Role == "Admin")
+                    {
+                        <li>@Html.ActionLink("Manage music store", "DisplayAvailableMusicForLoggedUser", "MusicStore")</li>
+                        <li>@Html.ActionLink("Manage users", "AdminOptionsMenu", "Admin")</li>
+                    }
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

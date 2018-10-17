@@ -1,0 +1,59 @@
+﻿@model IEnumerable<MusicStore.Domain.DataTransfer.UserAccount>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DisplayAllUsersForAdmin</title>
+</head>
+<body>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Money)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th></th>
+        </tr>
+    </table>
+    @foreach (var item in Model)
+    {
+        using (Html.BeginForm("EditUserAccount", "Admin", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <h4>UserAccount where you can see and edit your personal information</h4>
+            @Html.HiddenFor(modelItem => item.Id, new {Name = "Id"})
+
+            <div class="form-group">
+                @Html.LabelFor(modelItem => item.FirstName)
+                @Html.EditorFor(modelItem => item.FirstName, " ", "FirstName")
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(modelItem => item.LastName)
+                @Html.EditorFor(modelItem => item.LastName," ", "LastName")
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(modelItem => item.Money)
+                @Html.EditorFor(modelItem => item.Money, " ", "Money")
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(modelItem => item.IsActive)
+                @Html.CheckBox("IsActive", item.IsActive)
+            </div>
+            <input type="submit" value="Change" />
+        }
+    }
+</body>
+</html>

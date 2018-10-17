@@ -47,7 +47,14 @@ namespace MusicStore.DataAccess.Realization
 
         public Song GetItem(int id)
         {
-            return _dataBase.Songs.FirstOrDefault(x => x.Id == id);
+            try
+            {
+                return _dataBase.Songs.SingleOrDefault(x => x.Id == id);
+            }
+            catch(ArgumentNullException exception)
+            {
+                throw new ArgumentNullException("songs in database", exception.Message);
+            }
         }
 
         public IEnumerable<Song> GetItemList()
@@ -66,7 +73,7 @@ namespace MusicStore.DataAccess.Realization
             throw new ArgumentException("item is null in SongRepository");
         }
 
-        public List<Song> GetAvailableSongsForBuyByUser(int userId)
+        public IList<Song> GetSongsAvailableToBuyByUser(int userId)
         {
             if (userId >= 0)
             {

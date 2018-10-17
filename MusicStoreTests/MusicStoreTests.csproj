@@ -97,7 +97,9 @@
   <ItemGroup>
     <Compile Include="ControllersTests\MusicStoreControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServicesTests\AdminServiceTests.cs" />
     <Compile Include="ServicesTests\MusicStoreServiceTests.cs" />
+    <Compile Include="ServicesTests\UserAccountServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MusicStore.Business\MusicStore.Business.csproj">

@@ -1,8 +1,11 @@
-﻿namespace MusicStore.Domain.Mappers
+﻿using MusicStore.DataAccess;
+
+
+namespace MusicStore.Domain.Mappers
 {
     public class MapSong : IMapper<DataAccess.Song, DataTransfer.Song>
     {
-        public DataTransfer.Song AutoMap(DataAccess.Song item)
+        public DataTransfer.Song AutoMap(Song item)
         {
             DataTransfer.Song song = new DataTransfer.Song()
                 {
@@ -14,6 +17,11 @@
                     Genre = item.Genre,
                 };
                 return song;
+        }
+
+        public Song ReAutoMap(DataTransfer.Song item, Song initialItem)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

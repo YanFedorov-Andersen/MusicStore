@@ -18,5 +18,7 @@
         {
             get;
         }
+
+        IAdminRepository AdminRepository { get; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using MusicStore.DataAccess;
 using System.Collections.Generic;
 
-namespace MusicStore.Domain
+namespace MusicStore.Domain.DataTransfer
 {
     public class UserAccount
     {
@@ -9,6 +9,8 @@ namespace MusicStore.Domain
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public decimal Money { get; set; }
-        public ICollection<BoughtSong> BoughtSongs { get; set; }
+        public virtual Address Address { get; set; }
+        public ICollection<DataAccess.BoughtSong> BoughtSongs { get; set; }
+        public bool IsActive { get; set; }
     }
 }

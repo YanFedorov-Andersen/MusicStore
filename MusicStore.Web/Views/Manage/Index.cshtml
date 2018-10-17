@@ -1,6 +1,6 @@
 ﻿@model MusicStore.Web.Models.IndexViewModel
 @{
-    ViewBag.Title = "Управление";
+    ViewBag.Title = "Manage";
 }
 
 <h2>@ViewBag.Title.</h2>
@@ -15,18 +15,18 @@
             [
             @if (Model.HasPassword)
             {
-                @Html.ActionLink("Смена пароля", "ChangePassword")
+                @Html.ActionLink("Change password", "ChangePassword")
             }
             else
             {
-                @Html.ActionLink("Создать", "SetPassword")
+                @Html.ActionLink("Create", "SetPassword")
             }
             ]
         </dd>
         <dt>Внешние имена входа:</dt>
         <dd>
             @Model.Logins.Count [
-            @Html.ActionLink("Управление", "ManageLogins") ]
+            @Html.ActionLink("Manage", "ManageLogins") ]
         </dd>
         @*
             Номера телефонов можно использовать в качестве второго проверочного фактора для системы двухфакторной проверки подлинности.

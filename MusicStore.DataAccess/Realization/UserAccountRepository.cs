@@ -1,4 +1,5 @@
-﻿using MusicStore.DataAccess.Interfaces;
+﻿using System;
+using MusicStore.DataAccess.Interfaces;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -40,12 +41,20 @@ namespace MusicStore.DataAccess.Realization
 
         public User GetItem(int id)
         {
-            return _dataBase.Users.FirstOrDefault(x => x.Id == id);
+            try
+            {
+                return _dataBase.Users.SingleOrDefault(x => x.Id == id);
+            }
+            catch(ArgumentNullException exception)
+            {
+                throw new ArgumentNullException("users in DataBase", exception.Message);
+            }
         }
+       
 
         public IEnumerable<User> GetItemList()
         {
-            return _dataBase.Users.ToList();
+            return _dataBase.Users.AsEnumerable();
         }
 
         public int Update(User item)

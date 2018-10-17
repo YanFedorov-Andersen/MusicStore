@@ -1,4 +1,6 @@
 ﻿using MusicStore.DataAccess;
+using MusicStore.Domain.DataTransfer;
+
 namespace MusicStore.Domain.Mappers
 {
     public class MapUserAccount : IMapper<User, UserAccount>
@@ -11,9 +13,21 @@ namespace MusicStore.Domain.Mappers
                 BoughtSongs = item.BoughtSongs,
                 FirstName = item.FirstName,
                 LastName = item.LastName,
-                Money = item.Money
+                Money = item.Money,
+                IsActive = item.IsActive
             };
             return userAccountDTO;
+        }
+
+        public User ReAutoMap(UserAccount userDomain, User userDataAccess)
+        {
+            userDataAccess.BoughtSongs = userDomain.BoughtSongs;
+            userDataAccess.FirstName = userDomain.FirstName;
+            userDataAccess.LastName = userDomain.LastName;
+            userDataAccess.Money = userDomain.Money;
+            userDataAccess.Address = userDomain.Address;
+            userDataAccess.IsActive = userDomain.IsActive;
+            return userDataAccess;
         }
     }
 }
