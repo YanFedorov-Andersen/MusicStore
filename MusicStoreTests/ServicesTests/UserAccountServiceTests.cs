@@ -43,7 +43,6 @@ namespace MusicStoreTests.ServicesTests
             };
             _mockUnitOfWork.Setup(x => x.UserAccount).Returns(_mockUserRepository.Object);
 
-            //_mockUserRepository.Setup(x => x.CreateWithGuidId(DEFAULT_USER_ID_STRING)).Returns(boolVariable);
             _mockUserRepository.Setup(x => x.Create(It.IsAny<MusicStore.DataAccess.User>())).Returns(-1);
             var userAccountService = new UserAccountService(_mockUnitOfWork.Object, _mockMapUser.Object);
             _mockUserRepository.Setup(x => x.GetItemList()).Returns(usersList);
@@ -60,7 +59,6 @@ namespace MusicStoreTests.ServicesTests
             //Arrange
             _mockUnitOfWork.Setup(x => x.UserAccount).Returns(_mockUserRepository.Object);
 
-            //_mockUserAccountRepository.Setup(x => x.CreateWithGuidId(DEFAULT_USER_ID_STRING)).Returns(false);
             var userAccountService = new UserAccountService(_mockUnitOfWork.Object, _mockMapUser.Object);
 
             //Act
@@ -75,7 +73,6 @@ namespace MusicStoreTests.ServicesTests
             //Arrange
             _mockUnitOfWork.Setup(x => x.UserAccount).Returns(_mockUserRepository.Object);
 
-            //_mockUserAccountRepository.Setup(x => x.CreateWithGuidId(DEFAULT_USER_ID_STRING)).Returns(false);
             var userAccountService = new UserAccountService(_mockUnitOfWork.Object, _mockMapUser.Object);
 
             //Act
@@ -91,7 +88,6 @@ namespace MusicStoreTests.ServicesTests
             //Arrange
             _mockUnitOfWork.Setup(x => x.UserAccount).Returns(_mockUserRepository.Object);
 
-            //_mockUserAccountRepository.Setup(x => x.CreateWithGuidId(DEFAULT_USER_ID_STRING)).Returns(boolVariable);
             var userAccountService = new UserAccountService(_mockUnitOfWork.Object, _mockMapUser.Object);
 
             //Act
@@ -185,7 +181,6 @@ namespace MusicStoreTests.ServicesTests
             };
             List<User> usersList = new List<User>();
             usersList.Add(user1);
-            //_mockUserAccountRepository.Setup(x => x.GetItemWithGuidId(DEFAULT_USER_ID_STRING)).Returns(user1);
             _mockUserRepository.Setup(x => x.GetItemList()).Returns(usersList);
             var userAccountService = new UserAccountService(_mockUnitOfWork.Object, _mockMapUser.Object);
             _mockMapUser.Setup(x => x.AutoMap(It.IsAny<MusicStore.DataAccess.User>())).Returns(domainUser
@@ -216,7 +211,6 @@ namespace MusicStoreTests.ServicesTests
                 LastName = "Ivanov",
                 Money = 12.56m,
             };
-            //_mockUserAccountRepository.Setup(x => x.GetItemWithGuidId(DEFAULT_USER_ID_STRING)).Returns(user1);
             var userAccountService = new UserAccountService(_mockUnitOfWork.Object, _mockMapUser.Object);
             _mockMapUser.Setup(x => x.AutoMap(It.IsAny<MusicStore.DataAccess.User>())).Returns(domainUser
             );
@@ -246,7 +240,6 @@ namespace MusicStoreTests.ServicesTests
                 LastName = "Ivanov",
                 Money = 12.56m,
             };
-            //_mockUserAccountRepository.Setup(x => x.GetItemWithGuidId(DEFAULT_USER_ID_STRING)).Returns(user1);
             var userAccountService = new UserAccountService(_mockUnitOfWork.Object, _mockMapUser.Object);
             _mockMapUser.Setup(x => x.AutoMap(It.IsAny<MusicStore.DataAccess.User>())).Returns(domainUser
             );
@@ -276,7 +269,6 @@ namespace MusicStoreTests.ServicesTests
                 LastName = "Ivanov",
                 Money = 12.56m,
             };
-            //_mockUserAccountRepository.Setup(x => x.GetItemWithGuidId(DEFAULT_USER_ID_STRING));
             var userAccountService = new UserAccountService(_mockUnitOfWork.Object, _mockMapUser.Object);
             _mockMapUser.Setup(x => x.AutoMap(It.IsAny<MusicStore.DataAccess.User>())).Returns(domainUser
             );

@@ -36,16 +36,16 @@ namespace MusicStore.Business.Services
         {
             if (userId < 0)
             {
-                throw new ArgumentException("userId < 0 in musicStoreService DisplayAllAvailableSongs");
+                throw new ArgumentException("userId < 0 in musicStoreService DisplayAllAvailableSongs", nameof(userId));
             }
 
-            var availableForUserBuySongs = _songStoreRepository.GetSongsAvailableToBuyByUser(userId);
+            var songsAvailableForByByUser = _songStoreRepository.GetSongsAvailableToBuyByUser(userId);
 
-            if (availableForUserBuySongs == null)
+            if (songsAvailableForByByUser == null)
             {
                 throw new Exception("no available for buy songs");
             }
-            var availableForUserBuySongsList = availableForUserBuySongs.Select(_mapSong.AutoMap).ToList();
+            var availableForUserBuySongsList = songsAvailableForByByUser.Select(_mapSong.AutoMap).ToList();
 
             return availableForUserBuySongsList;
         }

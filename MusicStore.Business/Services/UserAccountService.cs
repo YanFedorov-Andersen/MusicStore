@@ -106,7 +106,7 @@ namespace MusicStore.Business.Services
         {
             if (identityId == null)
             {
-                throw new ArgumentNullException("identityId", "Invalid user identity id");
+                throw new ArgumentNullException(nameof(identityId), "Invalid user identity id");
             }
 
             var user = new User(identityId);
@@ -122,13 +122,14 @@ namespace MusicStore.Business.Services
 
         private int GetUserId(Guid identityId)
         {
+            User user;
             if (identityId == null)
             {
                 throw new ArgumentNullException("identityId", "Invalid user identity id");
             }
             try
             {
-                var user = _userRepository.GetItemList().SingleOrDefault(x => x.IdentityKey == identityId);
+                user = _userRepository.GetItemList().SingleOrDefault(x => x.IdentityKey == identityId);
 
                 if (user != null)
                 {
@@ -137,7 +138,7 @@ namespace MusicStore.Business.Services
             }
             catch (ArgumentNullException exception)
             {
-                throw new ArgumentNullException("user", $"There are no users in db, exception message: {exception.Message}");
+                throw new ArgumentNullException(nameof(user), $"There are no users in db, exception message: {exception.Message}");
             }
 
             throw new Exception("User can not found or found more then one");
@@ -151,7 +152,7 @@ namespace MusicStore.Business.Services
             }
             catch(ArgumentNullException exception)
             {
-                throw new ArgumentNullException("userList", $"More then one element, exception message: {exception.Message}");                   
+                throw new ArgumentNullException(nameof(usersList), $"More then one element, exception message: {exception.Message}");                   
             }
         }
     }
