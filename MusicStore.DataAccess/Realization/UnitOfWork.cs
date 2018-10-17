@@ -9,6 +9,7 @@ namespace MusicStore.DataAccess.Realization
         private IRepository<BoughtSong> _boughtSongRepository;
         private IRepository<Song> _songRepository;
         private IAdminRepository _adminRepository;
+        private IRepository<Album> _albumRepository;
         public IRepository<User> UserAccount
         {
             get
@@ -64,6 +65,19 @@ namespace MusicStore.DataAccess.Realization
                 }
                 return _adminRepository;
             }
+        }
+        public IRepository<Album> AlbumRepository
+        {
+            get
+            {
+                if (_albumRepository == null)
+
+                {
+                    _albumRepository = new Repository<Album>(_musicStoreContext);
+                }
+                return _albumRepository;
+            }
+
         }
     }
 }

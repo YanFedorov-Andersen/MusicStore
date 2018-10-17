@@ -40,7 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataTransfer\Album.cs" />
     <Compile Include="IMapper.cs" />
+    <Compile Include="Mappers\MapAlbum.cs" />
     <Compile Include="Mappers\MapBoughtSong.cs" />
     <Compile Include="Mappers\MapSong.cs" />
     <Compile Include="Mappers\MapUserAccount.cs" />

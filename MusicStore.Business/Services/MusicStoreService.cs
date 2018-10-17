@@ -10,26 +10,35 @@ namespace MusicStore.Business.Services
 {
     public class MusicStoreService: IMusicStoreService
     {
+        //TODO: SingleResponsibility? So many methods...
         private readonly IUnitOfWork _unitOfWork;
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<Song> _songRepository;
         private readonly IRepository<BoughtSong> _boughtSongRepository;
+        private readonly IRepository<Album> _albumRepository;
 
         private readonly IMapper<Song, Domain.DataTransfer.Song> _mapSong;
         private readonly IMapper<BoughtSong, Domain.DataTransfer.BoughtSong> _mapBoughtSong;
+        private readonly IMapper<Album, Domain.DataTransfer.Album> _mapAlbum;
 
         private readonly ISongStoreRepository _songStoreRepository;
 
-        public MusicStoreService(IUnitOfWork unitOfWork, IMapper<Song, Domain.DataTransfer.Song> mapSong, IMapper<BoughtSong, Domain.DataTransfer.BoughtSong> mapBoughtSong)
+        private readonly IPagination<Domain.DataTransfer.Album> _pagination;
+
+        public MusicStoreService(IUnitOfWork unitOfWork, IMapper<Song, Domain.DataTransfer.Song> mapSong, IMapper<BoughtSong, Domain.DataTransfer.BoughtSong> mapBoughtSong, IPagination<Domain.DataTransfer.Album> pagination, IMapper<Album, Domain.DataTransfer.Album> mapAlbum)
         {
             _unitOfWork = unitOfWork;
             _userRepository = unitOfWork.UserAccount;
             _songRepository = unitOfWork.Song;
             _boughtSongRepository = unitOfWork.BoughtSong;
             _songStoreRepository = unitOfWork.SongStore;
+            _albumRepository = unitOfWork.AlbumRepository;
 
             _mapSong = mapSong;
             _mapBoughtSong = mapBoughtSong;
+            _mapAlbum = mapAlbum;
+
+            _pagination = pagination;
         }
 
         public IList<Domain.DataTransfer.Song> DisplayAllAvailableSongs(int userId)
@@ -89,6 +98,25 @@ namespace MusicStore.Business.Services
             List<Domain.DataTransfer.Song> domainSongList= new List<Domain.DataTransfer.Song>();
             domainSongList = _songRepository.GetItemList().Select(_mapSong.AutoMap).ToList();
             return domainSongList;
+        }
+
+        public IndexViewItem<Domain.DataTransfer.Album> DisplayAlbumsWithPagination(int page = 1)
+        {
+            var albumsList = _albumRepository.GetItemList();
+
+            if(albumsList == null)
+            {
+                throw new ArgumentNullException(nameof(albumsList), $"{nameof(albumsList)} less then 0");
+            }
+            
+            var resultOfPagination = _pagination.MakePagination(albumsList.Select(_mapAlbum.AutoMap).ToList(), page);
+            
+            if(resultOfPagination == null)
+            {
+                throw new ArgumentNullException(nameof(resultOfPagination), $"{nameof(resultOfPagination)} less then 0");
+            }
+
+            return resultOfPagination;
         }
     }
 }

@@ -1,0 +1,24 @@
+﻿@model MusicStore.Business.IndexViewItem<MusicStore.Domain.DataTransfer.Album>
+@using MusicStore.Web.Helpers
+@{
+    ViewBag.Title = "Все альбомы";
+}
+<table class="table">
+    <tr>
+        <td>Название альбома</td>
+        <td>Скидка при покупке всех песен</td>
+    </tr>
+    @foreach (var item in Model.Items)
+    {
+    <tr>
+        <td>@item.Name</td>
+        <td>@item.DiscountIfBuyAllSongs</td>
+    </tr>
+    }
+
+          
+</table>
+<br />
+<div class="btn-group">
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("DisplayPaginatedAlbums", new { page = x }))
+</div>

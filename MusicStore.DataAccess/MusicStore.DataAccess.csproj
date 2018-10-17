@@ -51,6 +51,7 @@
     <Compile Include="Core\Album.cs" />
     <Compile Include="Core\Artist.cs" />
     <Compile Include="Core\BoughtSong.cs" />
+    <Compile Include="Core\Entity.cs" />
     <Compile Include="FluentApiConfig\ConfigFluentApi.cs" />
     <Compile Include="Interfaces\IAdminRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />

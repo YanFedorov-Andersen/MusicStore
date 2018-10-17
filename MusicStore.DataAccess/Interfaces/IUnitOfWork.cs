@@ -20,5 +20,6 @@
         }
 
         IAdminRepository AdminRepository { get; }
+        IRepository<Album> AlbumRepository { get; }
     }
 }

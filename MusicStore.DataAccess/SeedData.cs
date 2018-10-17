@@ -68,12 +68,47 @@ namespace MusicStore.DataAccess
                 Name = "Album 2",
                 DiscountIfBuyAllSongs = 7.5m,
             };
+            var album3 = new Album()
+            {
+                Id = 2,
+                Name = "Album 3",
+                DiscountIfBuyAllSongs = 7.5m,
+            };
+            var album4 = new Album()
+            {
+                Id = 3,
+                Name = "Album 4",
+                DiscountIfBuyAllSongs = 7.5m,
+            };
+            var album5 = new Album()
+            {
+                Id = 4,
+                Name = "Album 5",
+                DiscountIfBuyAllSongs = 7.5m,
+            };
+            var album6 = new Album()
+            {
+                Id = 5,
+                Name = "Album 6",
+                DiscountIfBuyAllSongs = 7.5m,
+            };
+            var album7 = new Album()
+            {
+                Id = 6,
+                Name = "Album 7",
+                DiscountIfBuyAllSongs = 7.5m,
+            };
 
             if (!_modelContext.Addresses.Any())
             {
                 _modelContext.Albums.Add(album1);
                 _modelContext.Albums.Add(album2);
             }
+            _modelContext.Albums.Add(album3);
+            _modelContext.Albums.Add(album4);
+            _modelContext.Albums.Add(album5); 
+            _modelContext.Albums.Add(album6);
+            _modelContext.Albums.Add(album7);
 
 
             var genre1 = new Genre()
@@ -124,9 +159,33 @@ namespace MusicStore.DataAccess
             var song4 = new Song()
             {
                 Id = 3,
-                Name = "All world do not see itself",
+                Name = "4",
+                Price = 4.99m,
+                Album = album5,
+                Artist = artist2,
+                Genre = genre2
+            };
+            var song5 = new Song()
+            {
+                Name = "5",
                 Price = 4.99m,
                 Album = album2,
+                Artist = artist2,
+                Genre = genre2
+            };
+            var song6 = new Song()
+            {
+                Name = "6",
+                Price = 4.99m,
+                Album = album7,
+                Artist = artist2,
+                Genre = genre2
+            };
+            var song7 = new Song()
+            {
+                Name = "7",
+                Price = 4.99m,
+                Album = album7,
                 Artist = artist2,
                 Genre = genre2
             };
@@ -135,9 +194,12 @@ namespace MusicStore.DataAccess
                 _modelContext.Songs.Add(song1);
                 _modelContext.Songs.Add(song2);
                 _modelContext.Songs.Add(song3);
-                _modelContext.Songs.Add(song4);
 
             }
+            _modelContext.Songs.Add(song4);
+            _modelContext.Songs.Add(song5);
+            _modelContext.Songs.Add(song6);
+            _modelContext.Songs.Add(song7);
 
 
             var user1 = new User()

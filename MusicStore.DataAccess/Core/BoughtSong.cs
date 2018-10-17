@@ -2,9 +2,8 @@
 
 namespace MusicStore.DataAccess
 {
-    public class BoughtSong
+    public class BoughtSong : Entity
     {
-        public int Id { get; set; }
         public decimal BoughtPrice { get; set; }
         public DateTime BoughtDate { get; set; }
         public bool IsVisible { get; set; }

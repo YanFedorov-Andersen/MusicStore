@@ -31,6 +31,27 @@ namespace MusicStore.Web.Controllers
             return View();
         }
 
+        public ActionResult DisplayPaginatedAlbums(int page = 1)
+        {
+            if(page < 0)
+            {
+                throw new ArgumentException("page is less then 0", nameof(page));
+            }
+            try
+            {
+                var resultOfAlbumPagination = _musicStoreService.DisplayAlbumsWithPagination(page);
+                if (resultOfAlbumPagination == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "Something wrong with pagination or albums in db");
+                }
+                return View(resultOfAlbumPagination);
+            }
+            catch (ArgumentException exception)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, $"{exception.InnerException.Message} and {exception.Message}");
+            }
+        }
+
         [Authorize(Roles = "Registered user")]
         [HttpPost]
         public ActionResult BuyMusic(int userId, int songId)

@@ -8,5 +8,6 @@ namespace MusicStore.Business.Interfaces
         IList<Song> DisplayAllAvailableSongs(int userId);
         BoughtSong BuySong(int songId, int userId);
         IList<Domain.DataTransfer.Song> DisplayAllSongs();
+        IndexViewItem<Domain.DataTransfer.Album> DisplayAlbumsWithPagination(int page);
     }
 }

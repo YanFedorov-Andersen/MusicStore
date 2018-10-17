@@ -2,13 +2,12 @@
 
 namespace MusicStore.DataAccess
 {
-    public class Song
+    public class Song : Entity
     {
         public Song()
         {
             BoughtSongs = new HashSet<BoughtSong>();
         }
-        public int Id { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
         public virtual Album Album { get; set; }

@@ -205,6 +205,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\PagingHelpers.cs" />
     <Compile Include="Migrations\201810090802113_InitialCreate.cs" />
     <Compile Include="Migrations\201810090802113_InitialCreate.Designer.cs">
       <DependentUpon>201810090802113_InitialCreate.cs</DependentUpon>
@@ -288,6 +289,7 @@
     <Content Include="Views\Admin\DisplayActiveUsers.cshtml" />
     <Content Include="Views\Admin\EditUserAccount.cshtml" />
     <Content Include="Views\MusicStore\BuyMusicNotEnoughMoney.cshtml" />
+    <Content Include="Views\MusicStore\DisplayPaginatedAlbums.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

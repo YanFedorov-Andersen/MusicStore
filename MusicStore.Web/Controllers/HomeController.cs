@@ -14,10 +14,7 @@ namespace MusicStore.Web.Controllers
             var roleClaimType = userIdentity.RoleClaimType;
             var role = claims.FirstOrDefault(c => c.Type == roleClaimType);
 
-            if (role != null)
-            {
-                ViewBag.Role = role.Value;
-            }
+            ViewBag.Role = role != null ? role.Value : "Non-Registered user";
 
             return View();
         }
