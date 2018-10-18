@@ -28,7 +28,7 @@ namespace MusicStore.Business.Services
 
         }
 
-        public Domain.DataTransfer.BoughtSong BuySong(int songId, int userId)
+        public Domain.DataTransfer.BoughtSong BuySong(int songId, int userId, decimal discountForBuyAllAlbum = 0)
         {
             if (songId < 0 || userId < 0)
             {
@@ -55,11 +55,46 @@ namespace MusicStore.Business.Services
                 Song = song,
                 User = user
             };
-            user.Money -= song.Price;
+
+            if (discountForBuyAllAlbum > 0)
+            {
+                user.Money -= song.Price - (song.Price * (discountForBuyAllAlbum / 100));
+            }
+            else
+            {
+                user.Money -= song.Price;
+            }
             _boughtSongRepository.Create(boughtSong);
             _userRepository.Update(user);
             var result = _mapBoughtSong.AutoMap(boughtSong);
             return result;
+        }
+        public bool CheckDiscountAvailable(int userId, int albumId)
+        {
+            if (albumId < 0 || userId < 0)
+            {
+                throw new ArgumentException("userId < 0 or albumId < 0 in musicStoreService in BuySong", "userId or albumId");
+            }
+
+            User user = _userRepository.GetItem(userId);
+            Album album = _albumRepository.GetItem(albumId);
+
+            if (user == null || album == null)
+            {
+                throw new Exception("Can not find user or album in db");
+            }
+
+            foreach (var albumSong in album.Songs)
+            {
+                foreach (var userSong in user.BoughtSongs)
+                {
+                    if (albumSong.Id == userSong.Song.Id)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
     }
 }

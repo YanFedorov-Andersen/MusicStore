@@ -290,6 +290,9 @@
     <Content Include="Views\Admin\EditUserAccount.cshtml" />
     <Content Include="Views\MusicStore\BuyMusicNotEnoughMoney.cshtml" />
     <Content Include="Views\MusicStore\DisplayPaginatedAlbums.cshtml" />
+    <Content Include="Views\MusicStore\DisplaySongsOfAlbum.cshtml" />
+    <Content Include="Views\MusicStore\GetAvailableSongsListForBuyByUser.cshtml" />
+    <Content Include="Views\MusicStore\BuyWholeAlbum.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

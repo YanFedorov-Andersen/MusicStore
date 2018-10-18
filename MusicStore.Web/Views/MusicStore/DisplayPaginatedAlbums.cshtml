@@ -13,10 +13,25 @@
     <tr>
         <td>@item.Name</td>
         <td>@item.DiscountIfBuyAllSongs</td>
+        <td>
+            <form method="post" action="~/MusicStore/DisplaySongsOfAlbum">
+                <input type="hidden" value="@item.Id" name="albumId" />
+                <input type="submit" value="Display songs" />
+            </form>
+        </td>
+        @if (User.Identity.IsAuthenticated)
+        {
+        <td>
+            <form method="post" action="~/MusicStore/BuyWholeAlbum">
+                <input type="hidden" value="@item.Id" name="albumId" />
+                <input type="hidden" value="@item.DiscountIfBuyAllSongs" name="discount" />
+                <input type="submit" value="Buy whole album with discount @item.DiscountIfBuyAllSongs" />
+            </form>
+        </td>
+        }
     </tr>
     }
 
-          
 </table>
 <br />
 <div class="btn-group">

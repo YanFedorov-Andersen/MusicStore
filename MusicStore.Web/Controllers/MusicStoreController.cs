@@ -60,12 +60,13 @@ namespace MusicStore.Web.Controllers
 
         [Authorize(Roles = "Registered user")]
         [HttpPost]
-        public ActionResult BuyMusic(int userId, int songId)
+        public ActionResult BuyMusic(int songId, int userId )
         {
             if (userId < 0 || songId < 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "userId or songId is null");
             }
+            
             try
             {
                 var resultOfBuy = _musicStoreService.BuySong(songId, userId);
@@ -80,6 +81,79 @@ namespace MusicStore.Web.Controllers
                 return View("~/Views/MusicStore/BuyMusicNotEnoughMoney.cshtml");
             }
             return View();
+        }
+        [Authorize(Roles = "Registered user")]
+        [HttpPost]
+        public ActionResult BuyWholeAlbum(int albumId, decimal discount)
+        {
+            if (albumId < 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, $"{nameof(albumId)} is null");
+            }
+            var identityKey = User.Identity.GetUserId();
+            int userId = _userAccountService.ConvertGuidInStringIdToIntId(identityKey);
+
+            var albumSongsList = _musicStoreDisplayService.GetSongsListFromAlbum(albumId);
+            var checkDiscountAvailable = _musicStoreService.CheckDiscountAvailable(userId, albumId);
+            Domain.DataTransfer.BoughtSong resultOfBuySong;
+            try
+            {
+
+                if (checkDiscountAvailable == false)
+                {
+                    foreach (var song in albumSongsList)
+                    {
+                        resultOfBuySong = _musicStoreService.BuySong(song.Id, userId);
+                        ViewBag.OperationResult += (resultOfBuySong != null) ? "Покупка совершена успешно" : "Покупка не совершена успешно";
+                    }
+                }
+                else
+                {
+                    foreach (var song in albumSongsList)
+                    {
+                        resultOfBuySong = _musicStoreService.BuySong(song.Id, userId, discount);
+                        ViewBag.OperationResult += (resultOfBuySong != null) ? "Покупка совершена успешно" : "Покупка не совершена успешно";
+                    }
+                }
+
+            }
+            catch (ArgumentException exception)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, exception.Message);
+            }
+            catch (Exception exception) when (exception.Message.Contains("User has not enough money for buy"))
+            {
+                return View("~/Views/MusicStore/BuyMusicNotEnoughMoney.cshtml");
+            }
+            return View();
+        }
+        [HttpPost]
+        public ActionResult DisplaySongsOfAlbum(int albumId)
+        {
+            if(albumId < 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "albumId is less 0");
+            }
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var identityKey = User.Identity.GetUserId();
+                int userId = _userAccountService.ConvertGuidInStringIdToIntId(identityKey);
+                return RedirectToAction("GetAvailableSongsListForBuyByUser", new {userId, albumId });
+            }
+            return View(_musicStoreDisplayService.GetSongsListFromAlbum(albumId));
+        }
+        [Authorize(Roles = "Registered user")]
+        public ActionResult GetAvailableSongsListForBuyByUser(int userId, int albumId)
+        {
+            if(userId < 0 || albumId < 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "albumId is less 0 or userId is less 0");
+            }
+
+            var availableSongsFormAlbumToBuyForUser = _musicStoreDisplayService.GetSongsListFromAlbumAvailableForBuyByUser(albumId, userId);
+            ViewBag.userId = userId;
+            return View(availableSongsFormAlbumToBuyForUser);
         }
     }
 }

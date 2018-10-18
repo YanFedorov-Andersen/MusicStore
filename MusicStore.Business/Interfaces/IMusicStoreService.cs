@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using MusicStore.DataAccess.Realization;
-using MusicStore.Domain.DataTransfer;
+﻿using MusicStore.Domain.DataTransfer;
 
 namespace MusicStore.Business.Interfaces
 {
     public interface IMusicStoreService
     {
-        BoughtSong BuySong(int songId, int userId);
+        BoughtSong BuySong(int songId, int userId, decimal discount = 0);
+        bool CheckDiscountAvailable(int userId, int albumId);
     }
 }

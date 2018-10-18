@@ -1,0 +1,41 @@
+﻿@model IEnumerable<MusicStore.Domain.DataTransfer.Song>
+
+@{
+    ViewBag.Title = "GetAvailableSongsListForBuyByUser";
+}
+
+<h2>GetAvailableSongsListForBuyByUser</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            <form method="post" action="~/MusicStore/BuyMusic">
+                <input type="hidden" value="@item.Id" name="songId" />
+                <input type="hidden" value="@ViewBag.userId" name="userId" />
+                <input type="submit" value="Buy song" />
+            </form> 
+        </td>
+    </tr>
+}
+
+</table>

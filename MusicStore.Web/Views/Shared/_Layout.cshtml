@@ -24,6 +24,8 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home page", "Index", "Home")</li>
 
+                    <li>@Html.ActionLink("Albums", "DisplayPaginatedAlbums", "MusicStore")</li>
+
                     @if (!User.Identity.IsAuthenticated && ViewBag.Role == "Non-Registered user")
                     {
                     <li>@Html.ActionLink("Albums", "DisplayPaginatedAlbums", "MusicStore")</li>
