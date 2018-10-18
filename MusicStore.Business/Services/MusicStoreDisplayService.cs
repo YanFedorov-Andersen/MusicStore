@@ -84,7 +84,7 @@ namespace MusicStore.Business.Services
             return indexViewDomainAlbums;
         }
 
-        public List<Domain.DataTransfer.Song> GetSongsListFromAlbum(int albumId)
+        public IList<Domain.DataTransfer.Song> GetSongsListFromAlbum(int albumId)
         {
             if (albumId < 0)
             {
@@ -103,7 +103,7 @@ namespace MusicStore.Business.Services
             return domainSongsList;
         }
 
-        public List<Domain.DataTransfer.Song> GetSongsListFromAlbumAvailableForBuyByUser(int albumId, int userId)
+        public IList<Domain.DataTransfer.Song> GetSongsListFromAlbumAvailableForBuyByUser(int albumId, int userId)
         {
             if (albumId < 0)
             {
