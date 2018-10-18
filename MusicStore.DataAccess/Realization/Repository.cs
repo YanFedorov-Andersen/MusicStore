@@ -6,13 +6,24 @@ using System.Linq;
 
 namespace MusicStore.DataAccess.Realization
 {
-    public class Repository<T> : IRepository<T> 
+    public class Repository<T> : IGenericRepositoryWithPagination<T> 
         where T: Entity
     {
         private readonly MusicStoreContext _dataContext;
+
+        public int PageNumber { get; set; } // номер текущей страницы
+        public int PageSize { get; set; } // кол-во объектов на странице
+        public int TotalItems { get; set; } // всего объектов
+        public int TotalPages  // всего страниц
+        {
+            get { return (int)Math.Ceiling((decimal)TotalItems / PageSize); }
+        }
         public Repository(MusicStoreContext dataContext)
         {
             _dataContext = dataContext;
+        }
+        public Repository()
+        {
         }
 
         public int Create(T item)
@@ -48,11 +59,16 @@ namespace MusicStore.DataAccess.Realization
 
         public T GetItem(int id)
         {
+            if (id < 0)
+            {
+                throw new ArgumentException("id less then 0", nameof(id));
+            }
+
             try
             {
                 return _dataContext.Set<T>().SingleOrDefault(x => x.Id == id);
             }
-            catch (ArgumentNullException exception)
+            catch (Exception exception)
             {
                 throw new ArgumentNullException("songs in database", exception.Message);
             }
@@ -71,7 +87,19 @@ namespace MusicStore.DataAccess.Realization
                 _dataContext.SaveChanges();
                 return item.Id;
             }
-            throw new ArgumentException("item is null in SongRepository");
+            throw new ArgumentException("item is null in SongRepository", "item");
+        }
+
+        public IndexViewItem<T> MakePagination(List<T> items, int page = 1)
+        {
+            int pageSize = 3; // количество объектов на страницу
+            IEnumerable<T> itemsPerPages = items.Skip((page - 1) * pageSize).Take(pageSize);
+            PageNumber = page;
+            PageSize = pageSize;
+            TotalItems = items.Count;
+
+            IndexViewItem<T> ivm = new IndexViewItem<T> { PageInfo = this, Items = itemsPerPages };
+            return ivm;
         }
     }
 }

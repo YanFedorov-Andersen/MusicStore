@@ -27,6 +27,10 @@ namespace MusicStore.DataAccess.Realization
 
         public int Delete(int id)
         {
+            if (id < 0)
+            {
+                throw new ArgumentException("id less then 0", nameof(id));
+            }
             User user = _dataBase.Users.Find(id);
 
             if (user == null)
@@ -41,6 +45,11 @@ namespace MusicStore.DataAccess.Realization
 
         public User GetItem(int id)
         {
+            if (id < 0)
+            {
+                throw new ArgumentException("id less then 0", nameof(id));
+            }
+
             try
             {
                 return _dataBase.Users.SingleOrDefault(x => x.Id == id);

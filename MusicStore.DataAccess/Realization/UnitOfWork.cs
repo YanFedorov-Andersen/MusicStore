@@ -9,8 +9,9 @@ namespace MusicStore.DataAccess.Realization
         private IRepository<BoughtSong> _boughtSongRepository;
         private IRepository<Song> _songRepository;
         private IAdminRepository _adminRepository;
-        private IRepository<Album> _albumRepository;
-        public IRepository<User> UserAccount
+        private IGenericRepositoryWithPagination<Album> _albumRepositoryWithPagination;
+        private IGenericRepositoryWithPagination<Song>  _songRepositoryWithPagination;
+        public IRepository<User> UserAccountRepository
         {
             get
             {
@@ -21,7 +22,7 @@ namespace MusicStore.DataAccess.Realization
                 return _userRepository;
             }
         }
-        public IRepository<BoughtSong> BoughtSong
+        public IRepository<BoughtSong> BoughtSongRepository
         {
             get
             {
@@ -32,7 +33,7 @@ namespace MusicStore.DataAccess.Realization
                 return _boughtSongRepository;
             }
         }
-        public IRepository<Song> Song
+        public IRepository<Song> SongRepository
         {
             get
             {
@@ -43,7 +44,7 @@ namespace MusicStore.DataAccess.Realization
                 return _songRepository;
             }
         }
-        public ISongStoreRepository SongStore
+        public ISongStoreRepository SongStoreRepository
         {
             get
             {
@@ -66,16 +67,29 @@ namespace MusicStore.DataAccess.Realization
                 return _adminRepository;
             }
         }
-        public IRepository<Album> AlbumRepository
+        public IGenericRepositoryWithPagination<Album> AlbumRepositoryWithPagination
         {
             get
             {
-                if (_albumRepository == null)
+                if (_albumRepositoryWithPagination == null)
 
                 {
-                    _albumRepository = new Repository<Album>(_musicStoreContext);
+                    _albumRepositoryWithPagination = new Repository<Album>(_musicStoreContext);
                 }
-                return _albumRepository;
+                return _albumRepositoryWithPagination;
+            }
+
+        }
+        public IGenericRepositoryWithPagination<Song> SongRepositoryWithPagination
+        {
+            get
+            {
+                if (_songRepositoryWithPagination == null)
+
+                {
+                    _songRepositoryWithPagination = new Repository<Song>(_musicStoreContext);
+                }
+                return _songRepositoryWithPagination;
             }
 
         }

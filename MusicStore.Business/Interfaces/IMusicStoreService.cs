@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
+using MusicStore.DataAccess.Realization;
 using MusicStore.Domain.DataTransfer;
 
 namespace MusicStore.Business.Interfaces
 {
     public interface IMusicStoreService
     {
-        IList<Song> DisplayAllAvailableSongs(int userId);
         BoughtSong BuySong(int songId, int userId);
-        IList<Domain.DataTransfer.Song> DisplayAllSongs();
-        IndexViewItem<Domain.DataTransfer.Album> DisplayAlbumsWithPagination(int page);
     }
 }

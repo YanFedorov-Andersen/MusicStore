@@ -17,7 +17,7 @@ namespace MusicStore.Business.Services
         private readonly IMapper<User,UserAccount> _mapUser;
         public AdminService(IUnitOfWork unitOfWork, IMapper<User, UserAccount> mapUser)
         {
-            _userRepository = unitOfWork.UserAccount;
+            _userRepository = unitOfWork.UserAccountRepository;
             _adminRepository = unitOfWork.AdminRepository;
             _mapUser = mapUser;
         }

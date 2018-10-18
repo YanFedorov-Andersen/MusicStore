@@ -15,7 +15,7 @@ namespace MusicStore.Business.Services
 
         public UserAccountService(IUnitOfWork unitOfWork, IMapper<User, Domain.DataTransfer.UserAccount> mapUser)
         {
-            _userRepository = unitOfWork.UserAccount;
+            _userRepository = unitOfWork.UserAccountRepository;
             _mapUser = mapUser;
         }
 

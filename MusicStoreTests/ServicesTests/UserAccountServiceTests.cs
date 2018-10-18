@@ -41,7 +41,7 @@ namespace MusicStoreTests.ServicesTests
             {
                 user1
             };
-            _mockUnitOfWork.Setup(x => x.UserAccount).Returns(_mockUserRepository.Object);
+            _mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(_mockUserRepository.Object);
 
             _mockUserRepository.Setup(x => x.Create(It.IsAny<MusicStore.DataAccess.User>())).Returns(-1);
             var userAccountService = new UserAccountService(_mockUnitOfWork.Object, _mockMapUser.Object);
@@ -57,7 +57,7 @@ namespace MusicStoreTests.ServicesTests
         public void RegisterUserAccountTestArgExcept()
         {
             //Arrange
-            _mockUnitOfWork.Setup(x => x.UserAccount).Returns(_mockUserRepository.Object);
+            _mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(_mockUserRepository.Object);
 
             var userAccountService = new UserAccountService(_mockUnitOfWork.Object, _mockMapUser.Object);
 
@@ -71,7 +71,7 @@ namespace MusicStoreTests.ServicesTests
         public void RegisterUserAccountTestArgExceptParse()
         {
             //Arrange
-            _mockUnitOfWork.Setup(x => x.UserAccount).Returns(_mockUserRepository.Object);
+            _mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(_mockUserRepository.Object);
 
             var userAccountService = new UserAccountService(_mockUnitOfWork.Object, _mockMapUser.Object);
 
@@ -86,7 +86,7 @@ namespace MusicStoreTests.ServicesTests
         public void RegisterUserAccountTestTrue(bool boolVariable)
         {
             //Arrange
-            _mockUnitOfWork.Setup(x => x.UserAccount).Returns(_mockUserRepository.Object);
+            _mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(_mockUserRepository.Object);
 
             var userAccountService = new UserAccountService(_mockUnitOfWork.Object, _mockMapUser.Object);
 
@@ -100,7 +100,7 @@ namespace MusicStoreTests.ServicesTests
         public void EditUserAccountTest()
         {
             //Arrange
-            _mockUnitOfWork.Setup(x => x.UserAccount).Returns(_mockUserRepository.Object);
+            _mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(_mockUserRepository.Object);
             var user1 = new User()
             {
                 Id = 0,
@@ -131,7 +131,7 @@ namespace MusicStoreTests.ServicesTests
         public void EditUserAccountTestArgExcept()
         {
             //Arrange
-            _mockUnitOfWork.Setup(x => x.UserAccount).Returns(_mockUserRepository.Object);
+            _mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(_mockUserRepository.Object);
             var user1 = new User()
             {
                 Id = 0,
@@ -163,7 +163,7 @@ namespace MusicStoreTests.ServicesTests
         public void GetUserDataTest()
         {
             //Arrange
-            _mockUnitOfWork.Setup(x => x.UserAccount).Returns(_mockUserRepository.Object);
+            _mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(_mockUserRepository.Object);
             var user1 = new User()
             {
                 Id = 0,
@@ -196,7 +196,7 @@ namespace MusicStoreTests.ServicesTests
         public void GetUserDataTestArgExceptStr()
         {
             //Arrange
-            _mockUnitOfWork.Setup(x => x.UserAccount).Returns(_mockUserRepository.Object);
+            _mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(_mockUserRepository.Object);
             var user1 = new User()
             {
                 Id = 0,
@@ -225,7 +225,7 @@ namespace MusicStoreTests.ServicesTests
         public void GetUserDataTestArgExceptResultOfParse()
         {
             //Arrange
-            _mockUnitOfWork.Setup(x => x.UserAccount).Returns(_mockUserRepository.Object);
+            _mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(_mockUserRepository.Object);
             var user1 = new User()
             {
                 Id = 0,
@@ -254,7 +254,7 @@ namespace MusicStoreTests.ServicesTests
         public void GetUserDataTestGetItemWithGuidIdReturnsNull()
         {
             //Arrange
-            _mockUnitOfWork.Setup(x => x.UserAccount).Returns(_mockUserRepository.Object);
+            _mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(_mockUserRepository.Object);
             var user1 = new User()
             {
                 Id = 0,

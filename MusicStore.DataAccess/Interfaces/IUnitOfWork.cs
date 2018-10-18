@@ -2,24 +2,25 @@
 {
     public interface IUnitOfWork
     {
-        IRepository<User> UserAccount
+        IRepository<User> UserAccountRepository
         {
             get;
         }
-        IRepository<BoughtSong> BoughtSong
+        IRepository<BoughtSong> BoughtSongRepository
         {
             get;
         }
-        IRepository<Song> Song
+        IRepository<Song> SongRepository
         {
             get;
         }
-        ISongStoreRepository SongStore
+        ISongStoreRepository SongStoreRepository
         {
             get;
         }
 
         IAdminRepository AdminRepository { get; }
-        IRepository<Album> AlbumRepository { get; }
+        IGenericRepositoryWithPagination<Album> AlbumRepositoryWithPagination { get; }
+        IGenericRepositoryWithPagination<Song> SongRepositoryWithPagination { get; }
     }
 }

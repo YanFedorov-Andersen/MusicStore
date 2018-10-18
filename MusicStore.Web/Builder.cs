@@ -21,7 +21,6 @@ namespace MusicStore.Web
 
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
 
-            builder.RegisterType<Pagination<Domain.DataTransfer.Album>>().As<IPagination<Domain.DataTransfer.Album>>();
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().SingleInstance();
 
             builder.RegisterType<MapSong>().As<IMapper<DataAccess.Song, Domain.DataTransfer.Song>>();
@@ -30,6 +29,7 @@ namespace MusicStore.Web
             builder.RegisterType<MapUserAccount>().As<IMapper<User, UserAccount>>();
 
             builder.RegisterType<MusicStoreService>().As<IMusicStoreService>();
+            builder.RegisterType<MusicStoreDisplayService>().As<IMusicStoreDisplayService>();
             builder.RegisterType<UserAccountService>().As<IUserAccountService>();
             builder.RegisterType<AdminService>().As<IAdminService>();
 
@@ -37,7 +37,6 @@ namespace MusicStore.Web
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 
-            IPagination<Domain.DataTransfer.Album> albumPagination = container.Resolve<IPagination<Domain.DataTransfer.Album>>();
             IUnitOfWork unitOfWork = container.Resolve<IUnitOfWork>();
 
             var songMapper = container.Resolve<IMapper<DataAccess.Song, Domain.DataTransfer.Song>>();
@@ -45,6 +44,7 @@ namespace MusicStore.Web
             var userAccountMapper = container.Resolve<IMapper<User, UserAccount>>();
             var albumMapper = container.Resolve<IMapper<DataAccess.Album, Domain.DataTransfer.Album>>();
 
+            IMusicStoreDisplayService musicStoreDisplayService = container.Resolve<IMusicStoreDisplayService>();
             IMusicStoreService musicStoreService = container.Resolve<IMusicStoreService>();
             IUserAccountService userAccountService = container.Resolve<IUserAccountService>();
             IAdminService adminService = container.Resolve<IAdminService>();

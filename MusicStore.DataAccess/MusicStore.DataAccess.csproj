@@ -54,6 +54,7 @@
     <Compile Include="Core\Entity.cs" />
     <Compile Include="FluentApiConfig\ConfigFluentApi.cs" />
     <Compile Include="Interfaces\IAdminRepository.cs" />
+    <Compile Include="Interfaces\IGenericRepositoryWithPagination.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\ISongStoreRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Realization\AdminRepository.cs" />
     <Compile Include="Realization\BoughtSongRepository.cs" />
+    <Compile Include="Realization\IndexViewItem.cs" />
     <Compile Include="Realization\Repository.cs" />
     <Compile Include="Realization\SongRepository.cs" />
     <Compile Include="Realization\UnitOfWork.cs" />

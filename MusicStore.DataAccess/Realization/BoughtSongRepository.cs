@@ -22,16 +22,21 @@ namespace MusicStore.DataAccess.Realization
                 _dataBase.SaveChanges();
                 return item.Id;
             }
-            throw new ArgumentException("item is null in BoughtSongRepository");
+            throw new ArgumentException("item is null in BoughtSongRepository", nameof(item));
         }
 
         public int Delete(int id)
         {
+            if(id < 0)
+            {
+                throw new ArgumentException("id less then 0", nameof(id));
+            }
+
             BoughtSong boughtSong = _dataBase.BoughtSongs.Find(id);
 
             if (boughtSong == null)
             {
-                throw new ArgumentException("id is null in BoughtSongRepository");
+                throw new Exception("there is no available boughtsong with this id");
             }
 
             _dataBase.BoughtSongs.Remove(boughtSong);
@@ -41,6 +46,11 @@ namespace MusicStore.DataAccess.Realization
 
         public BoughtSong GetItem(int id)
         {
+            if (id < 0)
+            {
+                throw new ArgumentException("id less then 0", nameof(id));
+            }
+
             return _dataBase.BoughtSongs.FirstOrDefault(x => x.Id == id);
         }
 
@@ -57,7 +67,7 @@ namespace MusicStore.DataAccess.Realization
                 _dataBase.SaveChanges();
                 return item.Id;
             }
-            throw new ArgumentException("item is null in BoughtSongRepository");
+            throw new ArgumentException("item is null in BoughtSongRepository", nameof(item));
         }
     }
 }

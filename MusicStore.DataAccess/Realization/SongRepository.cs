@@ -23,21 +23,21 @@ namespace MusicStore.DataAccess.Realization
                 _dataBase.SaveChanges();
                 return item.Id;
             }
-            throw new ArgumentException("item is null in SongRepository");
+            throw new ArgumentException("item is null in SongRepository", nameof(item));
         }
 
         public int Delete(int id)
         {
             if(id < 0)
             {
-                throw new ArgumentException("id < 0 in SongRepository");
+                throw new ArgumentException("id < 0 in SongRepository", nameof(id));
             }
 
             Song song = _dataBase.Songs.Find(id);
 
             if (song == null)
             {
-                throw new ArgumentException("item is null in SongRepository");
+                throw new Exception("item is null in SongRepository");
             }
 
             _dataBase.Songs.Remove(song);
@@ -47,6 +47,11 @@ namespace MusicStore.DataAccess.Realization
 
         public Song GetItem(int id)
         {
+            if (id < 0)
+            {
+                throw new ArgumentException("id less then 0", nameof(id));
+            }
+
             try
             {
                 return _dataBase.Songs.SingleOrDefault(x => x.Id == id);
@@ -70,7 +75,7 @@ namespace MusicStore.DataAccess.Realization
                 _dataBase.SaveChanges();
                 return item.Id;
             }
-            throw new ArgumentException("item is null in SongRepository");
+            throw new ArgumentException("item is null in SongRepository" , nameof(item));
         }
 
         public IList<Song> GetSongsAvailableToBuyByUser(int userId)
@@ -81,7 +86,7 @@ namespace MusicStore.DataAccess.Realization
                 var songsList = result.ToListAsync().Result;
                 return songsList;
             }
-            throw new ArgumentException("id is null in SongRepository");
+            throw new ArgumentException("id is null in SongRepository", "id");
         }
     }
 }

@@ -9,11 +9,13 @@ namespace MusicStore.Web.Controllers
     public class MusicStoreController: Controller
     {
         private readonly IMusicStoreService _musicStoreService;
+        private readonly IMusicStoreDisplayService _musicStoreDisplayService;
         private readonly IUserAccountService _userAccountService;
-        public MusicStoreController(IMusicStoreService musicStoreService, IUserAccountService userAccountService)
+        public MusicStoreController(IMusicStoreService musicStoreService, IUserAccountService userAccountService, IMusicStoreDisplayService musicStoreDisplayService)
         {
             _musicStoreService = musicStoreService;
             _userAccountService = userAccountService;
+            _musicStoreDisplayService = musicStoreDisplayService;
         }
 
         [Authorize(Roles = "Registered user")]
@@ -21,13 +23,13 @@ namespace MusicStore.Web.Controllers
         {
             var identityKey = User.Identity.GetUserId();
             int userId = _userAccountService.ConvertGuidInStringIdToIntId(identityKey);
-            ViewBag.AvailableMusicList = _musicStoreService.DisplayAllAvailableSongs(userId);
+            ViewBag.AvailableMusicList = _musicStoreDisplayService.DisplayAllAvailableSongs(userId);
             ViewBag.userId = userId;
             return View();
         }
         public ActionResult DisplayMusic()
         {
-            ViewBag.MusicList = _musicStoreService.DisplayAllSongs();
+            ViewBag.MusicList = _musicStoreDisplayService.DisplayAllSongs();
             return View();
         }
 
@@ -39,7 +41,7 @@ namespace MusicStore.Web.Controllers
             }
             try
             {
-                var resultOfAlbumPagination = _musicStoreService.DisplayAlbumsWithPagination(page);
+                var resultOfAlbumPagination = _musicStoreDisplayService.DisplayAlbumsWithPagination(page);
                 if (resultOfAlbumPagination == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "Something wrong with pagination or albums in db");
@@ -47,6 +49,10 @@ namespace MusicStore.Web.Controllers
                 return View(resultOfAlbumPagination);
             }
             catch (ArgumentException exception)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, $"{exception.InnerException.Message} and {exception.Message}");
+            }
+            catch (Exception exception)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, $"{exception.InnerException.Message} and {exception.Message}");
             }

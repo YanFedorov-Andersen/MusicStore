@@ -41,9 +41,9 @@ namespace MusicStoreTests.ServicesTests
         public void DisplayAllAvailableSongsTestByNegativeId()
         {
             //Arrange
-            mockUnitOfWork.Setup(x => x.Song).Returns(mockSongRepository.Object);
-            mockUnitOfWork.Setup(x => x.UserAccount).Returns(mockUserRepository.Object);
-            mockUnitOfWork.Setup(x => x.BoughtSong).Returns(mockBoughtSongRepository.Object);
+            mockUnitOfWork.Setup(x => x.SongRepository).Returns(mockSongRepository.Object);
+            mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(mockUserRepository.Object);
+            mockUnitOfWork.Setup(x => x.BoughtSongRepository).Returns(mockBoughtSongRepository.Object);
 
             var musicStoreService = new MusicStoreService(mockUnitOfWork.Object, mockMapSong.Object, mockMapBoughtSong.Object);
 
@@ -57,10 +57,10 @@ namespace MusicStoreTests.ServicesTests
         public void DisplayAllAvailableSongsTest()
         {
             //Arrange
-            mockUnitOfWork.Setup(x => x.Song).Returns(mockSongRepository.Object);
-            mockUnitOfWork.Setup(x => x.UserAccount).Returns(mockUserRepository.Object);
-            mockUnitOfWork.Setup(x => x.BoughtSong).Returns(mockBoughtSongRepository.Object);
-            mockUnitOfWork.Setup(x => x.SongStore).Returns(mockSongStoreRepository.Object);
+            mockUnitOfWork.Setup(x => x.SongRepository).Returns(mockSongRepository.Object);
+            mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(mockUserRepository.Object);
+            mockUnitOfWork.Setup(x => x.BoughtSongRepository).Returns(mockBoughtSongRepository.Object);
+            mockUnitOfWork.Setup(x => x.SongStoreRepository).Returns(mockSongStoreRepository.Object);
 
             var song = new MusicStore.DataAccess.Song()
             {
@@ -99,10 +99,10 @@ namespace MusicStoreTests.ServicesTests
         public void DisplayAllAvailableSongsTestNullExcept()
         {
             //Arrange
-            mockUnitOfWork.Setup(x => x.Song).Returns(mockSongRepository.Object);
-            mockUnitOfWork.Setup(x => x.UserAccount).Returns(mockUserRepository.Object);
-            mockUnitOfWork.Setup(x => x.BoughtSong).Returns(mockBoughtSongRepository.Object);
-            mockUnitOfWork.Setup(x => x.SongStore).Returns(mockSongStoreRepository.Object);
+            mockUnitOfWork.Setup(x => x.SongRepository).Returns(mockSongRepository.Object);
+            mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(mockUserRepository.Object);
+            mockUnitOfWork.Setup(x => x.BoughtSongRepository).Returns(mockBoughtSongRepository.Object);
+            mockUnitOfWork.Setup(x => x.SongStoreRepository).Returns(mockSongStoreRepository.Object);
 
             var song = new MusicStore.DataAccess.Song()
             {
@@ -145,9 +145,9 @@ namespace MusicStoreTests.ServicesTests
         public void BuySongTestByNegativeId(int userId, int songId)
         {
             //Arrange
-            mockUnitOfWork.Setup(x => x.Song).Returns(mockSongRepository.Object);
-            mockUnitOfWork.Setup(x => x.UserAccount).Returns(mockUserRepository.Object);
-            mockUnitOfWork.Setup(x => x.BoughtSong).Returns(mockBoughtSongRepository.Object);
+            mockUnitOfWork.Setup(x => x.SongRepository).Returns(mockSongRepository.Object);
+            mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(mockUserRepository.Object);
+            mockUnitOfWork.Setup(x => x.BoughtSongRepository).Returns(mockBoughtSongRepository.Object);
 
             var musicStoreService = new MusicStoreService(mockUnitOfWork.Object, mockMapSong.Object, mockMapBoughtSong.Object);
 
@@ -192,9 +192,9 @@ namespace MusicStoreTests.ServicesTests
                 BoughtDate = boughtSong.BoughtDate,
                 Song = song,
             };
-            mockUnitOfWork.Setup(x => x.Song).Returns(mockSongRepository.Object);
-            mockUnitOfWork.Setup(x => x.UserAccount).Returns(mockUserRepository.Object);
-            mockUnitOfWork.Setup(x => x.BoughtSong).Returns(mockBoughtSongRepository.Object);
+            mockUnitOfWork.Setup(x => x.SongRepository).Returns(mockSongRepository.Object);
+            mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(mockUserRepository.Object);
+            mockUnitOfWork.Setup(x => x.BoughtSongRepository).Returns(mockBoughtSongRepository.Object);
 
             mockUserRepository.Setup(x => x.GetItem(DEFAULT_ENTITIES_ID)).Returns(user);
             mockSongRepository.Setup(x => x.GetItem(DEFAULT_ENTITIES_ID)).Returns(song);
@@ -241,9 +241,9 @@ namespace MusicStoreTests.ServicesTests
                 BoughtDate = boughtSong.BoughtDate,
                 Song = song,
             };
-            mockUnitOfWork.Setup(x => x.Song).Returns(mockSongRepository.Object);
-            mockUnitOfWork.Setup(x => x.UserAccount).Returns(mockUserRepository.Object);
-            mockUnitOfWork.Setup(x => x.BoughtSong).Returns(mockBoughtSongRepository.Object);
+            mockUnitOfWork.Setup(x => x.SongRepository).Returns(mockSongRepository.Object);
+            mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(mockUserRepository.Object);
+            mockUnitOfWork.Setup(x => x.BoughtSongRepository).Returns(mockBoughtSongRepository.Object);
 
             mockUserRepository.Setup(x => x.GetItem(DEFAULT_ENTITIES_ID));
             mockSongRepository.Setup(x => x.GetItem(DEFAULT_ENTITIES_ID)).Returns(song);
@@ -290,9 +290,9 @@ namespace MusicStoreTests.ServicesTests
                 BoughtDate = boughtSong.BoughtDate,
                 Song = song,
             };
-            mockUnitOfWork.Setup(x => x.Song).Returns(mockSongRepository.Object);
-            mockUnitOfWork.Setup(x => x.UserAccount).Returns(mockUserRepository.Object);
-            mockUnitOfWork.Setup(x => x.BoughtSong).Returns(mockBoughtSongRepository.Object);
+            mockUnitOfWork.Setup(x => x.SongRepository).Returns(mockSongRepository.Object);
+            mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(mockUserRepository.Object);
+            mockUnitOfWork.Setup(x => x.BoughtSongRepository).Returns(mockBoughtSongRepository.Object);
 
             mockUserRepository.Setup(x => x.GetItem(DEFAULT_ENTITIES_ID)).Returns(user);
             mockSongRepository.Setup(x => x.GetItem(DEFAULT_ENTITIES_ID));

@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using MusicStore.DataAccess;
+using System.Collections.Generic;
 
 namespace MusicStore.Domain.DataTransfer
 {
-    public class Album
+    public class Album: Entity
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public decimal DiscountIfBuyAllSongs { get; set; }
         public virtual ICollection<DataAccess.Song> Songs { get; set; }
