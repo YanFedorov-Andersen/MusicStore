@@ -33,7 +33,7 @@ namespace MusicStore.Web.Controllers
             return View();
         }
 
-        public ActionResult DisplayPaginatedAlbums(int page = 1)
+        public ActionResult DisplayPaginatedAlbums(int page = 1, int pageSize = 10)
         {
             if(page < 0)
             {
@@ -41,7 +41,7 @@ namespace MusicStore.Web.Controllers
             }
             try
             {
-                var resultOfAlbumPagination = _musicStoreDisplayService.DisplayAlbumsWithPagination(page);
+                var resultOfAlbumPagination = _musicStoreDisplayService.DisplayAlbumsWithPagination(page, pageSize);
                 if (resultOfAlbumPagination == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "Something wrong with pagination or albums in db");

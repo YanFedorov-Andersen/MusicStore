@@ -35,5 +35,5 @@
 </table>
 <br />
 <div class="btn-group">
-    @Html.PageLinks(Model.PageInfo, x => Url.Action("DisplayPaginatedAlbums", new { page = x }))
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("DisplayPaginatedAlbums", new { page = x, pageSize = 10 }))
 </div>

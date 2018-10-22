@@ -59,7 +59,7 @@ namespace MusicStore.Business.Services
             return domainSongList;
         }
 
-        public IndexViewItem<Domain.DataTransfer.Album> DisplayAlbumsWithPagination(int page = 1)
+        public IndexViewItem<Domain.DataTransfer.Album> DisplayAlbumsWithPagination(int page = 1, int pageSize = 3)
         {
             var albumsList = _albumRepository.GetItemList();
 
@@ -67,8 +67,9 @@ namespace MusicStore.Business.Services
             {
                 throw new Exception($"{nameof(albumsList)} equal null");
             }
+            albumsList.ToList();
 
-            var resultOfPagination = _albumRepository.MakePagination(albumsList.ToList(), page);
+            var resultOfPagination = _albumRepository.MakePagination(albumsList.ToList(), page, pageSize);
 
             if (resultOfPagination == null)
             {

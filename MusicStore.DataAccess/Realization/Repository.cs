@@ -90,9 +90,8 @@ namespace MusicStore.DataAccess.Realization
             throw new ArgumentException("item is null in SongRepository", "item");
         }
 
-        public IndexViewItem<T> MakePagination(List<T> items, int page = 1)
+        public IndexViewItem<T> MakePagination(List<T> items, int page = 1, int pageSize = 10)
         {
-            int pageSize = 3; // количество объектов на страницу
             IEnumerable<T> itemsPerPages = items.Skip((page - 1) * pageSize).Take(pageSize);
             PageNumber = page;
             PageSize = pageSize;
