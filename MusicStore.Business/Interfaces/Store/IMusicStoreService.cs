@@ -5,6 +5,5 @@ namespace MusicStore.Business.Interfaces
     public interface IMusicStoreService
     {
         BoughtSong BuySong(int songId, int userId, decimal discount = 0);
-        bool CheckDiscountAvailable(int userId, int albumId);
     }
 }

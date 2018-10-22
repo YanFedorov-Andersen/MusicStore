@@ -9,7 +9,6 @@ using MusicStore.Domain;
 using MusicStore.Domain.Mappers;
 using System.Web.Mvc;
 using MusicStore.Domain.DataTransfer;
-using MusicStore.Business;
 using MusicStore.Business.Services.Statistics;
 
 namespace MusicStore.Web
@@ -35,6 +34,7 @@ namespace MusicStore.Web
             builder.RegisterType<AdminService>().As<IAdminService>();
             builder.RegisterType<UserStatisticService>().As<IUserStatisticService>();
             builder.RegisterType<AdminStatisticService>().As<IAdminStatisticService>();
+            builder.RegisterType<DiscountService>().As<IDiscountService>();
 
             var container = builder.Build();
 
@@ -53,6 +53,7 @@ namespace MusicStore.Web
             IAdminService adminService = container.Resolve<IAdminService>();
             IUserStatisticService userStatisticService = container.Resolve<IUserStatisticService>();
             IAdminStatisticService adminStatisticService = container.Resolve<IAdminStatisticService>();
+            IDiscountService discountService = container.Resolve<IDiscountService>();
         }
     }
 }

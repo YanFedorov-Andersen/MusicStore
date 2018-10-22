@@ -65,7 +65,7 @@ namespace MusicStoreTests.ServicesTests
             var result = Assert.Throws<ArgumentException>(() => userAccountService.RegisterUserAccount(null));
 
             //Assert
-            Assert.Equal("User id is not valid", result.Message);
+            Assert.Equal("User id is not valid\r\nИмя параметра: userId", result.Message);
         }
         [Fact]
         public void RegisterUserAccountTestArgExceptParse()
@@ -79,7 +79,7 @@ namespace MusicStoreTests.ServicesTests
             var result = Assert.Throws<ArgumentException>(() => userAccountService.RegisterUserAccount("1"));
 
             //Assert
-            Assert.Equal("Can not parse string to guid", result.Message);
+            Assert.Equal("Can not parse string to guid\r\nИмя параметра: identityId", result.Message);
         }
         [Theory]
         [InlineData(true)]
@@ -127,6 +127,7 @@ namespace MusicStoreTests.ServicesTests
             //Assert
             Assert.True(result);
         }
+
         [Fact]
         public void EditUserAccountTestArgExcept()
         {
@@ -153,10 +154,10 @@ namespace MusicStoreTests.ServicesTests
             var userAccountService = new UserAccountService(_mockUnitOfWork.Object, _mockMapUser.Object);
 
             //Act
-            var result = Assert.Throws<ArgumentException>(() => userAccountService.EditUserAccount(null));
+            var result = Assert.Throws<ArgumentNullException>(() => userAccountService.EditUserAccount(null));
 
             //Assert
-            Assert.Equal("Can not update user, because it is null", result.Message);
+            Assert.Equal("Can not update user, because it is null\r\nИмя параметра: userDomain", result.Message);
         }
 
         [Fact]
@@ -219,7 +220,7 @@ namespace MusicStoreTests.ServicesTests
             var result = Assert.Throws<ArgumentException>(() => userAccountService.GetUserData(null));
 
             //Assert
-            Assert.Equal("User id is not valid", result.Message);
+            Assert.Equal("User id is not valid\r\nИмя параметра: userId", result.Message);
         }
         [Fact]
         public void GetUserDataTestArgExceptResultOfParse()
@@ -248,7 +249,7 @@ namespace MusicStoreTests.ServicesTests
             var result = Assert.Throws<ArgumentException>(() => userAccountService.GetUserData("re"));
 
             //Assert
-            Assert.Equal("Can not parse string to guid", result.Message);
+            Assert.Equal("Can not parse string to guid\r\nИмя параметра: identityId", result.Message);
         }
         [Fact]
         public void GetUserDataTestGetItemWithGuidIdReturnsNull()

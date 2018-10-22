@@ -98,7 +98,11 @@
     <Compile Include="ControllersTests\MusicStoreControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServicesTests\AdminServiceTests.cs" />
-    <Compile Include="ServicesTests\MusicStoreServiceTests.cs" />
+    <Compile Include="ServicesTests\StatisticTests\AdminStatisticTests.cs" />
+    <Compile Include="ServicesTests\StatisticTests\UserStatisticsTests.cs" />
+    <Compile Include="ServicesTests\StoreTests\MusicStoreDisplayServiceTests.cs" />
+    <Compile Include="ServicesTests\StoreTests\DiscountServiceTests.cs" />
+    <Compile Include="ServicesTests\StoreTests\MusicStoreServiceTests.cs" />
     <Compile Include="ServicesTests\UserAccountServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>

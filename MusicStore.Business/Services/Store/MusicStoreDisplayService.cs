@@ -67,7 +67,6 @@ namespace MusicStore.Business.Services
             {
                 throw new Exception($"{nameof(albumsList)} equal null");
             }
-            albumsList.ToList();
 
             var resultOfPagination = _albumRepository.MakePagination(albumsList.ToList(), page, pageSize);
 

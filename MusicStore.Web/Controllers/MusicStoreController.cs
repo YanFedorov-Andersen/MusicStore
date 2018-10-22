@@ -11,11 +11,13 @@ namespace MusicStore.Web.Controllers
         private readonly IMusicStoreService _musicStoreService;
         private readonly IMusicStoreDisplayService _musicStoreDisplayService;
         private readonly IUserAccountService _userAccountService;
-        public MusicStoreController(IMusicStoreService musicStoreService, IUserAccountService userAccountService, IMusicStoreDisplayService musicStoreDisplayService)
+        private readonly IDiscountService _discountService;
+        public MusicStoreController(IMusicStoreService musicStoreService, IUserAccountService userAccountService, IMusicStoreDisplayService musicStoreDisplayService, IDiscountService discountService)
         {
             _musicStoreService = musicStoreService;
             _userAccountService = userAccountService;
             _musicStoreDisplayService = musicStoreDisplayService;
+            _discountService = discountService;
         }
 
         [Authorize(Roles = "Registered user")]
@@ -94,7 +96,7 @@ namespace MusicStore.Web.Controllers
             int userId = _userAccountService.ConvertGuidInStringIdToIntId(identityKey);
 
             var albumSongsList = _musicStoreDisplayService.GetSongsListFromAlbum(albumId);
-            var checkDiscountAvailable = _musicStoreService.CheckDiscountAvailable(userId, albumId);
+            var checkDiscountAvailable = _discountService.CheckDiscountAvailable(userId, albumId);
             Domain.DataTransfer.BoughtSong resultOfBuySong;
             try
             {
