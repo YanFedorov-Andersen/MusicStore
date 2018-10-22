@@ -16,8 +16,8 @@ namespace MusicStore.Business.Services
         private readonly IRepository<User> _userRepository;
         private readonly IGenericRepositoryWithPagination<Album> _albumRepository;
 
-        private readonly IMapper<Song, Domain.DataTransfer.Song> _mapSong;
-        private readonly IMapper<Album, Domain.DataTransfer.Album> _mapAlbum;
+        private static IMapper<Song, Domain.DataTransfer.Song> _mapSong;
+        private static IMapper<Album, Domain.DataTransfer.Album> _mapAlbum;
 
         private readonly ISongStoreRepository _songStoreRepository;
 
@@ -36,18 +36,18 @@ namespace MusicStore.Business.Services
 
         public IList<Domain.DataTransfer.Song> DisplayAllAvailableSongs(int userId)
         {
-            if (userId < 0)
+            if (userId <= 0)
             {
-                throw new ArgumentException("userId < 0 in musicStoreService DisplayAllAvailableSongs", nameof(userId));
+                throw new ArgumentException("userId <= 0 in musicStoreService DisplayAllAvailableSongs", nameof(userId));
             }
 
-            var songsAvailableForByByUser = _songStoreRepository.GetSongsAvailableToBuyByUser(userId);
+            var songsAvailableForBuyByUser = _songStoreRepository.GetSongsAvailableToBuyByUser(userId);
 
-            if (songsAvailableForByByUser == null)
+            if (songsAvailableForBuyByUser == null)
             {
-                throw new Exception("no available for buy songs");
+                throw new Exception("not available for buying");
             }
-            var availableForUserBuySongsList = songsAvailableForByByUser.Select(_mapSong.AutoMap).ToList();
+            var availableForUserBuySongsList = songsAvailableForBuyByUser.Select(_mapSong.AutoMap).ToList();
 
             return availableForUserBuySongsList;
         }
@@ -65,14 +65,14 @@ namespace MusicStore.Business.Services
 
             if (albumsList == null)
             {
-                throw new ArgumentNullException(nameof(albumsList), $"{nameof(albumsList)} less then 0");
+                throw new Exception($"{nameof(albumsList)} equal null");
             }
 
             var resultOfPagination = _albumRepository.MakePagination(albumsList.ToList(), page);
 
             if (resultOfPagination == null)
             {
-                throw new ArgumentNullException(nameof(resultOfPagination), $"{nameof(resultOfPagination)} less then 0");
+                throw new Exception($"{nameof(resultOfPagination)} less then 0");
             }
 
             IndexViewItem<Domain.DataTransfer.Album> indexViewDomainAlbums = new IndexViewItem<Domain.DataTransfer.Album>();
@@ -86,9 +86,9 @@ namespace MusicStore.Business.Services
 
         public IList<Domain.DataTransfer.Song> GetSongsListFromAlbum(int albumId)
         {
-            if (albumId < 0)
+            if (albumId <= 0)
             {
-                throw new ArgumentException("userId < 0 in musicStoreService DisplayAllAvailableSongs", nameof(albumId));
+                throw new ArgumentException("userId <= 0 in musicStoreService DisplayAllAvailableSongs", nameof(albumId));
             }
 
             var album = _albumRepository.GetItem(albumId);
@@ -98,21 +98,21 @@ namespace MusicStore.Business.Services
                 throw new Exception("album is null or album.Songs is null");
             }
 
-            List<Domain.DataTransfer.Song> domainSongsList = new List<Domain.DataTransfer.Song>();
+            var domainSongsList = new List<Domain.DataTransfer.Song>();
             domainSongsList.AddRange(album.Songs.Select(_mapSong.AutoMap));
             return domainSongsList;
         }
 
         public IList<Domain.DataTransfer.Song> GetSongsListFromAlbumAvailableForBuyByUser(int albumId, int userId)
         {
-            if (albumId < 0)
+            if (albumId <= 0)
             {
-                throw new ArgumentException($"{nameof(albumId)} < 0 in musicStoreDisplayService GetSongsListAvailableForBuyByUser", nameof(albumId));
+                throw new ArgumentException($"{nameof(albumId)} <= 0 in musicStoreDisplayService GetSongsListAvailableForBuyByUser", nameof(albumId));
             }
 
-            if (userId < 0)
+            if (userId <= 0)
             {
-                throw new ArgumentException($"{nameof(userId)} < 0 in musicStoreDisplayService GetSongsListAvailableForBuyByUser", nameof(userId));
+                throw new ArgumentException($"{nameof(userId)} <= 0 in musicStoreDisplayService GetSongsListAvailableForBuyByUser", nameof(userId));
             }
 
             var album = _albumRepository.GetItem(albumId);
@@ -128,7 +128,7 @@ namespace MusicStore.Business.Services
                 throw new Exception("user is null or user.BoughtSongs is null");
             }
 
-            List<Domain.DataTransfer.Song> domainSongsList = new List<Domain.DataTransfer.Song>();
+            var domainSongsList = new List<Domain.DataTransfer.Song>();
 
             foreach(var albumSong in album.Songs)
             {
@@ -146,6 +146,7 @@ namespace MusicStore.Business.Services
                     domainSongsList.Add(_mapSong.AutoMap(albumSong));
                 }
             }
+     
             return domainSongsList;
         }
     }

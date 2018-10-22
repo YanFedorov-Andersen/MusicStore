@@ -40,9 +40,9 @@ namespace MusicStore.DataAccess.Realization
 
         public int Delete(int id)
         {
-            if (id < 0)
+            if (id < 1)
             {
-                throw new ArgumentException("id < 0 in SongRepository");
+                throw new ArgumentException("id < 1 in SongRepository");
             }
 
             T item = _dataContext.Set<T>().Find(id);
@@ -59,9 +59,9 @@ namespace MusicStore.DataAccess.Realization
 
         public T GetItem(int id)
         {
-            if (id < 0)
+            if (id < 1)
             {
-                throw new ArgumentException("id less then 0", nameof(id));
+                throw new ArgumentException("id less then 1", nameof(id));
             }
 
             try

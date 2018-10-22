@@ -145,6 +145,10 @@ namespace MusicStore.Business.Services
         }
         private User GetItemWithGuidId(Guid id)
         {
+            if (id == null)
+            {
+                throw new ArgumentNullException(nameof(id), "Invalid user identity id");
+            }
             var usersList = _userRepository.GetItemList();
             try
             {

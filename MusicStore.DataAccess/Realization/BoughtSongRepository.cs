@@ -27,9 +27,9 @@ namespace MusicStore.DataAccess.Realization
 
         public int Delete(int id)
         {
-            if(id < 0)
+            if(id < 1)
             {
-                throw new ArgumentException("id less then 0", nameof(id));
+                throw new ArgumentException("id less then 1", nameof(id));
             }
 
             BoughtSong boughtSong = _dataBase.BoughtSongs.Find(id);
@@ -46,9 +46,9 @@ namespace MusicStore.DataAccess.Realization
 
         public BoughtSong GetItem(int id)
         {
-            if (id < 0)
+            if (id < 1)
             {
-                throw new ArgumentException("id less then 0", nameof(id));
+                throw new ArgumentException("id less then 1", nameof(id));
             }
 
             return _dataBase.BoughtSongs.FirstOrDefault(x => x.Id == id);

@@ -11,7 +11,6 @@ namespace MusicStore.Business.Services
 {
     public class AdminService: IAdminService
     {
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IRepository<User> _userRepository;
         private readonly IAdminRepository _adminRepository;
         private readonly IMapper<User,UserAccount> _mapUser;

@@ -30,9 +30,9 @@ namespace MusicStore.Business.Services
 
         public Domain.DataTransfer.BoughtSong BuySong(int songId, int userId, decimal discountForBuyAllAlbum = 0)
         {
-            if (songId < 0 || userId < 0)
+            if (songId <= 0 || userId <= 0)
             {
-                throw new ArgumentException("userId < 0 or songId < 0 in musicStoreService in BuySong", "userId or songId");
+                throw new ArgumentException("userId <= 0 or songId <= 0 in musicStoreService in BuySong", "userId or songId");
             }
 
             User user = _userRepository.GetItem(userId);
@@ -47,33 +47,30 @@ namespace MusicStore.Business.Services
                 throw new Exception($"User has not enough money for buy {song.Name} song");
             }
 
+            decimal songBoughtPrice = 0;
+            songBoughtPrice = discountForBuyAllAlbum > 0 ? song.Price - (song.Price * (discountForBuyAllAlbum / 100)) : song.Price;
+
             BoughtSong boughtSong = new BoughtSong()
             {
-                BoughtPrice = song.Price,
+                BoughtPrice = songBoughtPrice,
                 IsVisible = true,
                 BoughtDate = DateTime.Now,
                 Song = song,
                 User = user
             };
 
-            if (discountForBuyAllAlbum > 0)
-            {
-                user.Money -= song.Price - (song.Price * (discountForBuyAllAlbum / 100));
-            }
-            else
-            {
-                user.Money -= song.Price;
-            }
+            user.Money -= songBoughtPrice;
             _boughtSongRepository.Create(boughtSong);
             _userRepository.Update(user);
+
             var result = _mapBoughtSong.AutoMap(boughtSong);
             return result;
         }
         public bool CheckDiscountAvailable(int userId, int albumId)
         {
-            if (albumId < 0 || userId < 0)
+            if (albumId <= 0 || userId <= 0)
             {
-                throw new ArgumentException("userId < 0 or albumId < 0 in musicStoreService in BuySong", "userId or albumId");
+                throw new ArgumentException("userId <= 0 or albumId <= 0 in musicStoreService in BuySong", "userId or albumId");
             }
 
             User user = _userRepository.GetItem(userId);

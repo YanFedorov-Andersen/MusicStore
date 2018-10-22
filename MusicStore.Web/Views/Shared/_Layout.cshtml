@@ -26,21 +26,18 @@
 
                     <li>@Html.ActionLink("Albums", "DisplayPaginatedAlbums", "MusicStore")</li>
 
-                    @if (!User.Identity.IsAuthenticated && ViewBag.Role == "Non-Registered user")
-                    {
-                    <li>@Html.ActionLink("Albums", "DisplayPaginatedAlbums", "MusicStore")</li>
-                    }
-
                     @if (User.Identity.IsAuthenticated && ViewBag.Role == "Registered user")
                     {
                     <li>@Html.ActionLink("Music store", "DisplayAvailableMusicForLoggedUser", "MusicStore")</li>
                     <li>@Html.ActionLink("Personal account", "GetUserData", "UserAccount")</li>
+                    <li>@Html.ActionLink("Statistics", "DisplayUserStatistic", "UserStatistic")</li>
                     }
 
                     @if (User.Identity.IsAuthenticated && ViewBag.Role == "Admin")
                     {
                     <li>@Html.ActionLink("Manage music store", "DisplayAvailableMusicForLoggedUser", "MusicStore")</li>
                     <li>@Html.ActionLink("Manage users", "AdminOptionsMenu", "Admin")</li>
+                    <li>@Html.ActionLink("Statistics", "DisplayAdminStatistic", "AdminStatistic")</li>
                     }
 
                     <li>@Html.ActionLink("About", "About", "Home")</li>

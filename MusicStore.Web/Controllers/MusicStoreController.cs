@@ -62,9 +62,9 @@ namespace MusicStore.Web.Controllers
         [HttpPost]
         public ActionResult BuyMusic(int songId, int userId )
         {
-            if (userId < 0 || songId < 0)
+            if (userId < 1 || songId < 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "userId or songId is null");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "userId or songId is less 1");
             }
             
             try
@@ -86,9 +86,9 @@ namespace MusicStore.Web.Controllers
         [HttpPost]
         public ActionResult BuyWholeAlbum(int albumId, decimal discount)
         {
-            if (albumId < 0)
+            if (albumId < 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, $"{nameof(albumId)} is null");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, $"{nameof(albumId)} is less 1");
             }
             var identityKey = User.Identity.GetUserId();
             int userId = _userAccountService.ConvertGuidInStringIdToIntId(identityKey);
@@ -99,7 +99,7 @@ namespace MusicStore.Web.Controllers
             try
             {
 
-                if (checkDiscountAvailable == false)
+                if (!checkDiscountAvailable)
                 {
                     foreach (var song in albumSongsList)
                     {
@@ -130,9 +130,9 @@ namespace MusicStore.Web.Controllers
         [HttpPost]
         public ActionResult DisplaySongsOfAlbum(int albumId)
         {
-            if(albumId < 0)
+            if(albumId < 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "albumId is less 0");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "albumId is less 1");
             }
 
             if (User.Identity.IsAuthenticated)
@@ -146,9 +146,9 @@ namespace MusicStore.Web.Controllers
         [Authorize(Roles = "Registered user")]
         public ActionResult GetAvailableSongsListForBuyByUser(int userId, int albumId)
         {
-            if(userId < 0 || albumId < 0)
+            if(userId < 1 || albumId < 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "albumId is less 0 or userId is less 0");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "albumId is less 1 or userId is less 1");
             }
 
             var availableSongsFormAlbumToBuyForUser = _musicStoreDisplayService.GetSongsListFromAlbumAvailableForBuyByUser(albumId, userId);
