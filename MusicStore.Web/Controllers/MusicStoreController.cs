@@ -52,11 +52,13 @@ namespace MusicStore.Web.Controllers
             }
             catch (ArgumentException exception)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, $"{exception.InnerException.Message} and {exception.Message}");
+                var innerExcept = exception.InnerException != null ? exception.InnerException.Message : " ";
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, $"{innerExcept} and {exception.Message}");
             }
             catch (Exception exception)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, $"{exception.InnerException.Message} and {exception.Message}");
+                var innerExcept = exception.InnerException != null ? exception.InnerException.Message : " ";
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, $"{innerExcept} and {exception.Message}");
             }
         }
 
@@ -92,7 +94,7 @@ namespace MusicStore.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, $"{nameof(albumId)} is less 1");
             }
-            var identityKey = User.Identity.GetUserId();
+            var identityKey = GetUserIdentityId();
             int userId = _userAccountService.ConvertGuidInStringIdToIntId(identityKey);
 
             var albumSongsList = _musicStoreDisplayService.GetSongsListFromAlbum(albumId);
@@ -156,6 +158,10 @@ namespace MusicStore.Web.Controllers
             var availableSongsFormAlbumToBuyForUser = _musicStoreDisplayService.GetSongsListFromAlbumAvailableForBuyByUser(albumId, userId);
             ViewBag.userId = userId;
             return View(availableSongsFormAlbumToBuyForUser);
+        }
+        public string GetUserIdentityId()
+        {
+            return User.Identity.GetUserId();
         }
     }
 }

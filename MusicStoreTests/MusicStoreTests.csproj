@@ -96,6 +96,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControllersTests\MusicStoreControllerTests.cs" />
+    <Compile Include="ControllersTests\StatisticTests\AdminStatisticControllerTests.cs" />
+    <Compile Include="ControllersTests\StatisticTests\UserStatisticControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServicesTests\AdminServiceTests.cs" />
     <Compile Include="ServicesTests\StatisticTests\AdminStatisticTests.cs" />

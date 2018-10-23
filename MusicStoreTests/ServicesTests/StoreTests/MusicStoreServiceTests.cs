@@ -55,7 +55,6 @@ namespace MusicStoreTests.ServicesTests
             ArgumentException ex = Assert.Throws<ArgumentException>(() => musicStoreService.BuySong(userId, songId));
 
             //Assert
-            ArgumentException exception = new ArgumentException();
             Assert.Equal("userId <= 0 or songId <= 0 in musicStoreService in BuySong\r\nИмя параметра: userId or songId", ex.Message);
         }
 
