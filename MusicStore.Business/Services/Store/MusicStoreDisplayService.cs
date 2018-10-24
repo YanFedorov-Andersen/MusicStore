@@ -16,8 +16,8 @@ namespace MusicStore.Business.Services
         private readonly IRepository<User> _userRepository;
         private readonly IGenericRepositoryWithPagination<Album> _albumRepository;
 
-        private static IMapper<Song, Domain.DataTransfer.Song> _mapSong;
-        private static IMapper<Album, Domain.DataTransfer.Album> _mapAlbum;
+        private readonly IMapper<Song, Domain.DataTransfer.Song> _mapSong;
+        private readonly IMapper<Album, Domain.DataTransfer.Album> _mapAlbum;
 
         private readonly ISongStoreRepository _songStoreRepository;
 
@@ -38,7 +38,7 @@ namespace MusicStore.Business.Services
         {
             if (userId <= 0)
             {
-                throw new ArgumentException("userId <= 0 in musicStoreService DisplayAllAvailableSongs", nameof(userId));
+                throw new ArgumentException($"{nameof(userId)} is less then 1 in musicStoreService DisplayAllAvailableSongs", nameof(userId));
             }
 
             var songsAvailableForBuyByUser = _songStoreRepository.GetSongsAvailableToBuyByUser(userId);
@@ -54,12 +54,12 @@ namespace MusicStore.Business.Services
 
         public IList<Domain.DataTransfer.Song> DisplayAllSongs()
         {
-            List<Domain.DataTransfer.Song> domainSongList = new List<Domain.DataTransfer.Song>();
+            var domainSongList = new List<Domain.DataTransfer.Song>();
             domainSongList = _songRepository.GetItemList().Select(_mapSong.AutoMap).ToList();
             return domainSongList;
         }
 
-        public IndexViewItem<Domain.DataTransfer.Album> DisplayAlbumsWithPagination(int page = 1, int pageSize = 3)
+        public IndexViewItem<Domain.DataTransfer.Album> DisplayAlbumsWithPagination(int page = 1, int pageSize = 10)
         {
             var albumsList = _albumRepository.GetItemList();
 
@@ -88,7 +88,7 @@ namespace MusicStore.Business.Services
         {
             if (albumId <= 0)
             {
-                throw new ArgumentException("userId <= 0 in musicStoreService DisplayAllAvailableSongs", nameof(albumId));
+                throw new ArgumentException($"{nameof(albumId)} is less then 1 in musicStoreService DisplayAllAvailableSongs", nameof(albumId));
             }
 
             var album = _albumRepository.GetItem(albumId);
@@ -98,8 +98,8 @@ namespace MusicStore.Business.Services
                 throw new Exception("album is null or album.Songs is null");
             }
 
-            var domainSongsList = new List<Domain.DataTransfer.Song>();
-            domainSongsList.AddRange(album.Songs.Select(_mapSong.AutoMap));
+            var domainSongsList = album.Songs.Select(_mapSong.AutoMap).ToList();
+
             return domainSongsList;
         }
 
@@ -107,46 +107,40 @@ namespace MusicStore.Business.Services
         {
             if (albumId <= 0)
             {
-                throw new ArgumentException($"{nameof(albumId)} <= 0 in musicStoreDisplayService GetSongsListAvailableForBuyByUser", nameof(albumId));
+                throw new ArgumentException($"{nameof(albumId)} is less then 1 in musicStoreDisplayService GetSongsListAvailableForBuyByUser", nameof(albumId));
             }
 
             if (userId <= 0)
             {
-                throw new ArgumentException($"{nameof(userId)} <= 0 in musicStoreDisplayService GetSongsListAvailableForBuyByUser", nameof(userId));
+                throw new ArgumentException($"{nameof(userId)} is less then 1 in musicStoreDisplayService GetSongsListAvailableForBuyByUser", nameof(userId));
             }
 
-            var album = _albumRepository.GetItem(albumId);
             var user = _userRepository.GetItem(userId);
-
-            if (album == null || album.Songs == null)
-            {
-                throw new Exception("album is null or album.Songs is null");
-            }
 
             if (user == null || user.BoughtSongs == null)
             {
                 throw new Exception("user is null or user.BoughtSongs is null");
             }
 
+            var album = _albumRepository.GetItem(albumId);
+           
+            if (album == null || album.Songs == null)
+            {
+                throw new Exception("album is null or album.Songs is null");
+            }
+
             var domainSongsList = new List<Domain.DataTransfer.Song>();
 
-            foreach(var albumSong in album.Songs)
+            foreach (var albumSong in album.Songs)
             {
-                var coincidence = false;
-                foreach (var userSong in user.BoughtSongs)
-                {
-                    if(albumSong.Id == userSong.Song.Id)
-                    {
-                        coincidence = true;
-                        break;
-                    }
-                }
+                var coincidence = user.BoughtSongs.Any(x => x.Song.Id == albumSong.Id);
+
                 if (!coincidence)
                 {
                     domainSongsList.Add(_mapSong.AutoMap(albumSong));
                 }
             }
-     
+
             return domainSongsList;
         }
     }

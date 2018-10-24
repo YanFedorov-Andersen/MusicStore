@@ -7,13 +7,13 @@ using Xunit;
 
 namespace MusicStoreTests.ServicesTests.StatisticTests
 {
-    public class UserStatisticsTests
+    public class UserStatisticsServiceTests
     {
         private readonly Mock<IUnitOfWork> mockUnitOfWork;
         private readonly Mock<IRepository<User>> mockUserRepository;
 
         private const int DEFAULT_USER_ID = 1;
-        public UserStatisticsTests()
+        public UserStatisticsServiceTests()
         {
             mockUserRepository = new Mock<IRepository<User>>();
             mockUnitOfWork = new Mock<IUnitOfWork>();
@@ -72,6 +72,29 @@ namespace MusicStoreTests.ServicesTests.StatisticTests
 
             //Assert
             Assert.Equal(2, result);
+        }
+
+        [Fact]
+        public void GetTotalNumberOfSongsTestByLackOfSongs()
+        {
+            //Arrange
+            User user = new User()
+            {
+                Id = DEFAULT_USER_ID,
+                FirstName = "1",
+                LastName = "2",
+                Money = 12
+            };
+
+            mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(mockUserRepository.Object);
+            mockUserRepository.Setup(x => x.GetItem(DEFAULT_USER_ID)).Returns(user);
+            var userStatisticService = new UserStatisticService(mockUnitOfWork.Object);
+
+            //Act
+            var result = userStatisticService.GetTotalNumberOfSongs(DEFAULT_USER_ID);
+
+            //Assert
+            Assert.Equal(0, result);
         }
         [Fact]
         public void GetTotalNumberOfSongsTestByNegativeId()
@@ -140,6 +163,30 @@ namespace MusicStoreTests.ServicesTests.StatisticTests
             //Assert
             Assert.Equal(9.98m, result);
         }
+
+        [Fact]
+        public void GetTotalSpentMoneyTestByLackOfBoughtSongs()
+        {
+            //Arrange
+            User user = new User()
+            {
+                Id = DEFAULT_USER_ID,
+                FirstName = "1",
+                LastName = "2",
+                Money = 12
+            };
+
+            mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(mockUserRepository.Object);
+            mockUserRepository.Setup(x => x.GetItem(DEFAULT_USER_ID)).Returns(user);
+            var userStatisticService = new UserStatisticService(mockUnitOfWork.Object);
+
+            //Act
+            var result = userStatisticService.GetTotalSpentMoney(DEFAULT_USER_ID);
+
+            //Assert
+            Assert.Equal(0, result);
+        }
+
         [Fact]
         public void GetTotalSpentMoneyTestByNegativeId()
         {

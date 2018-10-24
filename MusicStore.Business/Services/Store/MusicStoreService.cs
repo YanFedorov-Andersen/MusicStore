@@ -32,16 +32,23 @@ namespace MusicStore.Business.Services
         {
             if (songId <= 0 || userId <= 0)
             {
-                throw new ArgumentException("userId <= 0 or songId <= 0 in musicStoreService in BuySong", "userId or songId");
+                throw new ArgumentException("userId is less then 1 or songId is less then 1 in musicStoreService in BuySong", "userId or songId");
             }
 
             User user = _userRepository.GetItem(userId);
+
+            if(user == null)
+            {
+                throw new Exception("User is null");
+            }
+
             Song song = _songRepository.GetItem(songId);
 
-            if (user == null || song == null)
+            if (song == null)
             {
-                return null;
+                throw new Exception("Song is null");
             }
+
             if (user.Money < song.Price)
             {
                 throw new Exception($"User has not enough money for buy {song.Name} song");

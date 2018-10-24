@@ -55,7 +55,7 @@ namespace MusicStoreTests.ServicesTests
             ArgumentException ex = Assert.Throws<ArgumentException>(() => musicStoreService.BuySong(userId, songId));
 
             //Assert
-            Assert.Equal("userId <= 0 or songId <= 0 in musicStoreService in BuySong\r\nИмя параметра: userId or songId", ex.Message);
+            Assert.Equal("userId is less then 1 or songId is less then 1 in musicStoreService in BuySong\r\nИмя параметра: userId or songId", ex.Message);
         }
 
         [Fact]
@@ -200,10 +200,10 @@ namespace MusicStoreTests.ServicesTests
             var musicStoreService = new MusicStoreService(mockUnitOfWork.Object, mockMapBoughtSong.Object);
 
             //Act
-            var result = musicStoreService.BuySong(DEFAULT_ENTITIES_ID, DEFAULT_ENTITIES_ID);
+            var result = Assert.Throws<Exception>(() => musicStoreService.BuySong(DEFAULT_ENTITIES_ID, DEFAULT_ENTITIES_ID));
 
             //Assert
-            Assert.Null(result);
+            Assert.Equal("User is null", result.Message);
         }
         [Fact]
         public void BuySongTestsByNullSongEntity()
@@ -249,10 +249,10 @@ namespace MusicStoreTests.ServicesTests
             var musicStoreService = new MusicStoreService(mockUnitOfWork.Object, mockMapBoughtSong.Object);
 
             //Act
-            var result = musicStoreService.BuySong(DEFAULT_ENTITIES_ID, DEFAULT_ENTITIES_ID);
+            var result = Assert.Throws<Exception>(() => musicStoreService.BuySong(DEFAULT_ENTITIES_ID, DEFAULT_ENTITIES_ID));
 
             //Assert
-            Assert.Null(result);
+            Assert.Equal("Song is null", result.Message);
         }
     }
 }

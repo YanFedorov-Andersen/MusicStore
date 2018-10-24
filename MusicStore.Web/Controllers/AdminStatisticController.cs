@@ -1,6 +1,7 @@
 ﻿using MusicStore.Business.Interfaces;
 using MusicStore.Web.Models;
 using System;
+using System.Net;
 using System.Web.Mvc;
 
 namespace MusicStore.Web.Controllers
@@ -16,21 +17,32 @@ namespace MusicStore.Web.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult DisplayAdminStatistic()
         {
-            decimal totalMoneyEarnedForMonth = _adminStatiscticService.GetStatisticByTotalMoneyEarnedForSomeTime(new DateTime(2018, 9, 20), new DateTime(2018, 10, 20));
-            decimal totalMoneyEarnedForDay = _adminStatiscticService.GetStatisticByTotalMoneyEarnedForSomeTime(new DateTime(2018, 10, 19), new DateTime(2018, 10, 20));
+            var todayDate = DateTime.Today;
+            var tomorrowDate = todayDate.AddDays(1);
+            var monthAgoDate = todayDate.AddDays(-30);
 
-            int numberOfSoldSongsForMonth = _adminStatiscticService.GetStatisticByNumberOfSoldSongs(new DateTime(2018, 9, 20), new DateTime(2018, 10, 20));
-            int numberOfSoldSongsForDay = _adminStatiscticService.GetStatisticByNumberOfSoldSongs(new DateTime(2018, 10, 19), new DateTime(2018, 10, 20));
-
-            AdminStatisticViewModel adminStatisticViewModel = new AdminStatisticViewModel()
+            try
             {
-                NumberOfSoldSongsForDay = numberOfSoldSongsForDay,
-                NumberOfSoldSongsForMonth = numberOfSoldSongsForMonth,
-                TotalMoneyEarnedForDay = totalMoneyEarnedForDay,
-                TotalMoneyEarnedForMonth = totalMoneyEarnedForMonth
-            };
+                decimal totalMoneyEarnedForMonth = _adminStatiscticService.GetStatisticByTotalMoneyEarnedForSomeTime(monthAgoDate, todayDate);
+                decimal totalMoneyEarnedForDay = _adminStatiscticService.GetStatisticByTotalMoneyEarnedForSomeTime(todayDate, tomorrowDate);
 
-            return View(adminStatisticViewModel);
+                int numberOfSoldSongsForMonth = _adminStatiscticService.GetStatisticByNumberOfSoldSongs(monthAgoDate, todayDate);
+                int numberOfSoldSongsForDay = _adminStatiscticService.GetStatisticByNumberOfSoldSongs(todayDate, tomorrowDate);
+
+                var adminStatisticViewModel = new AdminStatisticViewModel(totalMoneyEarnedForDay, totalMoneyEarnedForMonth, numberOfSoldSongsForMonth, numberOfSoldSongsForDay);
+
+                return View(adminStatisticViewModel);
+            }
+            catch (ArgumentException exception)
+            {
+                var innerExcept = exception.InnerException != null ? exception.InnerException.Message : " ";
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, $"{innerExcept} and {exception.Message}");
+            }
+            catch (Exception exception)
+            {
+                var innerExcept = exception.InnerException != null ? exception.InnerException.Message : " ";
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, $"{innerExcept} and {exception.Message}");
+            }
         }
     }
 }

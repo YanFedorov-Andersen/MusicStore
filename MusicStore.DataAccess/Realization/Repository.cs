@@ -11,10 +11,49 @@ namespace MusicStore.DataAccess.Realization
     {
         private readonly MusicStoreContext _dataContext;
 
-        public int PageNumber { get; set; } // номер текущей страницы
-        public int PageSize { get; set; } // кол-во объектов на странице
-        public int TotalItems { get; set; } // всего объектов
-        public int TotalPages  // всего страниц
+        private int pageNumber;
+        private int pageSize;
+        private int totalItems;
+        public int PageNumber {
+            set
+            {
+                if(value > 0)
+                {
+                    pageNumber = value;
+                }
+            }
+            get
+            {
+                return pageNumber;
+            }
+        } 
+        public int PageSize {
+            set
+            {
+                if (value > 0)
+                {
+                    pageSize = value;
+                }
+            }
+            get
+            {
+                return pageSize;
+            }
+        } 
+        public int TotalItems {
+            set
+            {
+                if (value > 0)
+                {
+                    totalItems = value;
+                }
+            }
+            get
+            {
+                return totalItems;
+            }
+        } 
+        public int TotalPages 
         {
             get { return (int)Math.Ceiling((decimal)TotalItems / PageSize); }
         }

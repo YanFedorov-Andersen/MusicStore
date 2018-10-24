@@ -16,7 +16,7 @@ namespace MusicStoreTests.ServicesTests
         private readonly Mock<IRepository<User>> _mockUserRepository;
         private readonly Mock<IMapper<User, MusicStore.Domain.DataTransfer.UserAccount>> _mockMapUser;
         private const int DEFAULT_USER_ID = 4;
-        private static readonly Guid DEFAULT_USER_ID_STRING = new Guid();
+        private static readonly Guid DEFAULT_USER_ID_STRING = Guid.NewGuid();
 
         public UserAccountServiceTests()
         {
@@ -81,9 +81,9 @@ namespace MusicStoreTests.ServicesTests
             //Assert
             Assert.Equal("Can not parse string to guid\r\nИмя параметра: identityId", result.Message);
         }
-        [Theory]
-        [InlineData(true)]
-        public void RegisterUserAccountTestTrue(bool boolVariable)
+
+        [Fact]
+        public void RegisterUserAccountTestTrue()
         {
             //Arrange
             _mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(_mockUserRepository.Object);
@@ -96,6 +96,7 @@ namespace MusicStoreTests.ServicesTests
             //Assert
             Assert.True(result);
         }
+
         [Fact]
         public void EditUserAccountTest()
         {

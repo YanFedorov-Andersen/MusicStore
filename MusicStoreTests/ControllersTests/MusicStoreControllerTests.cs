@@ -55,7 +55,28 @@ namespace MusicStoreTests.ControllersTests
             //Assert
             Assert.Equal(EXPECTED_MESSAGE, result.ViewData["OperationResult"]);            
         }
-      
+
+        [Fact]
+        public void BuyMusicTestByArgumentException()
+        {
+            const string EXPECTED_MESSAGE = "Покупка совершена успешно";
+            //Arrange
+            MusicStore.Domain.DataTransfer.BoughtSong boughtSongDTO = new MusicStore.Domain.DataTransfer.BoughtSong();
+            MusicStore.DataAccess.BoughtSong boughtSong = new MusicStore.DataAccess.BoughtSong();
+
+            mockMusicStoreService
+                .Setup(x => x.BuySong(DEFAULT_ID_FOR_ENTITIES, DEFAULT_ID_FOR_ENTITIES, DEFAULT_DISCOUNT))
+                .Throws(new ArgumentException("exception"));
+            mockMapBoughtSong.Setup(x => x.AutoMap(boughtSong)).Returns(boughtSongDTO);
+            MusicStoreController musicStoreController = new MusicStoreController(mockMusicStoreService.Object, mockUserAccountService.Object, mockMusicStoreDisplayService.Object, mockDiscountService.Object);
+
+            //Act
+            var result = (HttpStatusCodeResult)(musicStoreController.BuyMusic(DEFAULT_ID_FOR_ENTITIES, DEFAULT_ID_FOR_ENTITIES));
+
+            //Assert
+            Assert.Equal(400, result.StatusCode);
+        }
+
         [Fact]
         public void BuyMusicTestNoBuy()
         {
@@ -175,9 +196,9 @@ namespace MusicStoreTests.ControllersTests
         }
 
         [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void BuyWholeAlbumTest(bool hasDiscount)
+        [InlineData(true, EXPECTED_BUY_MESSAGE)]
+        [InlineData(false, EXPECTED_NO_BUY_MESSAGE)]
+        public void BuyWholeAlbumTest(bool hasDiscount, string message)
         {
             //Arrange
             var songDomain = new MusicStore.Domain.DataTransfer.Song()
@@ -214,7 +235,7 @@ namespace MusicStoreTests.ControllersTests
 
             mockUserAccountService.Setup(x => x.ConvertGuidInStringIdToIntId(null)).Returns(DEFAULT_ID_FOR_ENTITIES);
             mockMusicStoreDisplayService.Setup(x => x.GetSongsListFromAlbum(DEFAULT_ID_FOR_ENTITIES)).Returns(songsDomain);
-            mockDiscountService.Setup(x => x.CheckDiscountAvailable(DEFAULT_ID_FOR_ENTITIES, DEFAULT_ID_FOR_ENTITIES)).Returns(hasDiscount);
+            mockDiscountService.Setup(x => x.IsDiscountAvailable(DEFAULT_ID_FOR_ENTITIES, DEFAULT_ID_FOR_ENTITIES)).Returns(hasDiscount);
             mockMusicStoreService.Setup(x => x.BuySong(DEFAULT_ID_FOR_ENTITIES, DEFAULT_ID_FOR_ENTITIES, 0)).Returns(boughtSongDTO);
 
             var musicStoreController = new MusicStoreController(mockMusicStoreService.Object, mockUserAccountService.Object, mockMusicStoreDisplayService.Object, mockDiscountService.Object);
@@ -234,9 +255,9 @@ namespace MusicStoreTests.ControllersTests
 
             //Act
             ViewResult result = (ViewResult)musicStoreController.BuyWholeAlbum(DEFAULT_ID_FOR_ENTITIES, DEFAULT_ID_FOR_ENTITIES);
-
+            var resultModel =  (List<string>)result.Model;
             //Assert
-            Assert.Equal(EXPECTED_BUY_MESSAGE, result.ViewData["OperationResult"]);
+            Assert.Equal(message, resultModel[0]);
         }
         [Theory]
         [InlineData(true)]
@@ -278,7 +299,7 @@ namespace MusicStoreTests.ControllersTests
 
             mockUserAccountService.Setup(x => x.ConvertGuidInStringIdToIntId(null)).Returns(DEFAULT_ID_FOR_ENTITIES);
             mockMusicStoreDisplayService.Setup(x => x.GetSongsListFromAlbum(DEFAULT_ID_FOR_ENTITIES)).Returns(songsDomain);
-            mockDiscountService.Setup(x => x.CheckDiscountAvailable(DEFAULT_ID_FOR_ENTITIES, DEFAULT_ID_FOR_ENTITIES)).Returns(hasDiscount);
+            mockDiscountService.Setup(x => x.IsDiscountAvailable(DEFAULT_ID_FOR_ENTITIES, DEFAULT_ID_FOR_ENTITIES)).Returns(hasDiscount);
             mockMusicStoreService.Setup(x => x.BuySong(DEFAULT_ID_FOR_ENTITIES, DEFAULT_ID_FOR_ENTITIES, 0));
 
             var musicStoreController = new MusicStoreController(mockMusicStoreService.Object, mockUserAccountService.Object, mockMusicStoreDisplayService.Object, mockDiscountService.Object);
@@ -298,9 +319,10 @@ namespace MusicStoreTests.ControllersTests
 
             //Act
             ViewResult result = (ViewResult)musicStoreController.BuyWholeAlbum(DEFAULT_ID_FOR_ENTITIES, DEFAULT_ID_FOR_ENTITIES);
+            var resultModel = (List<string>)result.Model;
 
             //Assert
-            Assert.Equal(EXPECTED_NO_BUY_MESSAGE, result.ViewData["OperationResult"]);
+            Assert.Equal(EXPECTED_NO_BUY_MESSAGE, resultModel[0]);
         }
         [Theory]
         [InlineData(false)]
@@ -341,7 +363,7 @@ namespace MusicStoreTests.ControllersTests
 
             mockUserAccountService.Setup(x => x.ConvertGuidInStringIdToIntId(null)).Returns(DEFAULT_ID_FOR_ENTITIES);
             mockMusicStoreDisplayService.Setup(x => x.GetSongsListFromAlbum(DEFAULT_ID_FOR_ENTITIES)).Returns(songsDomain);
-            mockDiscountService.Setup(x => x.CheckDiscountAvailable(DEFAULT_ID_FOR_ENTITIES, DEFAULT_ID_FOR_ENTITIES)).Returns(hasDiscount);
+            mockDiscountService.Setup(x => x.IsDiscountAvailable(DEFAULT_ID_FOR_ENTITIES, DEFAULT_ID_FOR_ENTITIES)).Returns(hasDiscount);
             mockMusicStoreService.Setup(x => x.BuySong(0, DEFAULT_ID_FOR_ENTITIES, 0)).Throws(new ArgumentException("exception"));
 
             var musicStoreController = new MusicStoreController(mockMusicStoreService.Object, mockUserAccountService.Object, mockMusicStoreDisplayService.Object, mockDiscountService.Object);

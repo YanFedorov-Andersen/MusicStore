@@ -72,7 +72,6 @@ namespace MusicStore.DataAccess.Realization
             get
             {
                 if (_albumRepositoryWithPagination == null)
-
                 {
                     _albumRepositoryWithPagination = new Repository<Album>(_musicStoreContext);
                 }

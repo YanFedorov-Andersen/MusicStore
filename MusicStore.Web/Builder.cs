@@ -23,18 +23,18 @@ namespace MusicStore.Web
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().SingleInstance();
 
-            builder.RegisterType<MapSong>().As<IMapper<DataAccess.Song, Domain.DataTransfer.Song>>();
-            builder.RegisterType<MapAlbum>().As<IMapper<DataAccess.Album, Domain.DataTransfer.Album>>();
-            builder.RegisterType<MapBoughtSong>().As<IMapper<DataAccess.BoughtSong, Domain.DataTransfer.BoughtSong>>();
-            builder.RegisterType<MapUserAccount>().As<IMapper<User, UserAccount>>();
+            builder.RegisterType<MapSong>().As<IMapper<DataAccess.Song, Domain.DataTransfer.Song>>().SingleInstance();
+            builder.RegisterType<MapAlbum>().As<IMapper<DataAccess.Album, Domain.DataTransfer.Album>>().SingleInstance();
+            builder.RegisterType<MapBoughtSong>().As<IMapper<DataAccess.BoughtSong, Domain.DataTransfer.BoughtSong>>().SingleInstance();
+            builder.RegisterType<MapUserAccount>().As<IMapper<User, UserAccount>>().SingleInstance();
 
-            builder.RegisterType<MusicStoreService>().As<IMusicStoreService>();
-            builder.RegisterType<MusicStoreDisplayService>().As<IMusicStoreDisplayService>();
-            builder.RegisterType<UserAccountService>().As<IUserAccountService>();
-            builder.RegisterType<AdminService>().As<IAdminService>();
-            builder.RegisterType<UserStatisticService>().As<IUserStatisticService>();
-            builder.RegisterType<AdminStatisticService>().As<IAdminStatisticService>();
-            builder.RegisterType<DiscountService>().As<IDiscountService>();
+            builder.RegisterType<MusicStoreService>().As<IMusicStoreService>().SingleInstance();
+            builder.RegisterType<MusicStoreDisplayService>().As<IMusicStoreDisplayService>().SingleInstance(); 
+            builder.RegisterType<UserAccountService>().As<IUserAccountService>().SingleInstance(); 
+            builder.RegisterType<AdminService>().As<IAdminService>().SingleInstance(); 
+            builder.RegisterType<UserStatisticService>().As<IUserStatisticService>().SingleInstance(); 
+            builder.RegisterType<AdminStatisticService>().As<IAdminStatisticService>().SingleInstance(); 
+            builder.RegisterType<DiscountService>().As<IDiscountService>().SingleInstance();
 
             var container = builder.Build();
 

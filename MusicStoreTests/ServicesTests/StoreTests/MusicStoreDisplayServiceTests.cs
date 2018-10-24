@@ -53,7 +53,7 @@ namespace MusicStoreTests.ServicesTests
             var ex = Assert.Throws<ArgumentException>(() => musicStoreDisplayService.DisplayAllAvailableSongs(DEFAULT_NEGATIVE_ENTITIES_ID));
 
             //Assert
-            Assert.Equal("userId <= 0 in musicStoreService DisplayAllAvailableSongs\r\nИмя параметра: userId", ex.Message);
+            Assert.Equal("userId is less then 1 in musicStoreService DisplayAllAvailableSongs\r\nИмя параметра: userId", ex.Message);
         }
         [Fact]
         public void DisplayAllAvailableSongsTest()
@@ -185,7 +185,7 @@ namespace MusicStoreTests.ServicesTests
                     TotalItems = 1
                 }
             };
-            mockAlbumRepository.Setup(x => x.MakePagination(It.IsAny<List<MusicStore.DataAccess.Album>>(), 1, 3)).Returns(indexViewItem);
+            mockAlbumRepository.Setup(x => x.MakePagination(It.IsAny<List<MusicStore.DataAccess.Album>>(), 1, 10)).Returns(indexViewItem);
             mockMapAlbum.Setup(x => x.AutoMap(It.IsAny<MusicStore.DataAccess.Album>())).Returns(albumDomain);
 
             var musicStoreDisplayService = new MusicStoreDisplayService(mockUnitOfWork.Object, mockMapSong.Object, mockMapAlbum.Object);
@@ -260,7 +260,7 @@ namespace MusicStoreTests.ServicesTests
             var result = Assert.Throws<ArgumentException>(() => musicStoreDisplayService.GetSongsListFromAlbum(DEFAULT_NEGATIVE_ENTITIES_ID));
 
             //Assert
-            Assert.Equal("userId <= 0 in musicStoreService DisplayAllAvailableSongs\r\nИмя параметра: albumId", result.Message);
+            Assert.Equal("albumId is less then 1 in musicStoreService DisplayAllAvailableSongs\r\nИмя параметра: albumId", result.Message);
         }
         [Fact]
         public void GetSongsListFromAlbumAvailableForBuyByUserTestByOverLappingValues()
@@ -458,9 +458,9 @@ namespace MusicStoreTests.ServicesTests
             Assert.Equal(songDomainList, result);
         }
         [Theory]
-        [InlineData(-1, -1, "albumId <= 0 in musicStoreDisplayService GetSongsListAvailableForBuyByUser\r\nИмя параметра: albumId")]
-        [InlineData(1, -1, "userId <= 0 in musicStoreDisplayService GetSongsListAvailableForBuyByUser\r\nИмя параметра: userId")]
-        [InlineData(-1, 1, "albumId <= 0 in musicStoreDisplayService GetSongsListAvailableForBuyByUser\r\nИмя параметра: albumId")]
+        [InlineData(-1, -1, "albumId is less then 1 in musicStoreDisplayService GetSongsListAvailableForBuyByUser\r\nИмя параметра: albumId")]
+        [InlineData(1, -1, "userId is less then 1 in musicStoreDisplayService GetSongsListAvailableForBuyByUser\r\nИмя параметра: userId")]
+        [InlineData(-1, 1, "albumId is less then 1 in musicStoreDisplayService GetSongsListAvailableForBuyByUser\r\nИмя параметра: albumId")]
         public void GetSongsListFromAlbumAvailableForBuyByUserTestByNegativeId(int albumId, int userId, string exception)
         {
             //Arrange

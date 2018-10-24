@@ -3,6 +3,7 @@ using System;
 using System.Net;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using System.Collections.Generic;
 
 namespace MusicStore.Web.Controllers
 {
@@ -94,32 +95,37 @@ namespace MusicStore.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, $"{nameof(albumId)} is less 1");
             }
+            if(discount < 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, $"{nameof(discount)} is less 0");
+            }
+
             var identityKey = GetUserIdentityId();
             int userId = _userAccountService.ConvertGuidInStringIdToIntId(identityKey);
 
             var albumSongsList = _musicStoreDisplayService.GetSongsListFromAlbum(albumId);
-            var checkDiscountAvailable = _discountService.CheckDiscountAvailable(userId, albumId);
+            var checkDiscountAvailable = _discountService.IsDiscountAvailable(userId, albumId);
             Domain.DataTransfer.BoughtSong resultOfBuySong;
             try
             {
-
+                var result = new List<string>();
                 if (!checkDiscountAvailable)
                 {
                     foreach (var song in albumSongsList)
                     {
                         resultOfBuySong = _musicStoreService.BuySong(song.Id, userId);
-                        ViewBag.OperationResult += (resultOfBuySong != null) ? "Покупка совершена успешно" : "Покупка не совершена успешно";
+                        result.Add((resultOfBuySong != null) ? "Покупка совершена успешно" : "Покупка не совершена успешно");
                     }
                 }
                 else
                 {
                     foreach (var song in albumSongsList)
                     {
-                        resultOfBuySong = _musicStoreService.BuySong(song.Id, userId, discount);
-                        ViewBag.OperationResult += (resultOfBuySong != null) ? "Покупка совершена успешно" : "Покупка не совершена успешно";
+                        resultOfBuySong = _musicStoreService.BuySong(song.Id, userId, discount);                       
+                         result.Add((resultOfBuySong != null) ? "Покупка совершена успешно" : "Покупка не совершена успешно");
                     }
                 }
-
+                return View(result);
             }
             catch (ArgumentException exception)
             {
@@ -129,24 +135,27 @@ namespace MusicStore.Web.Controllers
             {
                 return View("~/Views/MusicStore/BuyMusicNotEnoughMoney.cshtml");
             }
-            return View();
         }
+
         [HttpPost]
         public ActionResult DisplaySongsOfAlbum(int albumId)
         {
-            if(albumId < 1)
+            if (albumId < 1)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "albumId is less 1");
             }
 
-            if (User.Identity.IsAuthenticated)
+            if (!User.Identity.IsAuthenticated)
             {
-                var identityKey = User.Identity.GetUserId();
-                int userId = _userAccountService.ConvertGuidInStringIdToIntId(identityKey);
-                return RedirectToAction("GetAvailableSongsListForBuyByUser", new {userId, albumId });
+                return View(_musicStoreDisplayService.GetSongsListFromAlbum(albumId));
             }
-            return View(_musicStoreDisplayService.GetSongsListFromAlbum(albumId));
+
+            var identityKey = User.Identity.GetUserId();
+            int userId = _userAccountService.ConvertGuidInStringIdToIntId(identityKey);
+            return RedirectToAction("GetAvailableSongsListForBuyByUser", new { userId, albumId });
+
         }
+
         [Authorize(Roles = "Registered user")]
         public ActionResult GetAvailableSongsListForBuyByUser(int userId, int albumId)
         {
@@ -159,6 +168,7 @@ namespace MusicStore.Web.Controllers
             ViewBag.userId = userId;
             return View(availableSongsFormAlbumToBuyForUser);
         }
+
         public string GetUserIdentityId()
         {
             return User.Identity.GetUserId();

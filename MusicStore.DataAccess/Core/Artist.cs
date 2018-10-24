@@ -8,6 +8,11 @@ namespace MusicStore.DataAccess
         {
             Songs = new HashSet<Song>();
         }
+        public Artist(string firstName, string lastName)
+        {
+            LastName = lastName;
+            FirstName = firstName;
+        }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public virtual ICollection<Song> Songs { get; set; }

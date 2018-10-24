@@ -32,10 +32,10 @@ namespace MusicStoreTests.ServicesTests
             var discountService = new DiscountService(mockUnitOfWork.Object);
 
             //Act
-            var ex = Assert.Throws<ArgumentException>(() => discountService.CheckDiscountAvailable(userId, albumId));
+            var ex = Assert.Throws<ArgumentException>(() => discountService.IsDiscountAvailable(userId, albumId));
 
             //Assert
-            Assert.Equal("userId <= 0 or albumId <= 0 in musicStoreService in BuySong\r\nИмя параметра: userId or albumId", ex.Message);
+            Assert.Equal("userId is less then 1 or albumId is less then 1 in musicStoreService in BuySong\r\nИмя параметра: userId or albumId", ex.Message);
         }
         [Fact]
         public void CheckDiscountAvailableTest()
@@ -118,7 +118,7 @@ namespace MusicStoreTests.ServicesTests
             mockAlbumRepository.Setup(x => x.GetItem(DEFAULT_ALBUM_ID)).Returns(album);
             var discountService = new DiscountService(mockUnitOfWork.Object);
             //Act
-            var result = discountService.CheckDiscountAvailable(DEFAULT_USER_ID, DEFAULT_ALBUM_ID);
+            var result = discountService.IsDiscountAvailable(DEFAULT_USER_ID, DEFAULT_ALBUM_ID);
 
             //Assert
             Assert.True(result);
@@ -216,7 +216,7 @@ namespace MusicStoreTests.ServicesTests
             var discountService = new DiscountService(mockUnitOfWork.Object);
 
             //Act
-            var result = discountService.CheckDiscountAvailable(DEFAULT_USER_ID, DEFAULT_ALBUM_ID);
+            var result = discountService.IsDiscountAvailable(DEFAULT_USER_ID, DEFAULT_ALBUM_ID);
 
             //Assert
             Assert.False(result);

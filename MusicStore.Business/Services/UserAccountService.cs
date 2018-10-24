@@ -104,9 +104,9 @@ namespace MusicStore.Business.Services
         }
         private bool CreateWithGuidId(Guid identityId)
         {
-            if (identityId == null)
+            if (identityId == new Guid())
             {
-                throw new ArgumentNullException(nameof(identityId), "Invalid user identity id");
+                throw new ArgumentException("Invalid user identity id", nameof(identityId));
             }
 
             var user = new User(identityId);
@@ -123,9 +123,9 @@ namespace MusicStore.Business.Services
         private int GetUserId(Guid identityId)
         {
             User user;
-            if (identityId == null)
+            if (identityId == new Guid())
             {
-                throw new ArgumentNullException("identityId", "Invalid user identity id");
+                throw new ArgumentException("Invalid user identity id", "identityId");
             }
             try
             {
@@ -145,9 +145,9 @@ namespace MusicStore.Business.Services
         }
         private User GetItemWithGuidId(Guid id)
         {
-            if (id == null)
+            if (id == new Guid())
             {
-                throw new ArgumentNullException(nameof(id), "Invalid user identity id");
+                throw new ArgumentException("Invalid user identity id", nameof(id));
             }
 
             var usersList = _userRepository.GetItemList();

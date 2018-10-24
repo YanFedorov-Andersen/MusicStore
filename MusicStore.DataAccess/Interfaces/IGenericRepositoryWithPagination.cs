@@ -9,10 +9,10 @@ namespace MusicStore.DataAccess.Interfaces
 {
     public interface IGenericRepositoryWithPagination<T> where T: Entity
     {
-        int PageNumber { get; set; } // номер текущей страницы
-        int PageSize { get; set; } // кол-во объектов на странице
-        int TotalItems { get; set; } // всего объектов
-        int TotalPages { get; } // всего страниц
+        int PageNumber { get; set; } 
+        int PageSize { get; set; } 
+        int TotalItems { get; set; } 
+        int TotalPages { get; } 
         IEnumerable<T> GetItemList();
         T GetItem(int id);
         int Create(T item);
