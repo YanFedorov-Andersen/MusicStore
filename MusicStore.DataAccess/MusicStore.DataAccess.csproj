@@ -52,7 +52,6 @@
     <Compile Include="Core\Artist.cs" />
     <Compile Include="Core\BoughtSong.cs" />
     <Compile Include="Core\Entity.cs" />
-    <Compile Include="Core\SongAbstractFactory.cs" />
     <Compile Include="FluentApiConfig\ConfigFluentApi.cs" />
     <Compile Include="Interfaces\IAdminRepository.cs" />
     <Compile Include="Interfaces\IGenericRepositoryWithPagination.cs" />
