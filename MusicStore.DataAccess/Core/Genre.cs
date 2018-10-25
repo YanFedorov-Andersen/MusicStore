@@ -1,8 +1,15 @@
 ﻿namespace MusicStore.DataAccess
 {
-    public class Genre
+    public class Genre : Entity
     {
-        public int Id { get; set; }
+        public Genre()
+        {
+
+        }
+        public Genre(string name)
+        {
+            Name = name;
+        }
         public string Name { get; set; }
     }
 }

@@ -1,0 +1,30 @@
+﻿@model MusicStore.Web.Models.UserStatisticViewModel
+
+@{
+    ViewBag.Title = "DisplayUserStatistic";
+}
+
+<h2>DisplayUserStatistic</h2>
+
+<div>
+    <h4>UserStatisticViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalNumberOfSongs)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalNumberOfSongs)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalSpentMoney)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalSpentMoney)
+        </dd>
+
+    </dl>
+</div>

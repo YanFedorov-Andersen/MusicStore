@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MusicStore.DataAccess
 {
-    public class User
+    public class User : Entity
     {
         public User()
         {
@@ -14,7 +14,6 @@ namespace MusicStore.DataAccess
         {
             IdentityKey = identityKey;
         }
-        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public decimal Money { get; set; }

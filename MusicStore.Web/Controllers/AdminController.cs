@@ -39,6 +39,10 @@ namespace MusicStore.Web.Controllers
         [HttpPost]
         public ActionResult EditUserAccount(UserAccount userAccount)
         {
+            if (userAccount == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, $"{nameof(userAccount)}  is null");
+            }
             try
             {
                 var result = _userAccountService.EditUserAccount(userAccount);

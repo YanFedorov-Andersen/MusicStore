@@ -16,7 +16,7 @@ namespace MusicStoreTests.ServicesTests
         private readonly Mock<IRepository<User>> _mockUserRepository;
         private readonly Mock<IMapper<User, MusicStore.Domain.DataTransfer.UserAccount>> _mockMapUser;
         private const int DEFAULT_USER_ID = 4;
-        private static readonly Guid DEFAULT_USER_ID_STRING = new Guid();
+        private static readonly Guid DEFAULT_USER_ID_STRING = Guid.NewGuid();
 
         public UserAccountServiceTests()
         {
@@ -41,7 +41,7 @@ namespace MusicStoreTests.ServicesTests
             {
                 user1
             };
-            _mockUnitOfWork.Setup(x => x.UserAccount).Returns(_mockUserRepository.Object);
+            _mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(_mockUserRepository.Object);
 
             _mockUserRepository.Setup(x => x.Create(It.IsAny<MusicStore.DataAccess.User>())).Returns(-1);
             var userAccountService = new UserAccountService(_mockUnitOfWork.Object, _mockMapUser.Object);
@@ -57,7 +57,7 @@ namespace MusicStoreTests.ServicesTests
         public void RegisterUserAccountTestArgExcept()
         {
             //Arrange
-            _mockUnitOfWork.Setup(x => x.UserAccount).Returns(_mockUserRepository.Object);
+            _mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(_mockUserRepository.Object);
 
             var userAccountService = new UserAccountService(_mockUnitOfWork.Object, _mockMapUser.Object);
 
@@ -65,13 +65,13 @@ namespace MusicStoreTests.ServicesTests
             var result = Assert.Throws<ArgumentException>(() => userAccountService.RegisterUserAccount(null));
 
             //Assert
-            Assert.Equal("User id is not valid", result.Message);
+            Assert.Equal("User id is not valid\r\nИмя параметра: userId", result.Message);
         }
         [Fact]
         public void RegisterUserAccountTestArgExceptParse()
         {
             //Arrange
-            _mockUnitOfWork.Setup(x => x.UserAccount).Returns(_mockUserRepository.Object);
+            _mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(_mockUserRepository.Object);
 
             var userAccountService = new UserAccountService(_mockUnitOfWork.Object, _mockMapUser.Object);
 
@@ -79,14 +79,14 @@ namespace MusicStoreTests.ServicesTests
             var result = Assert.Throws<ArgumentException>(() => userAccountService.RegisterUserAccount("1"));
 
             //Assert
-            Assert.Equal("Can not parse string to guid", result.Message);
+            Assert.Equal("Can not parse string to guid\r\nИмя параметра: identityId", result.Message);
         }
-        [Theory]
-        [InlineData(true)]
-        public void RegisterUserAccountTestTrue(bool boolVariable)
+
+        [Fact]
+        public void RegisterUserAccountTestTrue()
         {
             //Arrange
-            _mockUnitOfWork.Setup(x => x.UserAccount).Returns(_mockUserRepository.Object);
+            _mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(_mockUserRepository.Object);
 
             var userAccountService = new UserAccountService(_mockUnitOfWork.Object, _mockMapUser.Object);
 
@@ -96,11 +96,12 @@ namespace MusicStoreTests.ServicesTests
             //Assert
             Assert.True(result);
         }
+
         [Fact]
         public void EditUserAccountTest()
         {
             //Arrange
-            _mockUnitOfWork.Setup(x => x.UserAccount).Returns(_mockUserRepository.Object);
+            _mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(_mockUserRepository.Object);
             var user1 = new User()
             {
                 Id = 0,
@@ -127,11 +128,12 @@ namespace MusicStoreTests.ServicesTests
             //Assert
             Assert.True(result);
         }
+
         [Fact]
         public void EditUserAccountTestArgExcept()
         {
             //Arrange
-            _mockUnitOfWork.Setup(x => x.UserAccount).Returns(_mockUserRepository.Object);
+            _mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(_mockUserRepository.Object);
             var user1 = new User()
             {
                 Id = 0,
@@ -153,17 +155,17 @@ namespace MusicStoreTests.ServicesTests
             var userAccountService = new UserAccountService(_mockUnitOfWork.Object, _mockMapUser.Object);
 
             //Act
-            var result = Assert.Throws<ArgumentException>(() => userAccountService.EditUserAccount(null));
+            var result = Assert.Throws<ArgumentNullException>(() => userAccountService.EditUserAccount(null));
 
             //Assert
-            Assert.Equal("Can not update user, because it is null", result.Message);
+            Assert.Equal("Can not update user, because it is null\r\nИмя параметра: userDomain", result.Message);
         }
 
         [Fact]
         public void GetUserDataTest()
         {
             //Arrange
-            _mockUnitOfWork.Setup(x => x.UserAccount).Returns(_mockUserRepository.Object);
+            _mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(_mockUserRepository.Object);
             var user1 = new User()
             {
                 Id = 0,
@@ -196,7 +198,7 @@ namespace MusicStoreTests.ServicesTests
         public void GetUserDataTestArgExceptStr()
         {
             //Arrange
-            _mockUnitOfWork.Setup(x => x.UserAccount).Returns(_mockUserRepository.Object);
+            _mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(_mockUserRepository.Object);
             var user1 = new User()
             {
                 Id = 0,
@@ -219,13 +221,13 @@ namespace MusicStoreTests.ServicesTests
             var result = Assert.Throws<ArgumentException>(() => userAccountService.GetUserData(null));
 
             //Assert
-            Assert.Equal("User id is not valid", result.Message);
+            Assert.Equal("User id is not valid\r\nИмя параметра: userId", result.Message);
         }
         [Fact]
         public void GetUserDataTestArgExceptResultOfParse()
         {
             //Arrange
-            _mockUnitOfWork.Setup(x => x.UserAccount).Returns(_mockUserRepository.Object);
+            _mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(_mockUserRepository.Object);
             var user1 = new User()
             {
                 Id = 0,
@@ -248,13 +250,13 @@ namespace MusicStoreTests.ServicesTests
             var result = Assert.Throws<ArgumentException>(() => userAccountService.GetUserData("re"));
 
             //Assert
-            Assert.Equal("Can not parse string to guid", result.Message);
+            Assert.Equal("Can not parse string to guid\r\nИмя параметра: identityId", result.Message);
         }
         [Fact]
         public void GetUserDataTestGetItemWithGuidIdReturnsNull()
         {
             //Arrange
-            _mockUnitOfWork.Setup(x => x.UserAccount).Returns(_mockUserRepository.Object);
+            _mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(_mockUserRepository.Object);
             var user1 = new User()
             {
                 Id = 0,

@@ -40,7 +40,7 @@ namespace MusicStoreTests.ServicesTests
             };
             var userList = new List<User>();
             userList.Add(user1);
-            _mockUnitOfWork.Setup(x => x.UserAccount).Returns(_mockUserRepository.Object);
+            _mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(_mockUserRepository.Object);
             _mockUnitOfWork.Setup(x => x.AdminRepository).Returns(_mockAdminRepository.Object);
             _mockAdminRepository.Setup(x => x.GetActiveOrNotActiveUsers(isActive)).Returns(userList);
 
@@ -77,7 +77,7 @@ namespace MusicStoreTests.ServicesTests
             };
             var userList = new List<User>();
             userList.Add(user1);
-            _mockUnitOfWork.Setup(x => x.UserAccount).Returns(_mockUserRepository.Object);
+            _mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(_mockUserRepository.Object);
             _mockUnitOfWork.Setup(x => x.AdminRepository).Returns(_mockAdminRepository.Object);
             _mockAdminRepository.Setup(x => x.GetActiveOrNotActiveUsers(isActive));
 
@@ -113,7 +113,7 @@ namespace MusicStoreTests.ServicesTests
             };
             var userList = new List<User>();
             userList.Add(user1);
-            _mockUnitOfWork.Setup(x => x.UserAccount).Returns(_mockUserRepository.Object);
+            _mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(_mockUserRepository.Object);
             _mockUnitOfWork.Setup(x => x.AdminRepository).Returns(_mockAdminRepository.Object);
 
 
@@ -150,7 +150,7 @@ namespace MusicStoreTests.ServicesTests
             };
             var userList = new List<User>();
             userList.Add(user1);
-            _mockUnitOfWork.Setup(x => x.UserAccount).Returns(_mockUserRepository.Object);
+            _mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(_mockUserRepository.Object);
             _mockUnitOfWork.Setup(x => x.AdminRepository).Returns(_mockAdminRepository.Object);
 
 

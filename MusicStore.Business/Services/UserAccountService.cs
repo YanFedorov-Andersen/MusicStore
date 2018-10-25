@@ -15,7 +15,7 @@ namespace MusicStore.Business.Services
 
         public UserAccountService(IUnitOfWork unitOfWork, IMapper<User, Domain.DataTransfer.UserAccount> mapUser)
         {
-            _userRepository = unitOfWork.UserAccount;
+            _userRepository = unitOfWork.UserAccountRepository;
             _mapUser = mapUser;
         }
 
@@ -104,9 +104,9 @@ namespace MusicStore.Business.Services
         }
         private bool CreateWithGuidId(Guid identityId)
         {
-            if (identityId == null)
+            if (identityId == new Guid())
             {
-                throw new ArgumentNullException(nameof(identityId), "Invalid user identity id");
+                throw new ArgumentException("Invalid user identity id", nameof(identityId));
             }
 
             var user = new User(identityId);
@@ -123,9 +123,9 @@ namespace MusicStore.Business.Services
         private int GetUserId(Guid identityId)
         {
             User user;
-            if (identityId == null)
+            if (identityId == new Guid())
             {
-                throw new ArgumentNullException("identityId", "Invalid user identity id");
+                throw new ArgumentException("Invalid user identity id", "identityId");
             }
             try
             {
@@ -145,7 +145,13 @@ namespace MusicStore.Business.Services
         }
         private User GetItemWithGuidId(Guid id)
         {
+            if (id == new Guid())
+            {
+                throw new ArgumentException("Invalid user identity id", nameof(id));
+            }
+
             var usersList = _userRepository.GetItemList();
+
             try
             {
                 return usersList.SingleOrDefault(x => x.IdentityKey == id);

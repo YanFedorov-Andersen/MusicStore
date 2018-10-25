@@ -23,21 +23,21 @@ namespace MusicStore.DataAccess.Realization
                 _dataBase.SaveChanges();
                 return item.Id;
             }
-            throw new ArgumentException("item is null in SongRepository");
+            throw new ArgumentException("item is null in SongRepository", nameof(item));
         }
 
         public int Delete(int id)
         {
-            if(id < 0)
+            if(id < 1)
             {
-                throw new ArgumentException("id < 0 in SongRepository");
+                throw new ArgumentException("id < 1 in SongRepository", nameof(id));
             }
 
             Song song = _dataBase.Songs.Find(id);
 
             if (song == null)
             {
-                throw new ArgumentException("item is null in SongRepository");
+                throw new Exception("item is null in SongRepository");
             }
 
             _dataBase.Songs.Remove(song);
@@ -47,6 +47,11 @@ namespace MusicStore.DataAccess.Realization
 
         public Song GetItem(int id)
         {
+            if (id < 1)
+            {
+                throw new ArgumentException("id less then 1", nameof(id));
+            }
+
             try
             {
                 return _dataBase.Songs.SingleOrDefault(x => x.Id == id);
@@ -70,18 +75,18 @@ namespace MusicStore.DataAccess.Realization
                 _dataBase.SaveChanges();
                 return item.Id;
             }
-            throw new ArgumentException("item is null in SongRepository");
+            throw new ArgumentNullException(nameof(item), "item is null in SongRepository");
         }
 
         public IList<Song> GetSongsAvailableToBuyByUser(int userId)
         {
-            if (userId >= 0)
+            if (userId > 0)
             {
                 var result = _dataBase.Database.SqlQuery<Song>("EXEC AvailableSongsForBuy @userId", new SqlParameter("@userId", userId));
                 var songsList = result.ToListAsync().Result;
                 return songsList;
             }
-            throw new ArgumentException("id is null in SongRepository");
+            throw new ArgumentException("id is less 1 SongRepository", "id");
         }
     }
 }

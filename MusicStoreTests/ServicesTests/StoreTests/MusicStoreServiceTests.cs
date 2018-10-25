@@ -4,10 +4,8 @@ using MusicStore.DataAccess;
 using MusicStore.DataAccess.Interfaces;
 using MusicStore.Domain;
 using System;
-using System.Collections.Generic;
 using MusicStore.Domain.DataTransfer;
 using Xunit;
-using Song = MusicStore.DataAccess.Song;
 
 namespace MusicStoreTests.ServicesTests
 {
@@ -21,9 +19,11 @@ namespace MusicStoreTests.ServicesTests
         private readonly Mock<IRepository<MusicStore.DataAccess.BoughtSong>> mockBoughtSongRepository;
         private readonly Mock<IMapper<MusicStore.DataAccess.BoughtSong, MusicStore.Domain.DataTransfer.BoughtSong>> mockMapBoughtSong;
         private readonly Mock<ISongStoreRepository> mockSongStoreRepository;
+        private readonly Mock<IMapper<MusicStore.DataAccess.Album, MusicStore.Domain.DataTransfer.Album>> mockMapAlbum;
 
         private const int DEFAULT_NEGATIVE_ENTITIES_ID = -1;
         private const int DEFAULT_ENTITIES_ID = 4;
+        private const decimal DEFAULT_DISCOUNT = 3;
 
         public MusicStoreServiceTests()
         {
@@ -35,107 +35,7 @@ namespace MusicStoreTests.ServicesTests
             mockBoughtSongRepository = new Mock<IRepository<MusicStore.DataAccess.BoughtSong>>();
             mockMapBoughtSong = new Mock<IMapper<MusicStore.DataAccess.BoughtSong, MusicStore.Domain.DataTransfer.BoughtSong>>();
             mockSongStoreRepository = new Mock<ISongStoreRepository>();
-        }
-
-        [Fact]
-        public void DisplayAllAvailableSongsTestByNegativeId()
-        {
-            //Arrange
-            mockUnitOfWork.Setup(x => x.Song).Returns(mockSongRepository.Object);
-            mockUnitOfWork.Setup(x => x.UserAccount).Returns(mockUserRepository.Object);
-            mockUnitOfWork.Setup(x => x.BoughtSong).Returns(mockBoughtSongRepository.Object);
-
-            var musicStoreService = new MusicStoreService(mockUnitOfWork.Object, mockMapSong.Object, mockMapBoughtSong.Object);
-
-            //Act
-            var ex = Assert.Throws<ArgumentException>(() => musicStoreService.DisplayAllAvailableSongs(DEFAULT_NEGATIVE_ENTITIES_ID));
-
-            //Assert
-            Assert.Equal("userId < 0 in musicStoreService DisplayAllAvailableSongs", ex.Message);
-        }
-        [Fact]
-        public void DisplayAllAvailableSongsTest()
-        {
-            //Arrange
-            mockUnitOfWork.Setup(x => x.Song).Returns(mockSongRepository.Object);
-            mockUnitOfWork.Setup(x => x.UserAccount).Returns(mockUserRepository.Object);
-            mockUnitOfWork.Setup(x => x.BoughtSong).Returns(mockBoughtSongRepository.Object);
-            mockUnitOfWork.Setup(x => x.SongStore).Returns(mockSongStoreRepository.Object);
-
-            var song = new MusicStore.DataAccess.Song()
-            {
-                Id = 0,
-                Name = "All world for you",
-                Price = 1.99m,
-            };
-            var songDomain = new MusicStore.Domain.DataTransfer.Song()
-            {
-                Id = 0,
-                Name = "All world for you",
-                Price = 1.99m,
-            };
-            List<Song> songs = new List<Song>
-            {
-                song
-            };
-            List<MusicStore.Domain.DataTransfer.Song> songsDomain = new List<MusicStore.Domain.DataTransfer.Song>
-            {
-                songDomain
-            };
-
-            mockMapSong.Setup(x => x.AutoMap(It.IsAny<Song>())).Returns(songDomain);
-            mockSongStoreRepository.Setup(x => x.GetSongsAvailableToBuyByUser(DEFAULT_ENTITIES_ID)).Returns(songs);
-
-            var musicStoreService = new MusicStoreService(mockUnitOfWork.Object, mockMapSong.Object, mockMapBoughtSong.Object);
-            
-
-            //Act
-            var result = musicStoreService.DisplayAllAvailableSongs(DEFAULT_ENTITIES_ID);
-
-            //Assert
-            Assert.Equal(songsDomain, result);
-        }
-        [Fact]
-        public void DisplayAllAvailableSongsTestNullExcept()
-        {
-            //Arrange
-            mockUnitOfWork.Setup(x => x.Song).Returns(mockSongRepository.Object);
-            mockUnitOfWork.Setup(x => x.UserAccount).Returns(mockUserRepository.Object);
-            mockUnitOfWork.Setup(x => x.BoughtSong).Returns(mockBoughtSongRepository.Object);
-            mockUnitOfWork.Setup(x => x.SongStore).Returns(mockSongStoreRepository.Object);
-
-            var song = new MusicStore.DataAccess.Song()
-            {
-                Id = 0,
-                Name = "All world for you",
-                Price = 1.99m,
-            };
-            var songDomain = new MusicStore.Domain.DataTransfer.Song()
-            {
-                Id = 0,
-                Name = "All world for you",
-                Price = 1.99m,
-            };
-            List<Song> songs = new List<Song>
-            {
-                song
-            };
-            List<MusicStore.Domain.DataTransfer.Song> songsDomain = new List<MusicStore.Domain.DataTransfer.Song>
-            {
-                songDomain
-            };
-
-            mockMapSong.Setup(x => x.AutoMap(It.IsAny<Song>())).Returns(songDomain);
-            mockSongStoreRepository.Setup(x => x.GetSongsAvailableToBuyByUser(DEFAULT_ENTITIES_ID));
-
-            var musicStoreService = new MusicStoreService(mockUnitOfWork.Object, mockMapSong.Object, mockMapBoughtSong.Object);
-
-
-            //Act
-            var result = Assert.Throws<Exception>(() => musicStoreService.DisplayAllAvailableSongs(DEFAULT_ENTITIES_ID));
-
-            //Assert
-            Assert.Equal("no available for buy songs", result.Message);
+            mockMapAlbum = new Mock<IMapper<MusicStore.DataAccess.Album, MusicStore.Domain.DataTransfer.Album>>();
         }
 
         [Theory]
@@ -145,18 +45,17 @@ namespace MusicStoreTests.ServicesTests
         public void BuySongTestByNegativeId(int userId, int songId)
         {
             //Arrange
-            mockUnitOfWork.Setup(x => x.Song).Returns(mockSongRepository.Object);
-            mockUnitOfWork.Setup(x => x.UserAccount).Returns(mockUserRepository.Object);
-            mockUnitOfWork.Setup(x => x.BoughtSong).Returns(mockBoughtSongRepository.Object);
+            mockUnitOfWork.Setup(x => x.SongRepository).Returns(mockSongRepository.Object);
+            mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(mockUserRepository.Object);
+            mockUnitOfWork.Setup(x => x.BoughtSongRepository).Returns(mockBoughtSongRepository.Object);
 
-            var musicStoreService = new MusicStoreService(mockUnitOfWork.Object, mockMapSong.Object, mockMapBoughtSong.Object);
+            var musicStoreService = new MusicStoreService(mockUnitOfWork.Object, mockMapBoughtSong.Object);
 
             //Act
             ArgumentException ex = Assert.Throws<ArgumentException>(() => musicStoreService.BuySong(userId, songId));
 
             //Assert
-            ArgumentException exception = new ArgumentException();
-            Assert.Equal("userId < 0 or songId < 0 in musicStoreService in BuySong", ex.Message);
+            Assert.Equal("userId is less then 1 or songId is less then 1 in musicStoreService in BuySong\r\nИмя параметра: userId or songId", ex.Message);
         }
 
         [Fact]
@@ -192,18 +91,67 @@ namespace MusicStoreTests.ServicesTests
                 BoughtDate = boughtSong.BoughtDate,
                 Song = song,
             };
-            mockUnitOfWork.Setup(x => x.Song).Returns(mockSongRepository.Object);
-            mockUnitOfWork.Setup(x => x.UserAccount).Returns(mockUserRepository.Object);
-            mockUnitOfWork.Setup(x => x.BoughtSong).Returns(mockBoughtSongRepository.Object);
+            mockUnitOfWork.Setup(x => x.SongRepository).Returns(mockSongRepository.Object);
+            mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(mockUserRepository.Object);
+            mockUnitOfWork.Setup(x => x.BoughtSongRepository).Returns(mockBoughtSongRepository.Object);
 
             mockUserRepository.Setup(x => x.GetItem(DEFAULT_ENTITIES_ID)).Returns(user);
             mockSongRepository.Setup(x => x.GetItem(DEFAULT_ENTITIES_ID)).Returns(song);
             mockMapBoughtSong.Setup(x => x.AutoMap (It.IsAny<MusicStore.DataAccess.BoughtSong>())).Returns(boughtSongDTO);
 
-            var musicStoreService = new MusicStoreService(mockUnitOfWork.Object, mockMapSong.Object, mockMapBoughtSong.Object);
+            var musicStoreService = new MusicStoreService(mockUnitOfWork.Object, mockMapBoughtSong.Object);
 
             //Act
             var result = musicStoreService.BuySong(DEFAULT_ENTITIES_ID, DEFAULT_ENTITIES_ID);
+
+            //Assert
+            Assert.Equal(boughtSongDTO, result);
+        }
+        [Fact]
+        public void BuySongTestsWithDiscount()
+        {
+            //Arrange
+            User user = new User()
+            {
+                Id = DEFAULT_ENTITIES_ID,
+                FirstName = "1",
+                LastName = "2",
+                Money = 12
+            };
+            MusicStore.DataAccess.Song song = new MusicStore.DataAccess.Song()
+            {
+                Id = DEFAULT_ENTITIES_ID,
+                Name = "Name",
+                Price = 3
+            };
+            MusicStore.DataAccess.BoughtSong boughtSong = new MusicStore.DataAccess.BoughtSong()
+            {
+                Id = DEFAULT_ENTITIES_ID,
+                BoughtPrice = song.Price,
+                IsVisible = true,
+                BoughtDate = DateTime.Now,
+                Song = song,
+                User = user
+            };
+            MusicStore.Domain.DataTransfer.BoughtSong boughtSongDTO = new MusicStore.Domain.DataTransfer.BoughtSong()
+            {
+                BoughtPrice = boughtSong.BoughtPrice,
+                Id = boughtSong.Id,
+                BoughtDate = boughtSong.BoughtDate,
+                Song = song,
+            };
+            mockUnitOfWork.Setup(x => x.SongRepository).Returns(mockSongRepository.Object);
+            mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(mockUserRepository.Object);
+            mockUnitOfWork.Setup(x => x.BoughtSongRepository).Returns(mockBoughtSongRepository.Object);
+
+            mockUserRepository.Setup(x => x.GetItem(DEFAULT_ENTITIES_ID)).Returns(user);
+            mockSongRepository.Setup(x => x.GetItem(DEFAULT_ENTITIES_ID)).Returns(song);
+            mockMapBoughtSong.Setup(x => x.AutoMap(It.IsAny<MusicStore.DataAccess.BoughtSong>())).Returns(boughtSongDTO);
+
+            var musicStoreService = new MusicStoreService(mockUnitOfWork.Object, mockMapBoughtSong.Object);
+
+            //Act
+            var result = musicStoreService.BuySong(DEFAULT_ENTITIES_ID, DEFAULT_ENTITIES_ID, DEFAULT_DISCOUNT);
 
             //Assert
             Assert.Equal(boughtSongDTO, result);
@@ -241,21 +189,21 @@ namespace MusicStoreTests.ServicesTests
                 BoughtDate = boughtSong.BoughtDate,
                 Song = song,
             };
-            mockUnitOfWork.Setup(x => x.Song).Returns(mockSongRepository.Object);
-            mockUnitOfWork.Setup(x => x.UserAccount).Returns(mockUserRepository.Object);
-            mockUnitOfWork.Setup(x => x.BoughtSong).Returns(mockBoughtSongRepository.Object);
+            mockUnitOfWork.Setup(x => x.SongRepository).Returns(mockSongRepository.Object);
+            mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(mockUserRepository.Object);
+            mockUnitOfWork.Setup(x => x.BoughtSongRepository).Returns(mockBoughtSongRepository.Object);
 
             mockUserRepository.Setup(x => x.GetItem(DEFAULT_ENTITIES_ID));
             mockSongRepository.Setup(x => x.GetItem(DEFAULT_ENTITIES_ID)).Returns(song);
             mockMapBoughtSong.Setup(x => x.AutoMap(It.IsAny<MusicStore.DataAccess.BoughtSong>())).Returns(boughtSongDTO);
 
-            var musicStoreService = new MusicStoreService(mockUnitOfWork.Object, mockMapSong.Object, mockMapBoughtSong.Object);
+            var musicStoreService = new MusicStoreService(mockUnitOfWork.Object, mockMapBoughtSong.Object);
 
             //Act
-            var result = musicStoreService.BuySong(DEFAULT_ENTITIES_ID, DEFAULT_ENTITIES_ID);
+            var result = Assert.Throws<Exception>(() => musicStoreService.BuySong(DEFAULT_ENTITIES_ID, DEFAULT_ENTITIES_ID));
 
             //Assert
-            Assert.Null(result);
+            Assert.Equal("User is null", result.Message);
         }
         [Fact]
         public void BuySongTestsByNullSongEntity()
@@ -290,21 +238,21 @@ namespace MusicStoreTests.ServicesTests
                 BoughtDate = boughtSong.BoughtDate,
                 Song = song,
             };
-            mockUnitOfWork.Setup(x => x.Song).Returns(mockSongRepository.Object);
-            mockUnitOfWork.Setup(x => x.UserAccount).Returns(mockUserRepository.Object);
-            mockUnitOfWork.Setup(x => x.BoughtSong).Returns(mockBoughtSongRepository.Object);
+            mockUnitOfWork.Setup(x => x.SongRepository).Returns(mockSongRepository.Object);
+            mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(mockUserRepository.Object);
+            mockUnitOfWork.Setup(x => x.BoughtSongRepository).Returns(mockBoughtSongRepository.Object);
 
             mockUserRepository.Setup(x => x.GetItem(DEFAULT_ENTITIES_ID)).Returns(user);
             mockSongRepository.Setup(x => x.GetItem(DEFAULT_ENTITIES_ID));
             mockMapBoughtSong.Setup(x => x.AutoMap(It.IsAny<MusicStore.DataAccess.BoughtSong>())).Returns(boughtSongDTO);
 
-            var musicStoreService = new MusicStoreService(mockUnitOfWork.Object, mockMapSong.Object, mockMapBoughtSong.Object);
+            var musicStoreService = new MusicStoreService(mockUnitOfWork.Object, mockMapBoughtSong.Object);
 
             //Act
-            var result = musicStoreService.BuySong(DEFAULT_ENTITIES_ID, DEFAULT_ENTITIES_ID);
+            var result = Assert.Throws<Exception>(() => musicStoreService.BuySong(DEFAULT_ENTITIES_ID, DEFAULT_ENTITIES_ID));
 
             //Assert
-            Assert.Null(result);
+            Assert.Equal("Song is null", result.Message);
         }
     }
 }

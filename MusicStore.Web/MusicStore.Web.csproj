@@ -198,13 +198,16 @@
     <Compile Include="Builder.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AdminStatisticController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MusicStoreController.cs" />
     <Compile Include="Controllers\UserAccountController.cs" />
+    <Compile Include="Controllers\UserStatisticController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\PagingHelpers.cs" />
     <Compile Include="Migrations\201810090802113_InitialCreate.cs" />
     <Compile Include="Migrations\201810090802113_InitialCreate.Designer.cs">
       <DependentUpon>201810090802113_InitialCreate.cs</DependentUpon>
@@ -215,8 +218,10 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AdminStatisticViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\UserStatisticViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SeedData.cs" />
     <Compile Include="Startup.cs" />
@@ -244,7 +249,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -288,6 +295,12 @@
     <Content Include="Views\Admin\DisplayActiveUsers.cshtml" />
     <Content Include="Views\Admin\EditUserAccount.cshtml" />
     <Content Include="Views\MusicStore\BuyMusicNotEnoughMoney.cshtml" />
+    <Content Include="Views\MusicStore\DisplayPaginatedAlbums.cshtml" />
+    <Content Include="Views\MusicStore\DisplaySongsOfAlbum.cshtml" />
+    <Content Include="Views\MusicStore\GetAvailableSongsListForBuyByUser.cshtml" />
+    <Content Include="Views\MusicStore\BuyWholeAlbum.cshtml" />
+    <Content Include="Views\UserStatistic\DisplayUserStatistic.cshtml" />
+    <Content Include="Views\AdminStatistic\DisplayAdminStatistic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

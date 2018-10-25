@@ -11,13 +11,12 @@ namespace MusicStore.Business.Services
 {
     public class AdminService: IAdminService
     {
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IRepository<User> _userRepository;
         private readonly IAdminRepository _adminRepository;
         private readonly IMapper<User,UserAccount> _mapUser;
         public AdminService(IUnitOfWork unitOfWork, IMapper<User, UserAccount> mapUser)
         {
-            _userRepository = unitOfWork.UserAccount;
+            _userRepository = unitOfWork.UserAccountRepository;
             _adminRepository = unitOfWork.AdminRepository;
             _mapUser = mapUser;
         }

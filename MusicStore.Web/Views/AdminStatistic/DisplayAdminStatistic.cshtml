@@ -1,0 +1,46 @@
+﻿@model MusicStore.Web.Models.AdminStatisticViewModel
+
+@{
+    ViewBag.Title = "DisplayAdminStatistic";
+}
+
+<h2>DisplayAdminStatistic</h2>
+
+<div>
+    <h4>AdminStatisticViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalMoneyEarnedForDay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalMoneyEarnedForDay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalMoneyEarnedForMonth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalMoneyEarnedForMonth)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfSoldSongsForMonth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfSoldSongsForMonth)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfSoldSongsForDay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfSoldSongsForDay)
+        </dd>
+
+    </dl>
+</div>
