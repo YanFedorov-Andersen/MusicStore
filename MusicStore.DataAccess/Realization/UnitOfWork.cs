@@ -11,6 +11,8 @@ namespace MusicStore.DataAccess.Realization
         private IAdminRepository _adminRepository;
         private IGenericRepositoryWithPagination<Album> _albumRepositoryWithPagination;
         private IGenericRepositoryWithPagination<Song>  _songRepositoryWithPagination;
+        private IGenericRepositoryWithPagination<Address> _addressRepositoryWithPagination;
+
         public IRepository<User> UserAccountRepository
         {
             get
@@ -22,6 +24,7 @@ namespace MusicStore.DataAccess.Realization
                 return _userRepository;
             }
         }
+
         public IRepository<BoughtSong> BoughtSongRepository
         {
             get
@@ -33,6 +36,7 @@ namespace MusicStore.DataAccess.Realization
                 return _boughtSongRepository;
             }
         }
+
         public IRepository<Song> SongRepository
         {
             get
@@ -44,6 +48,7 @@ namespace MusicStore.DataAccess.Realization
                 return _songRepository;
             }
         }
+
         public ISongStoreRepository SongStoreRepository
         {
             get
@@ -67,6 +72,7 @@ namespace MusicStore.DataAccess.Realization
                 return _adminRepository;
             }
         }
+
         public IGenericRepositoryWithPagination<Album> AlbumRepositoryWithPagination
         {
             get
@@ -79,6 +85,7 @@ namespace MusicStore.DataAccess.Realization
             }
 
         }
+
         public IGenericRepositoryWithPagination<Song> SongRepositoryWithPagination
         {
             get
@@ -90,7 +97,19 @@ namespace MusicStore.DataAccess.Realization
                 }
                 return _songRepositoryWithPagination;
             }
+        }
 
+        public IGenericRepositoryWithPagination<Address> AddressRepositoryWithPagination
+        {
+            get
+            {
+                if (_addressRepositoryWithPagination == null)
+
+                {
+                    _addressRepositoryWithPagination = new Repository<Address>(_musicStoreContext);
+                }
+                return _addressRepositoryWithPagination;
+            }
         }
     }
 }

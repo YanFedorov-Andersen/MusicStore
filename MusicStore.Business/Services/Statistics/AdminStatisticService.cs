@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace MusicStore.Business.Services.Statistics
 {
-    public class AdminStatisticService: IAdminStatisticService
+    public class AdminStatisticService : IAdminStatisticService
     {
         private readonly IRepository<BoughtSong> _boughtSongRepository;
 
@@ -19,26 +19,17 @@ namespace MusicStore.Business.Services.Statistics
         {
             decimal totalMoneyEarned = 0;
             var emptyDateTime = new DateTime();
-            if(startDate == emptyDateTime || endDate == emptyDateTime)
+            if (startDate == emptyDateTime || endDate == emptyDateTime)
             {
-                throw new ArgumentException($"{nameof(startDate)} or {nameof(endDate)} is null", $"{nameof(startDate)}' '{nameof(endDate)}");
+                throw new ArgumentException($"{nameof(startDate)} or {nameof(endDate)} is null",
+                    $"{nameof(startDate)}' '{nameof(endDate)}");
             }
 
-            try
-            {
-                var pricesList = _boughtSongRepository.GetItemList()
-                    .Where(x => startDate <= x.BoughtDate && endDate > x.BoughtDate)
-                    .Select(x => x.BoughtPrice);
+            var pricesList = _boughtSongRepository.GetItemList()
+                .Where(x => startDate <= x.BoughtDate && endDate > x.BoughtDate)
+                .Select(x => x.BoughtPrice);
 
-                foreach (var price in pricesList)
-                {
-                    totalMoneyEarned += price;
-                }
-            }
-            catch(ArgumentNullException exception)
-            {
-                return 0;
-            }
+            totalMoneyEarned = pricesList.Sum();
 
             return totalMoneyEarned;
         }
@@ -49,21 +40,15 @@ namespace MusicStore.Business.Services.Statistics
             var emptyDateTime = new DateTime();
             if (startDate == emptyDateTime || endDate == emptyDateTime)
             {
-                throw new ArgumentException($"{nameof(startDate)} or {nameof(endDate)} is null", $"{nameof(startDate)}' '{nameof(endDate)}");
+                throw new ArgumentException($"{nameof(startDate)} or {nameof(endDate)} is null",
+                    $"{nameof(startDate)}' '{nameof(endDate)}");
             }
 
-            try
-            {
-                var numberOfSongs = _boughtSongRepository.GetItemList()
-                    .Where(x => startDate <= x.BoughtDate && endDate > x.BoughtDate)
-                    .Select(x => x.Id);
+            var numberOfSongs = _boughtSongRepository.GetItemList()
+                .Where(x => startDate <= x.BoughtDate && endDate > x.BoughtDate)
+                .Select(x => x.Id);
 
-                return numberOfSongs.Count();
-            }
-            catch(ArgumentNullException exception)
-            {
-                return 0;
-            }
+            return numberOfSongs.Count();
         }
     }
 }

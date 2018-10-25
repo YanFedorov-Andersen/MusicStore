@@ -36,12 +36,7 @@ namespace MusicStore.Business.Services.Statistics
 
             var boughtSongs = GetBoughtSongs(userId);
 
-            decimal totalSpentMoney = 0;
-
-            foreach(var song in boughtSongs)
-            {
-                totalSpentMoney += song.BoughtPrice;
-            }
+            decimal totalSpentMoney = boughtSongs.Select(x => x.BoughtPrice).Sum();
 
             return totalSpentMoney;
         }

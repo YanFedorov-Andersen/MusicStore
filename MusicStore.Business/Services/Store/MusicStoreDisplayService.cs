@@ -54,8 +54,7 @@ namespace MusicStore.Business.Services
 
         public IList<Domain.DataTransfer.Song> DisplayAllSongs()
         {
-            var domainSongList = new List<Domain.DataTransfer.Song>();
-            domainSongList = _songRepository.GetItemList().Select(_mapSong.AutoMap).ToList();
+            var domainSongList = _songRepository.GetItemList().Select(_mapSong.AutoMap).ToList();
             return domainSongList;
         }
 

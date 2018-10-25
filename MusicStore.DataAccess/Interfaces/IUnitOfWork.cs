@@ -22,5 +22,6 @@
         IAdminRepository AdminRepository { get; }
         IGenericRepositoryWithPagination<Album> AlbumRepositoryWithPagination { get; }
         IGenericRepositoryWithPagination<Song> SongRepositoryWithPagination { get; }
+        IGenericRepositoryWithPagination<Address> AddressRepositoryWithPagination { get; }
     }
 }

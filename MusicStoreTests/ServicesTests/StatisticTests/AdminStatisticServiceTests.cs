@@ -81,65 +81,7 @@ namespace MusicStoreTests.ServicesTests.StatisticTests
             Assert.Equal(9.98m, result);
         }
 
-        [Fact]
-        public void GetStatisticByTotalMoneyEarnedForSomeTimeTestByEmptyCollection()
-        {
-            //Arrange
-            User user = new User()
-            {
-                Id = DEFAULT_USER_ID,
-                FirstName = "1",
-                LastName = "2",
-                Money = 12
-            };
-            var song4 = new Song()
-            {
-                Id = 4,
-                Name = "4",
-                Price = 4.99m,
-            };
-            var song5 = new Song()
-            {
-                Id = 5,
-                Name = "5",
-                Price = 4.99m,
-            };
-            var boughtSong1 = new BoughtSong()
-            {
-                Id = 0,
-                User = user,
-                IsVisible = true,
-                Song = song4,
-                BoughtPrice = song4.Price,
-                BoughtDate = new DateTime(2018, 10, 3)
-            };
-            var boughtSong2 = new BoughtSong()
-            {
-                Id = 1,
-                User = user,
-                IsVisible = true,
-                Song = song5,
-                BoughtPrice = song5.Price,
-                BoughtDate = new DateTime(2018, 10, 3)
-            };
-            user.BoughtSongs.Add(boughtSong1);
-            user.BoughtSongs.Add(boughtSong2);
-
-            var boughtSongList = new List<BoughtSong>()
-            {
-                boughtSong1, boughtSong2
-            };
-
-            mockUnitOfWork.Setup(x => x.BoughtSongRepository).Returns(mockBoughtSongRepository.Object);
-            mockBoughtSongRepository.Setup(x => x.GetItemList());
-            var adminStatisticService = new AdminStatisticService(mockUnitOfWork.Object);
-
-            //Act
-            var result = adminStatisticService.GetStatisticByTotalMoneyEarnedForSomeTime(new DateTime(2018, 10, 1), new DateTime(2018, 10, 10));
-
-            //Assert
-            Assert.Equal(0, result);
-        }
+        
 
         [Fact]
         public void GetStatisticByTotalMoneyEarnedForSomeTimeTestByArgumentException()
@@ -225,66 +167,6 @@ namespace MusicStoreTests.ServicesTests.StatisticTests
 
             //Assert
             Assert.Equal("startDate or endDate is null\r\nИмя параметра: startDate' 'endDate", result.Message);
-        }
-
-        [Fact]
-        public void GetStatisticByNumberOfSoldSongsTestByEmptyCollection()
-        {
-            //Arrange
-            User user = new User()
-            {
-                Id = DEFAULT_USER_ID,
-                FirstName = "1",
-                LastName = "2",
-                Money = 12
-            };
-            var song4 = new Song()
-            {
-                Id = 4,
-                Name = "4",
-                Price = 4.99m,
-            };
-            var song5 = new Song()
-            {
-                Id = 5,
-                Name = "5",
-                Price = 4.99m,
-            };
-            var boughtSong1 = new BoughtSong()
-            {
-                Id = 0,
-                User = user,
-                IsVisible = true,
-                Song = song4,
-                BoughtPrice = song4.Price,
-                BoughtDate = new DateTime(2018, 10, 3)
-            };
-            var boughtSong2 = new BoughtSong()
-            {
-                Id = 1,
-                User = user,
-                IsVisible = true,
-                Song = song5,
-                BoughtPrice = song5.Price,
-                BoughtDate = new DateTime(2018, 10, 3)
-            };
-            user.BoughtSongs.Add(boughtSong1);
-            user.BoughtSongs.Add(boughtSong2);
-
-            var boughtSongList = new List<BoughtSong>()
-            {
-                boughtSong1, boughtSong2
-            };
-
-            mockUnitOfWork.Setup(x => x.BoughtSongRepository).Returns(mockBoughtSongRepository.Object);
-            mockBoughtSongRepository.Setup(x => x.GetItemList());
-            var adminStatisticService = new AdminStatisticService(mockUnitOfWork.Object);
-
-            //Act
-            var result = adminStatisticService.GetStatisticByNumberOfSoldSongs(new DateTime(2018, 10, 1), new DateTime(2018, 10, 10));
-
-            //Assert
-            Assert.Equal(0, result);
         }
     }
 }

@@ -63,6 +63,7 @@ namespace MusicStore.DataAccess.Realization
         }
         public Repository()
         {
+
         }
 
         public int Create(T item)
@@ -107,9 +108,9 @@ namespace MusicStore.DataAccess.Realization
             {
                 return _dataContext.Set<T>().SingleOrDefault(x => x.Id == id);
             }
-            catch (Exception exception)
+            catch (InvalidOperationException exception)
             {
-                throw new ArgumentNullException("songs in database", exception.Message);
+                throw new InvalidOperationException("item in database");
             }
         }
 

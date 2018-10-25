@@ -18,6 +18,6 @@ namespace MusicStore.DataAccess.Interfaces
         int Create(T item);
         int Update(T item);
         int Delete(int id);
-        IndexViewItem<T> MakePagination(List<T> items, int page = 1, int pageSize = 3);
+        IndexViewItem<T> MakePagination(List<T> items, int page = 1, int pageSize = 10);
     }
 }
