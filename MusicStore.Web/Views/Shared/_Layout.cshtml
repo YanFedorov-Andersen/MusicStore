@@ -35,7 +35,6 @@
 
                     @if (User.Identity.IsAuthenticated && ViewBag.Role == "Admin")
                     {
-                    <li>@Html.ActionLink("Manage music store", "DisplayAvailableMusicForLoggedUser", "MusicStore")</li>
                     <li>@Html.ActionLink("Manage users", "AdminOptionsMenu", "Admin")</li>
                     <li>@Html.ActionLink("Statistics", "DisplayAdminStatistic", "AdminStatistic")</li>
                     }

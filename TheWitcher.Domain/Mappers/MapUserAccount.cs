@@ -21,12 +21,9 @@ namespace MusicStore.Domain.Mappers
 
         public User ReAutoMap(UserAccount userDomain, User userDataAccess)
         {
-            userDataAccess.BoughtSongs = userDomain.BoughtSongs;
             userDataAccess.FirstName = userDomain.FirstName;
             userDataAccess.LastName = userDomain.LastName;
             userDataAccess.Money = userDomain.Money;
-            userDataAccess.Address = userDomain.Address;
-            userDataAccess.IsActive = userDomain.IsActive;
             return userDataAccess;
         }
     }

@@ -44,5 +44,34 @@ namespace MusicStore.Business.Services
 
             return usersAccounts.Select(_mapUser.AutoMap).ToList();
         }
+
+        public bool EditUserAccount(UserAccount userDomain)
+        {
+            if (userDomain == null)
+            {
+                throw new ArgumentNullException("userDomain", "Can not update user, because it is null");
+            }
+
+            var userDataAccess = _userRepository.GetItem(userDomain.Id);
+
+            var updatedUser = ReAutoMap(userDomain, userDataAccess);
+
+            int result = _userRepository.Update(updatedUser);
+
+            if (result > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private User ReAutoMap(UserAccount userDomain, User userDataAccess)
+        {
+            userDataAccess.FirstName = userDomain.FirstName;
+            userDataAccess.LastName = userDomain.LastName;
+            userDataAccess.IsActive = userDomain.IsActive;
+            return userDataAccess;
+        }
     }
 }

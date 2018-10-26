@@ -116,12 +116,17 @@ namespace MusicStore.Business.Services
 
             var user = _userRepository.GetItem(userId);
 
-            if (user == null || user.BoughtSongs == null)
+            if (user == null)
             {
                 throw new Exception("user is null or user.BoughtSongs is null");
             }
 
             var album = _albumRepository.GetItem(albumId);
+
+            if (user.BoughtSongs == null)
+            {
+                return album.Songs.Select(_mapSong.AutoMap).ToList();
+            }
            
             if (album == null || album.Songs == null)
             {
