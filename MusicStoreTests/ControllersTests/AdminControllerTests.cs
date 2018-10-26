@@ -34,7 +34,7 @@ namespace MusicStoreTests.ControllersTests
         [Fact]
         public void EditUserAccountTestByArgumentNullException()
         {
-            _mockUserAccountService.Setup(x => x.EditUserAccount(It.IsAny<UserAccount>())).Throws(new ArgumentNullException());
+            _mockAdminService.Setup(x => x.EditUserAccount(It.IsAny<UserAccount>())).Throws(new ArgumentNullException());
             var adminController = new AdminController(_mockAdminService.Object, _mockUserAccountService.Object);
 
             //Act
