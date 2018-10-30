@@ -24,6 +24,11 @@ namespace MusicStore.Business.Services.Statistics
 
             var boughtSongs = GetBoughtSongs(userId);
 
+            if (boughtSongs == null)
+            {
+                return 0;
+            }
+
             return boughtSongs.Count();
         }
 
@@ -35,6 +40,11 @@ namespace MusicStore.Business.Services.Statistics
             }
 
             var boughtSongs = GetBoughtSongs(userId);
+
+            if (boughtSongs == null)
+            {
+                return 0;
+            }
 
             decimal totalSpentMoney = boughtSongs.Select(x => x.BoughtPrice).Sum();
 
@@ -49,9 +59,14 @@ namespace MusicStore.Business.Services.Statistics
 
             var user = _userRepository.GetItem(userId);
 
-            if (user == null || user.BoughtSongs == null)
+            if (user == null)
             {
                 throw new Exception("Something wrong with user in dataBase");
+            }
+
+            if (user.BoughtSongs == null)
+            {
+                return null;
             }
 
             return user.BoughtSongs;

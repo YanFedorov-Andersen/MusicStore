@@ -118,7 +118,7 @@ namespace MusicStoreTests.ServicesTests
             };
             _mockUserRepository.Setup(x => x.GetItem(DEFAULT_USER_ID)).Returns(user1);
             _mockUserRepository.Setup(x => x.Update(It.IsAny<MusicStore.DataAccess.User>())).Returns(DEFAULT_USER_ID);
-            _mockMapUser.Setup(x => x.ReAutoMap(It.IsAny<MusicStore.Domain.DataTransfer.UserAccount>(), It.IsAny<MusicStore.DataAccess.User>())).Returns(user1);
+            _mockMapUser.Setup(x => x.ReverseAutoMap(It.IsAny<MusicStore.Domain.DataTransfer.UserAccount>(), It.IsAny<MusicStore.DataAccess.User>())).Returns(user1);
 
             var userAccountService = new UserAccountService(_mockUnitOfWork.Object, _mockMapUser.Object);
 
@@ -150,7 +150,7 @@ namespace MusicStoreTests.ServicesTests
             };
             _mockUserRepository.Setup(x => x.GetItem(DEFAULT_USER_ID)).Returns(user1);
             _mockUserRepository.Setup(x => x.Update(It.IsAny<MusicStore.DataAccess.User>())).Returns(DEFAULT_USER_ID);
-            _mockMapUser.Setup(x => x.ReAutoMap(It.IsAny<MusicStore.Domain.DataTransfer.UserAccount>(), It.IsAny<MusicStore.DataAccess.User>())).Returns(user1);
+            _mockMapUser.Setup(x => x.ReverseAutoMap(It.IsAny<MusicStore.Domain.DataTransfer.UserAccount>(), It.IsAny<MusicStore.DataAccess.User>())).Returns(user1);
 
             var userAccountService = new UserAccountService(_mockUnitOfWork.Object, _mockMapUser.Object);
 

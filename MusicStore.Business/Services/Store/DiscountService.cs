@@ -31,6 +31,11 @@ namespace MusicStore.Business.Services
                 throw new Exception("Can not find user in db");
             }
 
+            if (user.BoughtSongs == null)
+            {
+                return true;
+            }
+
             Album album = _albumRepository.GetItem(albumId);
 
             if (album == null)
@@ -38,6 +43,7 @@ namespace MusicStore.Business.Services
                 throw new Exception("Can not find album in db");
             }
 
+            
             foreach (var albumSong in album.Songs)
             {
                 if (user.BoughtSongs.Any(x => x.Song.Id == albumSong.Id))

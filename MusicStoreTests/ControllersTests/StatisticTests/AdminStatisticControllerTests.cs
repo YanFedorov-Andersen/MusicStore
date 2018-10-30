@@ -27,10 +27,10 @@ namespace MusicStoreTests.ControllersTests.StatisticTests
             AdminStatisticViewModel adminStatisticViewModel = new AdminStatisticViewModel(1, 2, 2, 1);
 
             mockIAdminStatisticService.Setup(x => x.GetStatisticByNumberOfSoldSongs(todayDate, tomorrowDate)).Returns(1);
-            mockIAdminStatisticService.Setup(x => x.GetStatisticByNumberOfSoldSongs(monthAgoDate, todayDate)).Returns(2);
+            mockIAdminStatisticService.Setup(x => x.GetStatisticByNumberOfSoldSongs(monthAgoDate, tomorrowDate)).Returns(2);
 
             mockIAdminStatisticService.Setup(x => x.GetStatisticByTotalMoneyEarnedForSomeTime(todayDate, tomorrowDate)).Returns(1);
-            mockIAdminStatisticService.Setup(x => x.GetStatisticByTotalMoneyEarnedForSomeTime(monthAgoDate, todayDate)).Returns(2);
+            mockIAdminStatisticService.Setup(x => x.GetStatisticByTotalMoneyEarnedForSomeTime(monthAgoDate, tomorrowDate)).Returns(2);
 
             var adminStatisticController = new AdminStatisticController(mockIAdminStatisticService.Object);
 
@@ -56,7 +56,7 @@ namespace MusicStoreTests.ControllersTests.StatisticTests
 
             AdminStatisticViewModel adminStatisticViewModel = new AdminStatisticViewModel(2, 1, 1, 2);
 
-            mockIAdminStatisticService.Setup(x => x.GetStatisticByNumberOfSoldSongs(monthAgoDate, todayDate)).Throws(new ArgumentException("exception"));
+            mockIAdminStatisticService.Setup(x => x.GetStatisticByNumberOfSoldSongs(monthAgoDate, tomorrowDate)).Throws(new ArgumentException("exception"));
 
             var adminStatisticController = new AdminStatisticController(mockIAdminStatisticService.Object);
 
@@ -77,7 +77,7 @@ namespace MusicStoreTests.ControllersTests.StatisticTests
 
             AdminStatisticViewModel adminStatisticViewModel = new AdminStatisticViewModel(2, 1, 1, 2);
 
-            mockIAdminStatisticService.Setup(x => x.GetStatisticByNumberOfSoldSongs(monthAgoDate, todayDate)).Throws(new Exception("exception"));
+            mockIAdminStatisticService.Setup(x => x.GetStatisticByNumberOfSoldSongs(monthAgoDate, tomorrowDate)).Throws(new Exception("exception"));
 
             var adminStatisticController = new AdminStatisticController(mockIAdminStatisticService.Object);
 

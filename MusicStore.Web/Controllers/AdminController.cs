@@ -45,7 +45,7 @@ namespace MusicStore.Web.Controllers
             }
             try
             {
-                var result = _userAccountService.EditUserAccount(userAccount);
+                var result = _adminService.EditUserAccount(userAccount);
                 ViewBag.ResultOfEditingUser = result;
             }
             catch(ArgumentNullException exception)

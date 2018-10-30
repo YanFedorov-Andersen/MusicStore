@@ -94,6 +94,10 @@
     <Compile Include="Migrations\201810220755551_something wrong.Designer.cs">
       <DependentUpon>201810220755551_something wrong.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810251303172_some mistake.cs" />
+    <Compile Include="Migrations\201810251303172_some mistake.Designer.cs">
+      <DependentUpon>201810251303172_some mistake.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MusicStoreContext.cs" />
     <Compile Include="Core\Genre.cs" />
@@ -140,6 +144,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810220755551_something wrong.resx">
       <DependentUpon>201810220755551_something wrong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810251303172_some mistake.resx">
+      <DependentUpon>201810251303172_some mistake.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

@@ -4,43 +4,47 @@
     ViewBag.Title = "DisplayAdminStatistic";
 }
 
-<h2>DisplayAdminStatistic</h2>
+<h2>Display Admin Statistic</h2>
 
 <div>
-    <h4>AdminStatisticViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
+    <h4>Statistic for admin</h4>
+    <div class="row">
+        <div class="col-lg-6">
             @Html.DisplayNameFor(model => model.TotalMoneyEarnedForDay)
-        </dt>
+        </div>
 
-        <dd>
+        <div class="col-lg-6">
             @Html.DisplayFor(model => model.TotalMoneyEarnedForDay)
-        </dd>
+        </div>
+    </div>
 
-        <dt>
+    <div class="row">
+        <div class="col-lg-6">
             @Html.DisplayNameFor(model => model.TotalMoneyEarnedForMonth)
-        </dt>
+        </div>
 
-        <dd>
+        <div class="col-lg-6">
             @Html.DisplayFor(model => model.TotalMoneyEarnedForMonth)
-        </dd>
+        </div>
+    </div>
 
-        <dt>
+    <div class="row">
+        <div class="col-lg-6">
             @Html.DisplayNameFor(model => model.NumberOfSoldSongsForMonth)
-        </dt>
+        </div>
 
-        <dd>
+        <div class="col-lg-6">
             @Html.DisplayFor(model => model.NumberOfSoldSongsForMonth)
-        </dd>
+        </div>
+    </div>
 
-        <dt>
+    <div class="row">
+        <div class="col-lg-6">
             @Html.DisplayNameFor(model => model.NumberOfSoldSongsForDay)
-        </dt>
+        </div>
 
-        <dd>
+        <div class="col-lg-6">
             @Html.DisplayFor(model => model.NumberOfSoldSongsForDay)
-        </dd>
-
-    </dl>
+        </div>
+    </div>
 </div>

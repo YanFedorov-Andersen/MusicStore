@@ -49,8 +49,8 @@ namespace MusicStore.Business.Services
             }
 
             var userDataAccess = _userRepository.GetItem(userDomain.Id);
-
-            var updatedUser = _mapUser.ReAutoMap(userDomain, userDataAccess);
+            
+            var updatedUser = _mapUser.ReverseAutoMap(userDomain, userDataAccess);
 
             int result = _userRepository.Update(updatedUser);
 
@@ -160,6 +160,25 @@ namespace MusicStore.Business.Services
             {
                 throw new ArgumentNullException(nameof(usersList), $"More then one element, exception message: {exception.Message}");                   
             }
+        }
+
+        public bool CheckIfActive(string identityId)
+        {
+            if (string.IsNullOrEmpty(identityId))
+            {
+                throw new ArgumentException("User id is not valid", "userId");
+            }
+
+            var userId = ConvertGuidInStringIdToIntId(identityId);
+
+            var user = _userRepository.GetItem(userId);
+
+            if (user == null)
+            {
+                throw new Exception("user is null in database");
+            }
+
+            return user.IsActive;
         }
     }
 }

@@ -17,6 +17,8 @@ namespace MusicStoreTests.ServicesTests
         private readonly Mock<IAdminRepository> _mockAdminRepository;
         private readonly Mock<IMapper<User, UserAccount>> _mockMapUser;
 
+        private const int DEFAULT_USER_ID = 4;
+
         public AdminServiceTests()
         {
             _mockUnitOfWork = new Mock<IUnitOfWork>();
@@ -173,6 +175,70 @@ namespace MusicStoreTests.ServicesTests
 
             //Assert
             Assert.Null(result);
+        }
+
+        [Fact]
+        public void EditUserAccountTest()
+        {
+            //Arrange
+            _mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(_mockUserRepository.Object);
+            _mockUnitOfWork.Setup(x => x.AdminRepository).Returns(_mockAdminRepository.Object);
+            var user1 = new User()
+            {
+                Id = DEFAULT_USER_ID,
+                FirstName = "Ivan",
+                LastName = "Ivanov",
+                Money = 12.56m,
+            };
+            var domainUser = new UserAccount()
+            {
+                Id = DEFAULT_USER_ID,
+                FirstName = "Ivan",
+                LastName = "Ivanov",
+                Money = 12.56m,
+            };
+            _mockUserRepository.Setup(x => x.GetItem(DEFAULT_USER_ID)).Returns(user1);
+            _mockUserRepository.Setup(x => x.Update(It.IsAny<MusicStore.DataAccess.User>())).Returns(DEFAULT_USER_ID);
+            _mockMapUser.Setup(x => x.ReverseAutoMap(It.IsAny<MusicStore.Domain.DataTransfer.UserAccount>(), It.IsAny<MusicStore.DataAccess.User>())).Returns(user1);
+
+            var adminService = new AdminService(_mockUnitOfWork.Object, _mockMapUser.Object);
+
+            //Act
+            var result = adminService.EditUserAccount(domainUser);
+
+            //Assert
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void EditUserAccountTestArgExcept()
+        {
+            //Arrange
+            _mockUnitOfWork.Setup(x => x.UserAccountRepository).Returns(_mockUserRepository.Object);
+            var user1 = new User()
+            {
+                Id = 0,
+                FirstName = "Ivan",
+                LastName = "Ivanov",
+                Money = 12.56m,
+            };
+            var domainUser = new UserAccount()
+            {
+                Id = 0,
+                FirstName = "Ivan",
+                LastName = "Ivanov",
+                Money = 12.56m,
+            };
+            _mockUserRepository.Setup(x => x.GetItem(DEFAULT_USER_ID)).Returns(user1);
+            _mockUserRepository.Setup(x => x.Update(It.IsAny<MusicStore.DataAccess.User>())).Returns(DEFAULT_USER_ID);
+
+            var adminService = new AdminService(_mockUnitOfWork.Object, _mockMapUser.Object);
+
+            //Act
+            var result = Assert.Throws<ArgumentNullException>(() => adminService.EditUserAccount(null));
+
+            //Assert
+            Assert.Equal("Can not update user, because it is null\r\nИмя параметра: userDomain", result.Message);
         }
     }
 }

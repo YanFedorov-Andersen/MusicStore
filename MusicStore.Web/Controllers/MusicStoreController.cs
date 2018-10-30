@@ -4,6 +4,7 @@ using System.Net;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MusicStore.Web.Controllers
 {
@@ -103,14 +104,25 @@ namespace MusicStore.Web.Controllers
             var identityKey = GetUserIdentityId();
             int userId = _userAccountService.ConvertGuidInStringIdToIntId(identityKey);
 
+            var result = new List<string>();
+
+
             var albumSongsList = _musicStoreDisplayService.GetSongsListFromAlbum(albumId);
-            var checkDiscountAvailable = _discountService.IsDiscountAvailable(userId, albumId);
+            var totalSum = albumSongsList.Select(X => X.Price).Sum();
+                var checkDiscountAvailable = _discountService.IsDiscountAvailable(userId, albumId);
             Domain.DataTransfer.BoughtSong resultOfBuySong;
+            
             try
             {
-                var result = new List<string>();
+                
                 if (!checkDiscountAvailable)
                 {
+                    if (!_musicStoreService.CheckIfMoneyEnough(userId, totalSum))
+                    {
+                        result.Add("Недостаточно денег для покупки всего альбома");
+                        return View(result);
+                    }
+
                     foreach (var song in albumSongsList)
                     {
                         resultOfBuySong = _musicStoreService.BuySong(song.Id, userId);
@@ -119,6 +131,12 @@ namespace MusicStore.Web.Controllers
                 }
                 else
                 {
+                    if (!_musicStoreService.CheckIfMoneyEnough(userId, totalSum, discount))
+                    {
+                        result.Add("Недостаточно денег для покупки всего альбома");
+                        return View(result);
+                    }
+
                     foreach (var song in albumSongsList)
                     {
                         resultOfBuySong = _musicStoreService.BuySong(song.Id, userId, discount);                       
@@ -136,6 +154,7 @@ namespace MusicStore.Web.Controllers
                 return View("~/Views/MusicStore/BuyMusicNotEnoughMoney.cshtml");
             }
         }
+
 
         [HttpPost]
         public ActionResult DisplaySongsOfAlbum(int albumId)

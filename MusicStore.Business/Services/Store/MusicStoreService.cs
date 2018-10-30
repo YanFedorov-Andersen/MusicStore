@@ -73,5 +73,37 @@ namespace MusicStore.Business.Services
             var result = _mapBoughtSong.AutoMap(boughtSong);
             return result;
         }
+
+        public bool CheckIfMoneyEnough(int userId, decimal totalSum, decimal discount = 0)
+        {
+            if (userId <= 1)
+            {
+                throw  new ArgumentException($"{nameof(userId)} is less then 1", nameof(userId));
+            }
+
+            if (totalSum <= 0)
+            {
+                throw new ArgumentException($"{nameof(totalSum)} is less then 0 or equal", nameof(totalSum));
+            }
+
+            var user = _userRepository.GetItem(userId);
+
+            if (discount == 0)
+            {
+                if (user.Money >= totalSum)
+                {
+                    return true;
+                }
+            }
+            else if (discount > 0)
+            {
+                if (user.Money >= (totalSum - (totalSum * (discount / 100))))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }

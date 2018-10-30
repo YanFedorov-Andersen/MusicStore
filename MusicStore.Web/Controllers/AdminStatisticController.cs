@@ -23,10 +23,10 @@ namespace MusicStore.Web.Controllers
 
             try
             {
-                decimal totalMoneyEarnedForMonth = _adminStatiscticService.GetStatisticByTotalMoneyEarnedForSomeTime(monthAgoDate, todayDate);
+                decimal totalMoneyEarnedForMonth = _adminStatiscticService.GetStatisticByTotalMoneyEarnedForSomeTime(monthAgoDate, tomorrowDate);
                 decimal totalMoneyEarnedForDay = _adminStatiscticService.GetStatisticByTotalMoneyEarnedForSomeTime(todayDate, tomorrowDate);
 
-                int numberOfSoldSongsForMonth = _adminStatiscticService.GetStatisticByNumberOfSoldSongs(monthAgoDate, todayDate);
+                int numberOfSoldSongsForMonth = _adminStatiscticService.GetStatisticByNumberOfSoldSongs(monthAgoDate, tomorrowDate);
                 int numberOfSoldSongsForDay = _adminStatiscticService.GetStatisticByNumberOfSoldSongs(todayDate, tomorrowDate);
 
                 var adminStatisticViewModel = new AdminStatisticViewModel(totalMoneyEarnedForDay, totalMoneyEarnedForMonth, numberOfSoldSongsForMonth, numberOfSoldSongsForDay);

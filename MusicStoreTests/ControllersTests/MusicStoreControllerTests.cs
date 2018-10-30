@@ -238,6 +238,16 @@ namespace MusicStoreTests.ControllersTests
             mockDiscountService.Setup(x => x.IsDiscountAvailable(DEFAULT_ID_FOR_ENTITIES, DEFAULT_ID_FOR_ENTITIES)).Returns(hasDiscount);
             mockMusicStoreService.Setup(x => x.BuySong(DEFAULT_ID_FOR_ENTITIES, DEFAULT_ID_FOR_ENTITIES, 0)).Returns(boughtSongDTO);
 
+            if (hasDiscount)
+            {
+                mockMusicStoreService.Setup(x => x.CheckIfMoneyEnough(DEFAULT_ID_FOR_ENTITIES, 1.99m, 4)).Returns(true);
+            }
+            else
+            {
+                mockMusicStoreService.Setup(x => x.CheckIfMoneyEnough(DEFAULT_ID_FOR_ENTITIES, 1.99m, 0)).Returns(true);
+            }
+           
+
             var musicStoreController = new MusicStoreController(mockMusicStoreService.Object, mockUserAccountService.Object, mockMusicStoreDisplayService.Object, mockDiscountService.Object);
             var userMock = new Mock<IPrincipal>();
             GenericIdentity identity = new GenericIdentity("a");
@@ -301,6 +311,7 @@ namespace MusicStoreTests.ControllersTests
             mockMusicStoreDisplayService.Setup(x => x.GetSongsListFromAlbum(DEFAULT_ID_FOR_ENTITIES)).Returns(songsDomain);
             mockDiscountService.Setup(x => x.IsDiscountAvailable(DEFAULT_ID_FOR_ENTITIES, DEFAULT_ID_FOR_ENTITIES)).Returns(hasDiscount);
             mockMusicStoreService.Setup(x => x.BuySong(DEFAULT_ID_FOR_ENTITIES, DEFAULT_ID_FOR_ENTITIES, 0));
+            mockMusicStoreService.Setup(x => x.CheckIfMoneyEnough(DEFAULT_ID_FOR_ENTITIES, 1.99m, 0)).Returns(false);
 
             var musicStoreController = new MusicStoreController(mockMusicStoreService.Object, mockUserAccountService.Object, mockMusicStoreDisplayService.Object, mockDiscountService.Object);
             var userMock = new Mock<IPrincipal>();
@@ -322,7 +333,7 @@ namespace MusicStoreTests.ControllersTests
             var resultModel = (List<string>)result.Model;
 
             //Assert
-            Assert.Equal(EXPECTED_NO_BUY_MESSAGE, resultModel[0]);
+            Assert.Equal("Недостаточно денег для покупки всего альбома", resultModel[0]);
         }
         [Theory]
         [InlineData(false)]
@@ -365,6 +376,8 @@ namespace MusicStoreTests.ControllersTests
             mockMusicStoreDisplayService.Setup(x => x.GetSongsListFromAlbum(DEFAULT_ID_FOR_ENTITIES)).Returns(songsDomain);
             mockDiscountService.Setup(x => x.IsDiscountAvailable(DEFAULT_ID_FOR_ENTITIES, DEFAULT_ID_FOR_ENTITIES)).Returns(hasDiscount);
             mockMusicStoreService.Setup(x => x.BuySong(0, DEFAULT_ID_FOR_ENTITIES, 0)).Throws(new ArgumentException("exception"));
+            mockMusicStoreService.Setup(x => x.CheckIfMoneyEnough(DEFAULT_ID_FOR_ENTITIES, 1.99m, 0)).Returns(true);
+
 
             var musicStoreController = new MusicStoreController(mockMusicStoreService.Object, mockUserAccountService.Object, mockMusicStoreDisplayService.Object, mockDiscountService.Object);
             var userMock = new Mock<IPrincipal>();

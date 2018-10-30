@@ -17,7 +17,7 @@ namespace MusicStore.Domain.Mappers
             return boughtSong;
         }
 
-        public BoughtSong ReAutoMap(DataTransfer.BoughtSong item, BoughtSong initialItem)
+        public BoughtSong ReverseAutoMap(DataTransfer.BoughtSong item, BoughtSong initialItem)
         {
             throw new System.NotImplementedException();
         }

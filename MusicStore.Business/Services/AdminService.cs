@@ -6,6 +6,7 @@ using MusicStore.Domain;
 using MusicStore.Domain.DataTransfer;
 using System.Collections.Generic;
 using System.Linq;
+using MusicStore.Domain.Mappers;
 
 namespace MusicStore.Business.Services
 {
@@ -14,6 +15,7 @@ namespace MusicStore.Business.Services
         private readonly IRepository<User> _userRepository;
         private readonly IAdminRepository _adminRepository;
         private readonly IMapper<User,UserAccount> _mapUser;
+
         public AdminService(IUnitOfWork unitOfWork, IMapper<User, UserAccount> mapUser)
         {
             _userRepository = unitOfWork.UserAccountRepository;
@@ -43,6 +45,40 @@ namespace MusicStore.Business.Services
             }
 
             return usersAccounts.Select(_mapUser.AutoMap).ToList();
+        }
+
+        public bool EditUserAccount(UserAccount userDomain)
+        {
+            if (userDomain == null)
+            {
+                throw new ArgumentNullException("userDomain", "Can not update user, because it is null");
+            }
+
+            if (userDomain.Id < 1)
+            {
+                throw new ArgumentException("user Id is less then 1", $"{nameof(userDomain.Id)}");
+            }
+
+            var userDataAccess = _userRepository.GetItem(userDomain.Id);
+
+            var updatedUser = ReverseAutoMap(userDomain, userDataAccess);
+
+            int result = _userRepository.Update(updatedUser);
+
+            if (result > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public User ReverseAutoMap(UserAccount userDomain, User userDataAccess)
+        {
+            userDataAccess.FirstName = userDomain.FirstName;
+            userDataAccess.LastName = userDomain.LastName;
+            userDataAccess.IsActive = userDomain.IsActive;
+            return userDataAccess;
         }
     }
 }

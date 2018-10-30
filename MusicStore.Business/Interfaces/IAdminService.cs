@@ -7,5 +7,6 @@ namespace MusicStore.Business.Interfaces
     {
         IList<UserAccount> GetActiveOrNotActiveUsers(bool isActive);
         IList<UserAccount> GetFullListOfUsers();
+        bool EditUserAccount(UserAccount userDomain);
     }
 }
