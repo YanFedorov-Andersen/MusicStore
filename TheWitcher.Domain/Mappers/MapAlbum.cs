@@ -17,7 +17,7 @@ namespace MusicStore.Domain.Mappers
             return domainAlbum;
         }
 
-        public DataAccess.Album ReAutoMap(DataTransfer.Album item, DataAccess.Album initialItem)
+        public DataAccess.Album ReverseAutoMap(DataTransfer.Album item, DataAccess.Album initialItem)
         {
             throw new NotImplementedException();
         }

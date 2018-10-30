@@ -19,7 +19,7 @@ namespace MusicStore.Domain.Mappers
                 return song;
         }
 
-        public Song ReAutoMap(DataTransfer.Song item, Song initialItem)
+        public Song ReverseAutoMap(DataTransfer.Song item, Song initialItem)
         {
             throw new System.NotImplementedException();
         }

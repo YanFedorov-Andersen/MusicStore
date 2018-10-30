@@ -7,6 +7,6 @@ namespace MusicStore.Domain
         where DTO: Entity
     {
         DTO AutoMap(T item);
-        T ReAutoMap(DTO item, T initialItem);
+        T ReverseAutoMap(DTO item, T initialItem);
     }
 }

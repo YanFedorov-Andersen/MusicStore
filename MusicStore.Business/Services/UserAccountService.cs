@@ -50,7 +50,7 @@ namespace MusicStore.Business.Services
 
             var userDataAccess = _userRepository.GetItem(userDomain.Id);
             
-            var updatedUser = _mapUser.ReAutoMap(userDomain, userDataAccess);
+            var updatedUser = _mapUser.ReverseAutoMap(userDomain, userDataAccess);
 
             int result = _userRepository.Update(updatedUser);
 

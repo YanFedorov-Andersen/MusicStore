@@ -19,7 +19,7 @@ namespace MusicStore.Domain.Mappers
             return userAccountDTO;
         }
 
-        public User ReAutoMap(UserAccount userDomain, User userDataAccess)
+        public User ReverseAutoMap(UserAccount userDomain, User userDataAccess)
         {
             userDataAccess.FirstName = userDomain.FirstName;
             userDataAccess.LastName = userDomain.LastName;
